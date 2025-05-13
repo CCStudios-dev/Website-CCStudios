@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <Link href="/" className="inline-block mb-6">
-              <Image src="/Logo CCS (1).png" alt="CC Studios Logo" width={150} height={40} />
+              <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
             </Link>
             <p className="text-gray-400 mb-6">
               Soluções personalizadas de marketing digital para impulsionar seu negócio com estratégias eficientes e
@@ -35,23 +35,26 @@ export function SiteFooter() {
             <h3 className="text-lg font-semibold mb-6">Serviços</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-gray-400 hover:text-[#4bb6ef]">
-                  Marketing Digital
+                <Link href="/servicos/trafego-pago" className="text-gray-400 hover:text-[#4bb6ef]">
+                  Tráfego Pago
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-[#4bb6ef]">
-                  Desenvolvimento Web
+                <Link
+                  href="/servicos/desenvolvimento-sites-landing-pages"
+                  className="text-gray-400 hover:text-[#4bb6ef]"
+                >
+                  Desenvolvimento de Sites e Landing Pages
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-[#4bb6ef]">
-                  Email Marketing
+                <Link href="/servicos/conteudo" className="text-gray-400 hover:text-[#4bb6ef]">
+                  Conteúdo
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-[#4bb6ef]">
-                  Análise de Dados
+                <Link href="/servicos/crm" className="text-gray-400 hover:text-[#4bb6ef]">
+                  CRM
                 </Link>
               </li>
             </ul>
@@ -96,14 +99,14 @@ export function SiteFooter() {
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-[#4bb6ef] mr-3" />
-                <span className="text-gray-400">contato@ccstudios.com.br</span>
+                <span className="text-gray-400">marketing@ccstudios.com.br</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} CCStudios. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} CC Studios. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

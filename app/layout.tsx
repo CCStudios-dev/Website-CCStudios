@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "@/app/globals.css"
 
 export const metadata = {
-  title: "CC Studios - Marketing Digital e Desenvolvimento Web",
+  title: "CCStudios - A melhor agência de Marketing Digital",
   description:
     "Soluções personalizadas de marketing digital para impulsionar seu negócio com estratégias eficientes e resultados mensuráveis.",
 }

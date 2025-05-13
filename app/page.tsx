@@ -1,9 +1,11 @@
 "use client"
 
+import Link from "next/link"
+
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { motion, useScroll, useTransform, useInView } from "framer-motion"
-import { ChevronRight, ArrowRight, ArrowUpRight, Globe, BarChart3, Mail, Megaphone } from "lucide-react"
+import { ChevronRight, ArrowRight, ArrowUpRight, Globe, BarChart3, PenTool, Megaphone } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { SuccessCase } from "@/components/success-case"
@@ -14,6 +16,7 @@ import { ComparisonSlider } from "@/components/comparison-slider"
 import { GradientText } from "@/components/gradient-text"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { FAQSection } from "@/components/faq-section"
+import { ClientLogoCarousel } from "@/components/client-logo-carousel"
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0)
@@ -66,11 +69,11 @@ export default function Home() {
     },
     {
       id: 3,
-      title: "Bocas Best Collision Center",
+      title: "Saucy Rentals",
       logo: "/placeholder.svg?height=60&width=160",
-      image: "/placeholder.svg?height=600&width=800",
+      image: "/clientes/blue-corvette-1-X3.jpg?height=600&width=800",
       description:
-        "Bocas Best Collision Center não tinha presença online antes de nos contratar, através de nossas estratégias avançadas de marketing digital,",
+        "Saucy Rentals não tinha presença online antes de nos contratar, através de nossas estratégias avançadas de marketing digital,",
       results: "hoje as campanhas online representam",
       highlightedText: "cerca de 50% de todo o faturamento da empresa.",
       stats: [
@@ -84,23 +87,23 @@ export default function Home() {
   const services = [
     {
       icon: <Megaphone className="h-7 w-7" />,
-      title: "Marketing Digital",
+      title: "Tráfego Pago",
       description:
-        "Estratégias personalizadas para aumentar sua visibilidade online e converter visitantes em clientes.",
-      href: "/servicos/marketing-digital",
+        "Estratégias personalizadas de anúncios online para aumentar sua visibilidade e converter visitantes em clientes.",
+      href: "/servicos/trafego-pago",
     },
     {
       icon: <Globe className="h-7 w-7" />,
-      title: "Desenvolvimento Web",
+      title: "Desenvolvimento de Sites e Landing Pages",
       description:
-        "Sites e plataformas otimizados para conversão, com design moderno e experiência de usuário excepcional.",
-      href: "/servicos/desenvolvimento-web",
+        "Sites e landing pages otimizados para conversão, com design moderno e experiência de usuário excepcional.",
+      href: "/servicos/desenvolvimento-sites-landing-pages",
     },
     {
-      icon: <Mail className="h-7 w-7" />,
-      title: "Email Marketing",
-      description: "Campanhas de email eficientes para nutrir leads, aumentar vendas e fidelizar clientes.",
-      href: "/servicos/email-marketing",
+      icon: <PenTool className="h-7 w-7" />,
+      title: "Conteúdo",
+      description: "Estratégias de conteúdo para redes sociais que engajam seu público e fortalecem sua marca.",
+      href: "/servicos/conteudo",
     },
     {
       icon: <BarChart3 className="h-7 w-7" />,
@@ -108,6 +111,18 @@ export default function Home() {
       description: "Soluções de CRM para transformar dados em relacionamentos duradouros e vendas consistentes.",
       href: "/servicos/crm",
     },
+  ]
+
+  const clientLogos = [
+    { src: "/clientes/doctorfit.png", alt: "DoctorFit" },
+    { src: "/clientes/drivex.png", alt: "DriveXperience" },
+    { src: "/clientes/HORIZONTAL.png", alt: "Horizontal" },
+    { src: "/clientes/image (6).png", alt: "Image 6" },
+    { src: "/clientes/LOGO-1.png", alt: "Logo 1" },
+    { src: "/clientes/logowhite.png", alt: "Logo White" },
+    { src: "/clientes/politek.png", alt: "Politek" },
+    { src: "/clientes/saucy.png", alt: "Saucy Rentals" },
+    { src: "/clientes/tubotecnica.png", alt: "Tubotecnica" }
   ]
 
   return (
@@ -219,7 +234,7 @@ export default function Home() {
 
                 {/* Stats floating card */}
                 <motion.div
-                  className="absolute -right-20 top-1 bg-[#111827]/80 backdrop-blur-md p-4 rounded-xl border border-gray-800 shadow-xl"
+                  className="absolute -right-10 top-1/4 bg-[#111827]/80 backdrop-blur-md p-4 rounded-xl border border-gray-800 shadow-xl"
                   initial={{ x: 100, opacity: 0 }}
                   animate={isHeroInView ? { x: 0, opacity: 1 } : {}}
                   transition={{ delay: 0.8, duration: 0.6 }}
@@ -237,7 +252,7 @@ export default function Home() {
 
                 {/* Results floating card */}
                 <motion.div
-                  className="absolute -left-28 bottom-1/4 bg-[#111827]/80 backdrop-blur-md p-4 rounded-xl border border-gray-800 shadow-xl"
+                  className="absolute -left-10 bottom-1/4 bg-[#111827]/80 backdrop-blur-md p-4 rounded-xl border border-gray-800 shadow-xl"
                   initial={{ x: -100, opacity: 0 }}
                   animate={isHeroInView ? { x: 0, opacity: 1 } : {}}
                   transition={{ delay: 1, duration: 0.6 }}
@@ -285,7 +300,7 @@ export default function Home() {
               </div>
 
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Serviços <GradientText>Premium</GradientText> para seu Negócio
+                Serviços <GradientText>Premium</GradientText> <br/> para seu <span>Negócio</span>
               </h2>
 
               <p className="text-gray-300 text-lg">
@@ -315,7 +330,7 @@ export default function Home() {
                 variant="outline"
                 className="border-gray-700 text-white hover:bg-white/5 rounded-md px-8 py-6 text-lg group"
               >
-                Ver todos os serviços
+                <Link href="/servicos">Ver todos os serviços</Link>
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </div>
@@ -323,12 +338,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Comparison Section */}
+      {/* Clients Section */}
       <section className="relative py-32 bg-[#0e1420]">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
         </div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <ScrollReveal>
+            <div className="text-center mb-20 max-w-3xl mx-auto">
+              <div className="inline-flex items-center px-4 py-2 bg-[#4bb6ef]/10 backdrop-blur-sm rounded-full mb-4">
+                <span className="w-2 h-2 rounded-full bg-[#4bb6ef] mr-2"></span>
+                <span className="text-[#4bb6ef] font-medium text-sm">Parcerias de Sucesso</span>
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Nossos <GradientText>Clientes</GradientText>
+              </h2>
+
+              <p className="text-gray-300 text-lg">
+                Empresas que confiam na <GradientText>CCSTUDIOS</GradientText> para impulsionar seus resultados e<br/>  <span>transformar sua presença digital.</span>
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <ClientLogoCarousel logos={clientLogos} />
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Comparison Section */}
+      <section className="relative py-32 bg-[#0a0f18]">
+        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollReveal>
@@ -343,8 +386,8 @@ export default function Home() {
               </h2>
 
               <p className="text-gray-300 text-lg">
-                Entenda como nossa abordagem se diferencia da concorrência e por que somos a escolha certa para
-                impulsionar seu negócio.
+                Entenda como nossa abordagem se diferencia da concorrência e <br/>por que somos a escolha certa
+                para impulsionar seu negócio.
               </p>
             </div>
           </ScrollReveal>
@@ -356,8 +399,11 @@ export default function Home() {
       </section>
 
       {/* Success Cases Section */}
-      <section className="relative py-32 bg-[#0a0f18]">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
+      <section className="relative py-32 bg-[#0e1420]">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
+        </div>
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollReveal>
@@ -407,11 +453,8 @@ export default function Home() {
       </section>
 
       {/* Geographic Reach Section */}
-      <section className="relative py-32 bg-[#0e1420] overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
-        </div>
+      <section className="relative py-32 bg-[#0a0f18]">
+        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollReveal>
@@ -426,8 +469,7 @@ export default function Home() {
               </h2>
 
               <p className="text-gray-300 text-lg">
-                Nossa experiência internacional nos permite trazer as melhores práticas globais para o seu negócio
-                local.
+                Nossa experiência internacional nos permite trazer as <br/> melhores práticas globais para o seu negócio.
               </p>
             </div>
           </ScrollReveal>
@@ -498,8 +540,11 @@ export default function Home() {
       <FAQSection />
 
       {/* CTA Section */}
-      <section className="relative py-32 bg-[#0a0f18]">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
+      <section className="relative py-32 bg-[#0e1420]">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
+        </div>
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollReveal>
@@ -513,7 +558,7 @@ export default function Home() {
               <div className="relative z-10 p-16 flex flex-col md:flex-row items-center justify-between gap-10">
                 <div className="max-w-2xl">
                   <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                    Pronto para <GradientText>transformar</GradientText> seu negócio?
+                    Pronto para <GradientText>transformar</GradientText> <br/> seu negócio?
                   </h2>
 
                   <p className="text-gray-300 text-lg">

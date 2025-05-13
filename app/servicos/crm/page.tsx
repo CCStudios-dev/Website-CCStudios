@@ -100,7 +100,7 @@ export default function CRMPage() {
         title="Soluções de CRM para Potencializar seu Negócio"
         subtitle="CRM"
         description="Transforme o relacionamento com seus clientes e impulsione suas vendas com soluções de CRM personalizadas e estratégicas."
-        image="/CARD - CRM.png?height=600&width=600"
+        image="/services/CARD - CRM.png?height=600&width=600"
         gradient="orange"
       />
 
@@ -122,11 +122,11 @@ export default function CRMPage() {
 
       <ServiceTestimonial
         quote="A implementação de CRM realizada pela CC Studios revolucionou nossos processos de vendas. Aumentamos nossa taxa de conversão em 35% e reduzimos o ciclo de vendas em quase 40%."
-        author="Juliana Costa"
-        position="Diretora de Vendas"
-        company="TradingMEX"
-        image="/placeholder.svg?height=600&width=800"
-        logo="/placeholder.svg?height=60&width=160"
+        author="Doutora Clarissa"
+        position="Diretora"
+        company="DoctorFIT"
+        image="/clientes/doctorcreative.png?height=600&width=800"
+        logo="/clientes/doctorfit.png?height=60&width=160"
         gradient="orange"
       />
 
