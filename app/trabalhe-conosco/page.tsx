@@ -757,7 +757,7 @@ export default function TrabalheConoscoPage() {
           {/* Right Column - Form */}
           <div className="w-full lg:w-1/2 bg-[#0e1420] p-8 lg:p-16 flex flex-col h-full">
             <div className="flex items-center justify-between mb-8">
-              <Image src="/logoCCS.png" alt="CC Studios Logo" width={150} height={40} />
+              <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
 
               <button
                 onClick={handleBack}
