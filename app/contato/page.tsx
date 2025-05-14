@@ -7,8 +7,6 @@ import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronRight, ArrowLeft, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 
@@ -33,6 +31,16 @@ export default function ContatoPage() {
     message: "",
   })
   const [isValid, setIsValid] = useState(false)
+
+  // Add data-page attribute to body to hide header/footer
+  useEffect(() => {
+    document.body.setAttribute("data-page", "contact")
+
+    // Cleanup function to remove attribute when component unmounts
+    return () => {
+      document.body.removeAttribute("data-page")
+    }
+  }, [])
 
   const steps: FormStep[] = [
     {
@@ -125,12 +133,8 @@ export default function ContatoPage() {
     }
   }, [currentStep, formData])
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleRadioChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
@@ -234,8 +238,23 @@ export default function ContatoPage() {
         )
       case 4:
         return (
-          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-4">
-            <RadioGroup value={formData.revenue} onValueChange={(value) => handleRadioChange("revenue", value)}>
+          <div className="space-y-6">
+            <select
+              name="revenue"
+              value={formData.revenue}
+              onChange={handleInputChange}
+              className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234bb6ef'%3E%3Cpath strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 1rem center",
+                backgroundSize: "1.5em 1.5em",
+              }}
+            >
+              <option value="" disabled selected>
+                Selecione o faturamento mensal
+              </option>
               {[
                 "Até 50 mil",
                 "De 51 mil à 70 mil",
@@ -248,23 +267,32 @@ export default function ContatoPage() {
                 "De 16 à 40 milhões",
                 "Mais de 40 milhões",
               ].map((option) => (
-                <div key={option} className="flex items-center space-x-2 p-3 hover:bg-[#111827] rounded-md">
-                  <RadioGroupItem value={option} id={option.replace(/\s/g, "")} />
-                  <Label
-                    htmlFor={option.replace(/\s/g, "")}
-                    className="text-white cursor-pointer flex-1 hover:text-[#4bb6ef]"
-                  >
-                    {option}
-                  </Label>
-                </div>
+                <option key={option} value={option}>
+                  {option}
+                </option>
               ))}
-            </RadioGroup>
+            </select>
           </div>
         )
       case 5:
         return (
-          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-4">
-            <RadioGroup value={formData.segment} onValueChange={(value) => handleRadioChange("segment", value)}>
+          <div className="space-y-6">
+            <select
+              name="segment"
+              value={formData.segment}
+              onChange={handleInputChange}
+              className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234bb6ef'%3E%3Cpath strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 1rem center",
+                backgroundSize: "1.5em 1.5em",
+              }}
+            >
+              <option value="" disabled selected>
+                Selecione o segmento
+              </option>
               {[
                 "Serviço",
                 "Varejo",
@@ -281,17 +309,11 @@ export default function ContatoPage() {
                 "Turismo",
                 "Outro",
               ].map((option) => (
-                <div key={option} className="flex items-center space-x-2 p-3 hover:bg-[#111827] rounded-md">
-                  <RadioGroupItem value={option} id={option.replace(/\s/g, "")} />
-                  <Label
-                    htmlFor={option.replace(/\s/g, "")}
-                    className="text-white cursor-pointer flex-1 hover:text-[#4bb6ef]"
-                  >
-                    {option}
-                  </Label>
-                </div>
+                <option key={option} value={option}>
+                  {option}
+                </option>
               ))}
-            </RadioGroup>
+            </select>
           </div>
         )
       case 6:
@@ -312,8 +334,23 @@ export default function ContatoPage() {
         )
       case 7:
         return (
-          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-4">
-            <RadioGroup value={formData.position} onValueChange={(value) => handleRadioChange("position", value)}>
+          <div className="space-y-6">
+            <select
+              name="position"
+              value={formData.position}
+              onChange={handleInputChange}
+              className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234bb6ef'%3E%3Cpath strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 1rem center",
+                backgroundSize: "1.5em 1.5em",
+              }}
+            >
+              <option value="" disabled selected>
+                Selecione seu cargo
+              </option>
               {[
                 "Proprietário",
                 "Sócio",
@@ -326,35 +363,38 @@ export default function ContatoPage() {
                 "Assistente/Funcionário",
                 "Outros",
               ].map((option) => (
-                <div key={option} className="flex items-center space-x-2 p-3 hover:bg-[#111827] rounded-md">
-                  <RadioGroupItem value={option} id={option.replace(/\s/g, "")} />
-                  <Label
-                    htmlFor={option.replace(/\s/g, "")}
-                    className="text-white cursor-pointer flex-1 hover:text-[#4bb6ef]"
-                  >
-                    {option}
-                  </Label>
-                </div>
+                <option key={option} value={option}>
+                  {option}
+                </option>
               ))}
-            </RadioGroup>
+            </select>
           </div>
         )
       case 8:
         return (
-          <div className="space-y-4">
-            <RadioGroup value={formData.timeline} onValueChange={(value) => handleRadioChange("timeline", value)}>
+          <div className="space-y-6">
+            <select
+              name="timeline"
+              value={formData.timeline}
+              onChange={handleInputChange}
+              className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
+              style={{
+                backgroundImage:
+                  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234bb6ef'%3E%3Cpath strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "right 1rem center",
+                backgroundSize: "1.5em 1.5em",
+              }}
+            >
+              <option value="" disabled selected>
+                Selecione o prazo
+              </option>
               {["Imediatamente", "Em até três meses", "Em seis meses", "Ainda não sei"].map((option) => (
-                <div key={option} className="flex items-center space-x-2 p-3 hover:bg-[#111827] rounded-md">
-                  <RadioGroupItem value={option} id={option.replace(/\s/g, "")} />
-                  <Label
-                    htmlFor={option.replace(/\s/g, "")}
-                    className="text-white cursor-pointer flex-1 hover:text-[#4bb6ef]"
-                  >
-                    {option}
-                  </Label>
-                </div>
+                <option key={option} value={option}>
+                  {option}
+                </option>
               ))}
-            </RadioGroup>
+            </select>
           </div>
         )
       case 9:
@@ -393,7 +433,7 @@ export default function ContatoPage() {
         {/* Right Column - Form */}
         <div className="w-full lg:w-1/2 bg-[#0e1420] p-8 lg:p-16 flex flex-col h-full">
           <div className="flex items-center justify-between mb-8">
-            <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
+            <Image src="/logoCCS.png" alt="CC Studios Logo" width={150} height={40} />
 
             {currentStep > 0 && (
               <button

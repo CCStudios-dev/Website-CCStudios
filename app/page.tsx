@@ -39,9 +39,9 @@ export default function Home() {
   const successCases = [
     {
       id: 1,
-      title: "TradingMEX",
-      logo: "/placeholder.svg?height=60&width=160",
-      image: "/placeholder.svg?height=600&width=800",
+      title: "EaglePools",
+      logo: "/clientes/logowhite.png?height=60&width=160",
+      image: "/clientes/tradingmex.jpg?height=600&width=800",
       description:
         "Através de novas fontes de tráfego pago e implementação de um CRM para controle dos dados dos clientes, alcançamos um",
       results: "ROI (Retorno sobre o investimento) de",
@@ -55,8 +55,8 @@ export default function Home() {
     {
       id: 2,
       title: "TUBOTECNICA",
-      logo: "/placeholder.svg?height=60&width=160",
-      image: "/placeholder.svg?height=600&width=800",
+      logo: "/clientes/tubotecnica.png?height=60&width=160",
+      image: "/clientes/tubocreative.jpg?height=600&width=800",
       description: "Através da nossas análises conseguimos um",
       results: "custo por cliente qualificado",
       highlightedText:
@@ -70,7 +70,7 @@ export default function Home() {
     {
       id: 3,
       title: "Saucy Rentals",
-      logo: "/placeholder.svg?height=60&width=160",
+      logo: "/clientes/saucy.png?height=60&width=160",
       image: "/clientes/blue-corvette-1-X3.jpg?height=600&width=800",
       description:
         "Saucy Rentals não tinha presença online antes de nos contratar, através de nossas estratégias avançadas de marketing digital,",
@@ -289,7 +289,7 @@ export default function Home() {
 
       {/* Services Section */}
       <section className="relative py-32 bg-[#0a0f18]">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
+        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03] pointer-events-none"></div>
 
         <div className="container mx-auto px-4">
           <ScrollReveal>

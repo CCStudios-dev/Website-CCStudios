@@ -16,7 +16,7 @@ export function SiteHeader() {
       <div className="container mx-auto flex h-20 items-center justify-between px-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
+            <Image src="/logoCCS.png" alt="CC Studios Logo" width={150} height={40} />
           </Link>
         </div>
 
@@ -62,6 +62,12 @@ export function SiteHeader() {
           </Link>
           <Link href="/blog" className="text-sm font-medium text-white transition-colors hover:text-[#4bb6ef]">
             Blog
+          </Link>
+          <Link
+            href="/trabalhe-conosco"
+            className="text-sm font-medium text-white transition-colors hover:text-[#4bb6ef]"
+          >
+            Trabalhe Conosco
           </Link>
         </nav>
 
@@ -141,6 +147,13 @@ export function SiteHeader() {
               onClick={() => setMobileMenuOpen(false)}
             >
               Blog
+            </Link>
+            <Link
+              href="/trabalhe-conosco"
+              className="block text-sm font-medium text-white hover:text-[#4bb6ef] py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Trabalhe Conosco
             </Link>
             <Link href="/contato" onClick={() => setMobileMenuOpen(false)}>
               <Button className="w-full bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white">Contato</Button>

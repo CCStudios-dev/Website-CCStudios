@@ -9,33 +9,6 @@ import { ChevronRight } from "lucide-react"
 import { LocationMap } from "@/components/location-map"
 
 export default function QuemSomosPage() {
-  const teamMembers = [
-    {
-      name: "Carlos Costa",
-      position: "CEO & Fundador",
-      bio: "Com mais de 10 anos de experiência em marketing digital, Carlos fundou a CC Studios com a visão de trazer estratégias inovadoras e resultados mensuráveis para empresas de todos os portes.",
-      image: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      name: "Ana Silva",
-      position: "Diretora de Marketing",
-      bio: "Especialista em estratégias de tráfego pago e análise de dados, Ana lidera nossa equipe de marketing com foco em maximizar o ROI de cada campanha.",
-      image: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      name: "Rafael Oliveira",
-      position: "Diretor de Desenvolvimento",
-      bio: "Com vasta experiência em desenvolvimento web, Rafael garante que todos os projetos sejam entregues com excelência técnica e foco em conversão.",
-      image: "/placeholder.svg?height=400&width=400",
-    },
-    {
-      name: "Juliana Santos",
-      position: "Gerente de Conteúdo",
-      bio: "Especialista em estratégias de conteúdo para redes sociais, Juliana lidera nossa equipe criativa com foco em engajamento e construção de marca.",
-      image: "/placeholder.svg?height=400&width=400",
-    },
-  ]
-
   const values = [
     {
       title: "Resultados",
