@@ -49,62 +49,125 @@ export default function TrabalheConoscoPage() {
   const jobPositions: JobPosition[] = [
     {
       id: "gestor-trafego",
-      title: "Gestor de Tráfego",
-      department: "Marketing Digital",
-      type: "Tempo Integral",
-      location: "Presencial",
-      description:
-        "Estamos em busca de um Gestor de Tráfego experiente para desenvolver e implementar estratégias de tráfego pago que maximizem o ROI para nossos clientes. O candidato ideal tem experiência comprovada em campanhas de Google Ads, Facebook Ads e outras plataformas de mídia paga.",
-      requirements: [
-        "Experiência mínima de 2 anos como Gestor de Tráfego",
-        "Conhecimento avançado em Google Ads, Facebook Ads, Instagram Ads e LinkedIn Ads",
-        "Experiência com ferramentas de análise como Google Analytics e Data Studio",
-        "Conhecimento em SEO e marketing de conteúdo",
-        "Capacidade de analisar dados e tomar decisões baseadas em métricas",
-        "Excelentes habilidades de comunicação e trabalho em equipe",
-      ],
-      responsibilities: [
-        "Desenvolver e implementar estratégias de tráfego pago para diversos clientes",
-        "Gerenciar orçamentos de mídia e otimizar campanhas para maximizar o ROI",
-        "Realizar análises de performance e apresentar relatórios detalhados",
-        "Identificar oportunidades de crescimento e propor melhorias contínuas",
-        "Manter-se atualizado sobre as tendências e melhores práticas do mercado",
-        "Colaborar com as equipes de design e conteúdo para criar materiais eficazes",
-      ],
-      questions: [
-        {
-          id: "experience",
-          question: "Quantos anos de experiência você tem com tráfego pago?",
-          type: "select",
-          options: ["Menos de 1 ano", "1-2 anos", "3-5 anos", "Mais de 5 anos"],
-        },
-        {
-          id: "platforms",
-          question: "Com quais plataformas de anúncios você tem experiência?",
-          type: "textarea",
-          placeholder: "Ex: Google Ads, Facebook Ads, LinkedIn Ads...",
-        },
-        {
-          id: "campaign",
-          question: "Descreva uma campanha de tráfego pago bem-sucedida que você gerenciou",
-          type: "textarea",
-          placeholder: "Conte sobre os objetivos, estratégias, resultados...",
-        },
-        {
-          id: "tools",
-          question: "Quais ferramentas de análise você utiliza no seu dia a dia?",
-          type: "textarea",
-          placeholder: "Ex: Google Analytics, Data Studio, SEMrush...",
-        },
-        {
-          id: "challenge",
-          question: "Qual foi o maior desafio que você enfrentou em uma campanha e como o superou?",
-          type: "textarea",
-          placeholder: "Descreva a situação, ação e resultado...",
-        },
-      ],
-      color: "blue",
-      image: "/MARKETING 01.png?height=600&width=600",
+    title: "Gestor de Tráfego Pago",
+    department: "Marketing Digital",
+    type: "Tempo Integral",
+    location: "Presencial",
+    description:
+      "Procuramos um(a) Gestor(a) de Tráfego Pago com visão estratégica, domínio técnico e foco em performance. Você será responsável por planejar, executar e otimizar campanhas nas principais plataformas (Meta Ads e Google Ads).",
+    requirements: [
+      "Experiência comprovada em Meta Ads e Google Ads;",
+      "Conhecimento de funis, públicos e estratégias de mídia paga;",
+      "Organização e visão analítica;",
+      "Domínio de ferramentas como Google Tag Manager, Analytics, UTM, etc;",
+      "Conhecimento em WhatsApp API, Landing Pages e funis de leads será diferencial."
+    ],
+    responsibilities: [
+      "Criação e estruturação de campanhas de aquisição e conversão;",
+      "Segmentação de público e definição de criativos;",
+      "Monitoramento e otimização constante das campanhas;",
+      "Geração de relatórios com análise de KPIs;",
+      "A/B testing e propostas de melhorias com base nos dados."
+    ],
+    questions: [
+  { id: "nome", question: "Nome completo:", type: "text" },
+  { id: "idade", question: "Idade:", type: "number" },
+  { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+  { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
+  { id: "email", question: "E-mail:", type: "text" },
+  { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+  { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+  {
+    id: "trabalha",
+    question: "Você está trabalhando no momento?",
+    type: "select",
+    options: [
+      "Sim, em tempo integral",
+      "Sim, como freelancer ou PJ",
+      "Não estou trabalhando atualmente"
+    ]
+  },
+  { id: "clientes_ativos", question: "Você possui clientes ativos atualmente?", type: "text" },
+  {
+    id: "tempo_trafego",
+    question: "Há quanto tempo você trabalha com tráfego pago? (Ex: 1 ano, 2 anos, 5+ anos...)",
+    type: "text"
+  },
+  {
+    id: "plataformas",
+    question: "Em quais plataformas você tem mais experiência? (Pode selecionar mais de uma)",
+    type: "select",
+    options: [
+      "Meta Ads (Facebook/Instagram)",
+      "Google Ads",
+      "TikTok Ads",
+      "LinkedIn Ads",
+      "Pinterest Ads",
+      "Outras (especificar abaixo)"
+    ]
+  },
+  {
+    id: "investimento",
+    question: "Já gerenciou contas com qual nível de investimento mensal?",
+    type: "select",
+    options: [
+      "Até R$5.000",
+      "Entre R$5.001 e R$20.000",
+      "Entre R$20.001 e R$100.000",
+      "Acima de R$100.000"
+    ]
+  },
+  { id: "nichos", question: "Quais nichos ou tipos de clientes você já atendeu?", type: "textarea" },
+  {
+    id: "ferramentas",
+    question: "Com quais ferramentas você já trabalhou para gestão ou análise de campanhas? (Exemplo: Google Tag Manager, Google Analytics, Hotjar, Power BI, Reportei, etc.)",
+    type: "textarea"
+  },
+  {
+    id: "desafio",
+    question: "Qual foi seu maior desafio em tráfego pago até hoje e como você lidou com ele?",
+    type: "textarea"
+  },
+  {
+    id: "estrategia_ecommerce",
+    question: "Estratégia: Como você estruturaria uma campanha para um e-commerce que quer escalar as vendas, mas tem um ROAS abaixo de 1,5?",
+    type: "textarea"
+  },
+  {
+    id: "estrategia_cpa",
+    question: "Estratégia: Quais seriam seus primeiros passos ao assumir uma conta de tráfego com campanhas ativas e CPA muito acima da meta?",
+    type: "textarea"
+  },
+  {
+    id: "remuneracao",
+    question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
+    type: "text"
+  },
+  {
+    id: "modelo_contratacao",
+    question: "Qual modelo de contratação você prefere?",
+    type: "select",
+    options: ["CLT", "PJ", "MEI", "Indiferente"]
+  },
+  {
+    id: "presencial",
+    question: "Tem disponibilidade para atuar presencialmente?",
+    type: "select",
+    options: [
+      "Sim, total disponibilidade",
+      "Sim, parcialmente (modelo híbrido)",
+      "Não, apenas remoto"
+    ]
+  },
+  {
+    id: "portfolio",
+    question: "Deseja compartilhar algum link de portfólio, case de sucesso ou conta gerenciada? (Opcional)",
+    type: "text"
+  }
+],
+
+    color: "blue",
+    image: "/vagas/GESTORDETRAF.png?height=600&width=600"
     },
     {
       id: "gestor-projetos",
@@ -113,58 +176,126 @@ export default function TrabalheConoscoPage() {
       type: "Tempo Integral",
       location: "Presencial",
       description:
-        "Procuramos um Gestor de Projetos organizado e proativo para coordenar nossos projetos de marketing digital. O profissional será responsável por garantir que todos os projetos sejam entregues dentro do prazo, orçamento e escopo definidos, mantendo a qualidade e a satisfação do cliente.",
+        "Estamos em busca de um(a) Gestor(a) de Projetos que seja organizado(a), metódico(a) e orientado(a) a resultados. Você será responsável por garantir que todas as etapas dos projetos da agência sejam executadas com excelência, prazo e alinhamento.",
       requirements: [
-        "Experiência mínima de 3 anos em gestão de projetos, preferencialmente em agências digitais",
-        "Conhecimento em metodologias ágeis (Scrum, Kanban)",
-        "Familiaridade com ferramentas de gestão de projetos (Asana, Trello, Monday)",
-        "Excelentes habilidades de comunicação, organização e liderança",
-        "Capacidade de gerenciar múltiplos projetos simultaneamente",
-        "Conhecimento básico de marketing digital e seus processos",
+        "Experiência prévia em gestão de projetos (PMO, Scrum, Kanban);",
+        "Habilidade em gestão de múltiplas demandas e times multidisciplinares;",
+        "Domínio de ferramentas de gestão como Monday, ClickUp, Notion ou Trello;",
+        "Visão estratégica e foco em eficiência operacional;",
+        "Antecipar gargalos e promover soluções junto ao time.",
       ],
       responsibilities: [
-        "Coordenar projetos de marketing digital do início ao fim",
-        "Definir cronogramas, recursos necessários e orçamentos",
-        "Gerenciar equipes multidisciplinares e garantir a entrega dentro dos prazos",
-        "Manter comunicação constante com clientes e stakeholders",
-        "Identificar e mitigar riscos nos projetos",
-        "Documentar processos e criar relatórios de status",
-        "Buscar continuamente melhorias nos processos de gestão",
+        "Planejar, acompanhar e garantir a execução dos cronogramas;",
+        "Gerenciar a comunicação entre times e stakeholders;",
+        "Monitorar prazos, entregas e qualidade dos projetos;",
+        "Realizar reuniões de kick-off, follow-up e fechamento;",
+        "Certificações (Scrum, PMP, etc) são diferenciais.",
       ],
       questions: [
-        {
-          id: "experience",
-          question: "Quantos anos de experiência você tem com gestão de projetos?",
-          type: "select",
-          options: ["Menos de 1 ano", "1-3 anos", "4-6 anos", "Mais de 6 anos"],
-        },
-        {
-          id: "methodologies",
-          question: "Quais metodologias de gestão de projetos você utiliza?",
-          type: "textarea",
-          placeholder: "Ex: Scrum, Kanban, Waterfall...",
-        },
-        {
-          id: "tools",
-          question: "Com quais ferramentas de gestão de projetos você tem experiência?",
-          type: "textarea",
-          placeholder: "Ex: Asana, Trello, Monday, Jira...",
-        },
-        {
-          id: "challenge",
-          question: "Descreva um projeto desafiador que você gerenciou e como garantiu seu sucesso",
-          type: "textarea",
-          placeholder: "Conte sobre o projeto, desafios e soluções...",
-        },
-        {
-          id: "multiple",
-          question: "Como você gerencia múltiplos projetos simultaneamente?",
-          type: "textarea",
-          placeholder: "Descreva sua abordagem e estratégias...",
-        },
-      ],
+  { id: "nome", question: "Nome completo:", type: "text" },
+  { id: "idade", question: "Idade:", type: "number" },
+  { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+  { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
+  { id: "email", question: "E-mail:", type: "text" },
+  { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+  { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+  {
+    id: "trabalha",
+    question: "Você está trabalhando no momento?",
+    type: "select",
+    options: [
+      "Sim, em tempo integral",
+      "Sim, como freelancer ou PJ",
+      "Não estou trabalhando atualmente"
+    ]
+  },
+  {
+    id: "clientes_ativos",
+    question: "Você possui clientes ou projetos ativos atualmente?",
+    type: "select",
+    options: ["Sim", "Não"]
+  },
+  {
+    id: "tempo_projetos",
+    question: "Há quanto tempo você trabalha com gestão de projetos? (Ex: 1 ano, 3 anos, 5+ anos...)",
+    type: "text"
+  },
+  {
+    id: "tipos_projetos",
+    question: "Quais tipos de projetos você já gerenciou? (Pode selecionar mais de uma opção)",
+    type: "select",
+    options: [
+      "Marketing digital",
+      "Desenvolvimento web",
+      "Tecnologia/SaaS",
+      "Branding/design",
+      "Equipes criativas",
+      "Outros (especificar abaixo)"
+    ]
+  },
+  {
+    id: "metodologias",
+    question: "Quais metodologias ou frameworks você já utilizou? (Pode selecionar mais de uma)",
+    type: "select",
+    options: [
+      "Scrum",
+      "Kanban",
+      "Waterfall",
+      "Agile (Genérico)",
+      "OKRs",
+      "Outras (especificar)"
+    ]
+  },
+  {
+    id: "ferramentas",
+    question: "Quais ferramentas você domina para gestão de tarefas e projetos?",
+    type: "textarea",
+    placeholder: "Exemplo: Trello, Asana, Notion, ClickUp, Jira, Monday..."
+  },
+  {
+    id: "lideranca_multidisciplinar",
+    question: "Você já atuou liderando equipes multidisciplinares (tráfego, design, copy, social media)?",
+    type: "textarea"
+  },
+  {
+    id: "estrategia_travado",
+    question: "Estratégia: O que você faria ao assumir um projeto travado, com prazos estourados e equipe desmotivada?",
+    type: "textarea"
+  },
+  {
+    id: "estrategia_stakeholders",
+    question: "Estratégia: Como você garantiria que um projeto com múltiplos stakeholders avance sem perder o foco no escopo e prazos?",
+    type: "textarea"
+  },
+  {
+    id: "remuneracao",
+    question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
+    type: "text"
+  },
+  {
+    id: "modelo_contratacao",
+    question: "Qual modelo de contratação você prefere?",
+    type: "select",
+    options: ["CLT", "PJ", "MEI", "Indiferente"]
+  },
+  {
+    id: "presencial",
+    question: "Tem disponibilidade para atuar presencialmente?",
+    type: "select",
+    options: [
+      "Sim, total disponibilidade",
+      "Sim, parcialmente (modelo híbrido)",
+      "Não, apenas remoto"
+    ]
+  },
+  {
+    id: "portfolio",
+    question: "Deseja compartilhar algum link de portfólio, apresentações, cases ou materiais já coordenados por você? (Opcional)",
+    type: "text"
+  }
+],
       color: "purple",
-      image: "/CARD LAPTOP.png?height=600&width=600",
+      image: "/vagas/GESTORDEPROJETOS.png?height=600&width=600",
     },
     {
       id: "atendimento-cliente",
@@ -173,118 +304,252 @@ export default function TrabalheConoscoPage() {
       type: "Tempo Integral",
       location: "Presencial",
       description:
-        "Buscamos um profissional de Atendimento ao Cliente para integrar nossa equipe de Customer Success. O candidato ideal é empático, comunicativo e orientado à solução de problemas, capaz de construir relacionamentos duradouros com nossos clientes e garantir sua satisfação e sucesso.",
+        "Buscamos um(a) profissional de Atendimento ao Cliente que saiba equilibrar empatia, agilidade e clareza na comunicação. Você será o elo entre a agência e nossos clientes, garantindo um relacionamento próximo e fluido.",
       requirements: [
-        "Experiência mínima de 1 ano em atendimento ao cliente ou customer success",
-        "Excelentes habilidades de comunicação verbal e escrita",
-        "Capacidade de gerenciar múltiplos clientes e demandas simultaneamente",
-        "Conhecimento básico de marketing digital",
-        "Habilidade para identificar oportunidades de upsell e cross-sell",
-        "Experiência com ferramentas de CRM e atendimento ao cliente",
+        "Excelente comunicação escrita e verbal;",
+        "Organização e proatividade;",
+        "Experiência com atendimento em agências, projetos ou B2B;",
+        "Familiaridade com ferramentas de organização (Monday, Trello, ClickUp, Notion);",
+        "Capacidade de mediar conflitos e manter o relacionamento saudável.",
       ],
       responsibilities: [
-        "Ser o ponto de contato principal entre a empresa e os clientes",
-        "Realizar reuniões periódicas de acompanhamento com os clientes",
-        "Identificar necessidades dos clientes e propor soluções adequadas",
-        "Gerenciar e resolver problemas e reclamações",
-        "Monitorar a satisfação dos clientes e implementar melhorias",
-        "Colaborar com as equipes internas para garantir a entrega de valor aos clientes",
-        "Documentar interações com clientes e manter o CRM atualizado",
+        "Acompanhamento de clientes e feedbacks constantes;",
+        "Organização das demandas entre cliente e equipe interna;",
+        "Participação em reuniões de alinhamento e estratégia;",
+        "Garantir que os prazos e entregas sejam compreendidos e cumpridos;",
+        "Sugerir melhorias e manter os clientes engajados.",
       ],
       questions: [
-        {
-          id: "experience",
-          question: "Quantos anos de experiência você tem com atendimento ao cliente?",
-          type: "select",
-          options: ["Menos de 1 ano", "1-2 anos", "3-5 anos", "Mais de 5 anos"],
-        },
-        {
-          id: "tools",
-          question: "Com quais ferramentas de CRM ou atendimento ao cliente você tem experiência?",
-          type: "textarea",
-          placeholder: "Ex: Zendesk, Intercom, Salesforce...",
-        },
-        {
-          id: "challenge",
-          question: "Descreva uma situação difícil com um cliente e como você a resolveu",
-          type: "textarea",
-          placeholder: "Conte sobre o problema, sua abordagem e o resultado...",
-        },
-        {
-          id: "retention",
-          question: "Quais estratégias você utiliza para aumentar a retenção de clientes?",
-          type: "textarea",
-          placeholder: "Descreva suas abordagens e métodos...",
-        },
-        {
-          id: "feedback",
-          question: "Como você lida com feedback negativo de clientes?",
-          type: "textarea",
-          placeholder: "Explique sua abordagem com exemplos...",
-        },
-      ],
+  { id: "nome", question: "Nome completo:", type: "text" },
+  { id: "idade", question: "Idade:", type: "number" },
+  { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+  { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
+  { id: "email", question: "E-mail:", type: "text" },
+  { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+  { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+  {
+    id: "trabalha",
+    question: "Você está trabalhando no momento?",
+    type: "select",
+    options: [
+      "Sim, em tempo integral",
+      "Sim, como freelancer ou PJ",
+      "Não estou trabalhando atualmente"
+    ]
+  },
+  {
+    id: "clientes_ativos",
+    question: "Você possui clientes ou contas ativas sob sua responsabilidade atualmente?",
+    type: "select",
+    options: ["Sim", "Não"]
+  },
+  {
+    id: "tempo_experiencia",
+    question: "Há quanto tempo você atua com atendimento ao cliente ou customer success? (Ex: 1 ano, 3 anos, 5+ anos...)",
+    type: "text"
+  },
+  {
+    id: "canais_atendimento",
+    question: "Em quais canais você tem experiência de atendimento? (Pode selecionar mais de uma opção)",
+    type: "select",
+    options: [
+      "WhatsApp",
+      "E-mail",
+      "Telefone",
+      "Instagram / Redes sociais",
+      "Plataformas como Zendesk / Intercom",
+      "Outros (especificar)"
+    ]
+  },
+  {
+    id: "experiencia_empresas",
+    question: "Você já trabalhou com atendimento voltado à retenção, suporte ou sucesso do cliente em empresas de marketing, tecnologia ou serviços?",
+    type: "select",
+    options: ["Sim", "Não"]
+  },
+  {
+    id: "explicacao_experiencia",
+    question: "Se sim, explique brevemente.",
+    type: "textarea"
+  },
+  {
+    id: "ferramentas",
+    question: "Quais ferramentas ou sistemas você já usou no atendimento ou gestão de clientes?",
+    type: "textarea",
+    placeholder: "Ex: CRM, HubSpot, Pipedrive, Google Agenda, Trello, Notion, etc."
+  },
+  {
+    id: "lidar_cliente_insatisfeito",
+    question: "Como você lida com situações em que o cliente está insatisfeito ou frustrado?",
+    type: "textarea"
+  },
+  {
+    id: "estrategia_cancelamento",
+    question: "Estratégia: O que você faria se um cliente ameaçasse cancelar o serviço por não ver resultados imediatos, mesmo estando dentro do prazo esperado?",
+    type: "textarea"
+  },
+  {
+    id: "relacionamento_dificil",
+    question: "Estratégia: Como você mantém um bom relacionamento com o cliente, mesmo quando ele tem pouco tempo disponível para reuniões e retornos?",
+    type: "textarea"
+  },
+  {
+    id: "remuneracao",
+    question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
+    type: "text"
+  },
+  {
+    id: "modelo_contratacao",
+    question: "Qual modelo de contratação você prefere?",
+    type: "select",
+    options: ["CLT", "PJ", "MEI", "Indiferente"]
+  },
+  {
+    id: "presencial",
+    question: "Tem disponibilidade para atuar presencialmente?",
+    type: "select",
+    options: [
+      "Sim, total disponibilidade",
+      "Sim, parcialmente (modelo híbrido)",
+      "Não, apenas remoto"
+    ]
+  }
+],
+
       color: "green",
-      image: "/placeholder.svg?height=600&width=600",
+      image: "/vagas/ATENDIMENTOAOCLIENTE.png?height=600&width=600",
     },
     {
       id: "representante-comercial",
-      title: "Representante Comercial (PréVenda)",
+      title: "SDR (Pré-Vendas)",
       department: "Comercial",
       type: "Tempo Integral",
       location: "Presencial",
       description:
-        "Estamos à procura de um Representante Comercial para nossa equipe de pré-vendas. O profissional será responsável por identificar oportunidades de negócio, qualificar leads e apresentar nossas soluções de marketing digital para potenciais clientes, preparando o terreno para o fechamento de vendas.",
+        "Estamos em busca de um(a) SDR (Sales Development Representative) para atuar na linha de frente da nossa operação comercial. Seu papel será qualificar leads, gerar oportunidades e agendar reuniões para o time de vendas.",
       requirements: [
-        "Experiência mínima de 1 ano em vendas B2B ou pré-vendas",
-        "Conhecimento do mercado de marketing digital",
-        "Excelentes habilidades de comunicação e apresentação",
-        "Capacidade de entender as necessidades dos clientes e alinhar com nossas soluções",
-        "Habilidade para qualificar leads e identificar oportunidades de negócio",
-        "Familiaridade com ferramentas de CRM e processos de vendas",
+        "Facilidade de comunicação e argumentação;",
+        "Perfil resiliente, organizado e com mentalidade comercial;",
+        "Experiência com pré-vendas, prospecção ou call center;",
+        "Familiaridade com ferramentas de CRM (Kommo, Pipedrive, HubSpot etc);",
+        "Conhecimento de marketing digital será um diferencial.",
       ],
       responsibilities: [
-        "Realizar o primeiro contato com leads qualificados",
-        "Conduzir reuniões de descoberta para entender as necessidades dos potenciais clientes",
-        "Apresentar nossas soluções de marketing digital de forma clara e persuasiva",
-        "Qualificar oportunidades e preparar o terreno para o time de vendas",
-        "Alimentar o CRM com informações relevantes sobre os leads",
-        "Colaborar com as equipes de marketing e vendas para otimizar o funil de conversão",
-        "Manter-se atualizado sobre o mercado, concorrentes e tendências",
+        "Realizar prospecção ativa (outbound) e nutrir leads inbound;",
+        "Qualificar leads com base em critérios BANT ou SPIN Selling;",
+        "Marcar reuniões com leads qualificados para o time comercial;",
+        "Atualizar o CRM com informações completas e organizadas;",
+        "Enviar mensagens, áudios e fazer ligações com foco em conversão.",
       ],
       questions: [
-        {
-          id: "experience",
-          question: "Quantos anos de experiência você tem com vendas ou pré-vendas?",
-          type: "select",
-          options: ["Menos de 1 ano", "1-2 anos", "3-5 anos", "Mais de 5 anos"],
-        },
-        {
-          id: "segment",
-          question: "Em quais segmentos de mercado você já atuou com vendas?",
-          type: "textarea",
-          placeholder: "Ex: Tecnologia, Educação, Saúde...",
-        },
-        {
-          id: "qualification",
-          question: "Qual é sua abordagem para qualificar leads?",
-          type: "textarea",
-          placeholder: "Descreva seu processo e critérios...",
-        },
-        {
-          id: "presentation",
-          question: "Como você prepara e conduz uma apresentação para um potencial cliente?",
-          type: "textarea",
-          placeholder: "Explique sua metodologia e técnicas...",
-        },
-        {
-          id: "objection",
-          question: "Como você lida com objeções durante o processo de pré-venda?",
-          type: "textarea",
-          placeholder: "Descreva sua abordagem com exemplos...",
-        },
-      ],
+  { id: "nome", question: "Nome completo:", type: "text" },
+  { id: "idade", question: "Idade:", type: "number" },
+  { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+  { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
+  { id: "email", question: "E-mail:", type: "text" },
+  { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+  { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+  {
+    id: "trabalha",
+    question: "Você está trabalhando no momento?",
+    type: "select",
+    options: [
+      "Sim, em tempo integral",
+      "Sim, como freelancer ou PJ",
+      "Não estou trabalhando atualmente"
+    ]
+  },
+  {
+    id: "clientes_ativos",
+    question: "Você possui clientes, leads ativos ou parcerias comerciais em andamento?",
+    type: "select",
+    options: ["Sim", "Não"]
+  },
+  {
+    id: "tempo_vendas",
+    question: "Há quanto tempo você trabalha com vendas ou pré-vendas? (Ex: 6 meses, 2 anos, 5+ anos...)",
+    type: "text"
+  },
+  {
+    id: "b2b",
+    question: "Você já atuou com vendas B2B (empresa para empresa)?",
+    type: "select",
+    options: ["Sim", "Não"]
+  },
+  {
+    id: "b2b_detalhes",
+    question: "Se sim, explique brevemente o tipo de produto ou serviço.",
+    type: "textarea"
+  },
+  {
+    id: "atividades_sdr",
+    question: "Quais atividades você já executou em um processo de pré-venda ou SDR? (Pode marcar mais de uma)",
+    type: "select",
+    options: [
+      "Prospecção ativa (cold call / cold message)",
+      "Qualificação de leads (BANT, SPIN etc.)",
+      "Marcação de reuniões para closer ou consultores",
+      "Atualização de CRM",
+      "Follow-up com leads frios",
+      "Scripts e objeções",
+      "Outras (especificar)"
+    ]
+  },
+  {
+    id: "ferramentas",
+    question: "Quais ferramentas você já utilizou em vendas ou prospecção?",
+    type: "textarea",
+    placeholder: "Ex: Pipedrive, HubSpot, RD Station, Apollo, WhatsApp Business, Google Sheets, etc."
+  },
+  {
+    id: "prospeccao_conforto",
+    question: "Você está confortável com prospecção ativa por telefone, WhatsApp e Instagram?",
+    type: "select",
+    options: [
+      "Sim",
+      "Não",
+      "Sim, com suporte e script"
+    ]
+  },
+  {
+    id: "followup_estrategia",
+    question: "Estratégia: Se um lead responde “agora não é um bom momento”, como você conduziria o follow-up?",
+    type: "textarea"
+  },
+  {
+    id: "qualificacao_estrategia",
+    question: "Estratégia: Como você identificaria se um lead está qualificado para passar para o time de fechamento?",
+    type: "textarea"
+  },
+  {
+    id: "remuneracao",
+    question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
+    type: "text"
+  },
+  {
+    id: "modelo_contratacao",
+    question: "Qual modelo de contratação você prefere?",
+    type: "select",
+    options: ["CLT", "PJ", "MEI", "Indiferente"]
+  },
+  {
+    id: "presencial",
+    question: "Tem disponibilidade para atuar presencialmente?",
+    type: "select",
+    options: [
+      "Sim, total disponibilidade",
+      "Sim, parcialmente (modelo híbrido)",
+      "Não, apenas remoto"
+    ]
+  },
+  {
+    id: "portfolio",
+    question: "Deseja compartilhar algum vídeo de apresentação, resultado ou case de prospecção que você participou? (Opcional)",
+    type: "text"
+  }
+],
       color: "orange",
-      image: "/placeholder.svg?height=600&width=600",
+      image: "/vagas/REPCOMERCIAL.png?height=600&width=600",
     },
     {
       id: "social-media",
@@ -293,58 +558,121 @@ export default function TrabalheConoscoPage() {
       type: "Tempo Integral",
       location: "Presencial",
       description:
-        "Buscamos um Social Media criativo e estratégico para gerenciar as redes sociais de nossos clientes. O profissional será responsável por criar e implementar estratégias de conteúdo que aumentem o engajamento, a visibilidade e as conversões.",
+        "Estamos em busca de um(a) Social Media criativo(a), estratégico(a) e apaixonado(a) por resultados. Você será responsável por planejar, criar e executar conteúdos para redes sociais, garantindo presença digital impactante e alinhada à identidade dos nossos clientes.",
       requirements: [
-        "Experiência mínima de 2 anos como Social Media",
-        "Conhecimento avançado das principais plataformas de redes sociais",
-        "Excelente redação e capacidade de criar conteúdos engajadores",
-        "Conhecimento em ferramentas de design (Canva, Photoshop) e edição de vídeo",
-        "Familiaridade com ferramentas de agendamento e análise de redes sociais",
-        "Conhecimento em estratégias de growth hacking e marketing de conteúdo",
+        "Excelente escrita e domínio da língua portuguesa;",
+        "Experiência com Instagram, Facebook, TikTok e LinkedIn;",
+        "Domínio de ferramentas como Monday, Trello, Notion ou similares;",
+        "Organização, proatividade e criatividade;",
+        "Capacidade de análise e ajustes com base em dados.",
       ],
       responsibilities: [
-        "Desenvolver estratégias de conteúdo para redes sociais alinhadas aos objetivos dos clientes",
-        "Criar calendários editoriais e produzir conteúdos relevantes e engajadores",
-        "Gerenciar a comunidade online, respondendo comentários e mensagens",
-        "Monitorar métricas e KPIs, apresentando relatórios de performance",
-        "Identificar tendências e oportunidades para melhorar o desempenho das redes sociais",
-        "Colaborar com designers e copywriters para criar materiais de alta qualidade",
-        "Manter-se atualizado sobre as mudanças e novidades nas plataformas de redes sociais",
+        "Planejamento e execução de calendários de conteúdo;",
+        "Redação de legendas criativas e estratégias de copywriting;",
+        "Agendamento e publicação dos conteúdos;",
+        "Interação e engajamento com seguidores;",
+        "Análise de desempenho (KPI's) e ajustes estratégicos;",
+        "Briefing e direcionamento de criativos junto à equipe criativa.",
       ],
       questions: [
-        {
-          id: "experience",
-          question: "Quantos anos de experiência você tem como Social Media?",
-          type: "select",
-          options: ["Menos de 1 ano", "1-2 anos", "3-5 anos", "Mais de 5 anos"],
-        },
-        {
-          id: "platforms",
-          question: "Com quais plataformas de redes sociais você tem mais experiência?",
-          type: "textarea",
-          placeholder: "Ex: Instagram, Facebook, LinkedIn, TikTok...",
-        },
-        {
-          id: "strategy",
-          question: "Descreva uma estratégia de conteúdo bem-sucedida que você implementou",
-          type: "textarea",
-          placeholder: "Conte sobre os objetivos, abordagem e resultados...",
-        },
-        {
-          id: "tools",
-          question: "Quais ferramentas você utiliza para criação e gestão de conteúdo?",
-          type: "textarea",
-          placeholder: "Ex: Canva, Photoshop, Later, Hootsuite...",
-        },
-        {
-          id: "trend",
-          question: "Como você se mantém atualizado sobre as tendências de redes sociais?",
-          type: "textarea",
-          placeholder: "Descreva suas fontes e métodos...",
-        },
-      ],
+  { id: "nome", question: "Nome completo:", type: "text" },
+  { id: "idade", question: "Idade:", type: "number" },
+  { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+  { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
+  { id: "email", question: "E-mail:", type: "text" },
+  { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+  { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+  {
+    id: "trabalha",
+    question: "Você está trabalhando no momento?",
+    type: "select",
+    options: [
+      "Sim, em tempo integral",
+      "Sim, como freelancer ou PJ",
+      "Não estou trabalhando atualmente"
+    ]
+  },
+  {
+    id: "clientes_ativos",
+    question: "Você possui clientes ou perfis ativos no momento?",
+    type: "select",
+    options: ["Sim", "Não"]
+  },
+  {
+    id: "tempo_redes_sociais",
+    question: "Há quanto tempo você trabalha com redes sociais? (Ex: 1 ano, 3 anos, 5+ anos...)",
+    type: "text"
+  },
+  {
+    id: "nichos",
+    question: "Quais tipos de contas ou nichos você já atendeu como social media?",
+    type: "textarea"
+  },
+  {
+    id: "atividades_social_media",
+    question: "Quais atividades você costuma executar em um projeto de social media? (Pode marcar mais de uma)",
+    type: "select",
+    options: [
+      "Planejamento de conteúdo",
+      "Criação de roteiro para Reels",
+      "Legendas e textos para postagens",
+      "Agendamento de posts",
+      "Relatórios de desempenho",
+      "Atendimento de comentários e DMs",
+      "Coordenação com design/captação de vídeos/tráfego pago",
+      "Outras (especificar)"
+    ]
+  },
+  {
+    id: "ferramentas",
+    question: "Quais ferramentas você domina?",
+    type: "textarea",
+    placeholder: "Exemplo: Canva, CapCut, Metricool, mLabs, Trello, Notion, etc."
+  },
+  {
+    id: "estrategia_leads",
+    question: "Você já trabalhou com alguma estratégia de crescimento ou geração de leads nas redes sociais? Conte um exemplo:",
+    type: "textarea"
+  },
+  {
+    id: "estrategia_engajamento",
+    question: "Estratégia: Um perfil está estagnado, com baixo engajamento. Quais seriam suas primeiras ações para identificar e resolver isso?",
+    type: "textarea"
+  },
+  {
+    id: "estrategia_conteudo_nicho",
+    question: "Estratégia: Se você tivesse que criar um calendário de conteúdo para um cliente novo em um nicho que não domina, como iniciaria o processo?",
+    type: "textarea"
+  },
+  {
+    id: "remuneracao",
+    question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
+    type: "text"
+  },
+  {
+    id: "modelo_contratacao",
+    question: "Qual modelo de contratação você prefere?",
+    type: "select",
+    options: ["CLT", "PJ", "MEI", "Indiferente"]
+  },
+  {
+    id: "presencial",
+    question: "Tem disponibilidade para atuar presencialmente?",
+    type: "select",
+    options: [
+      "Sim, total disponibilidade",
+      "Sim, parcialmente (modelo híbrido)",
+      "Não, apenas remoto"
+    ]
+  },
+  {
+    id: "portfolio",
+    question: "Deseja compartilhar algum perfil que você já gerenciou ou portfólio de conteúdos criados? (Opcional)",
+    type: "text"
+  }
+],
       color: "pink",
-      image: "/placeholder.svg?height=600&width=600",
+      image: "/vagas/SOCIALMEDIA.png?height=600&width=600",
     },
   ]
 
