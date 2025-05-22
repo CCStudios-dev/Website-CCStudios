@@ -144,8 +144,32 @@ export default function ContatoPage() {
     } else if (isValid && currentStep === steps.length - 1) {
       // Submit form
       console.log("Form submitted:", formData)
-      // Here you would typically send the data to your backend
-      alert("Formulário enviado com sucesso! Em breve entraremos em contato.")
+
+      // Enviar dados para a planilha
+      const formattedData = {
+        tipo_formulario: "contato",
+        data_envio: new Date().toISOString(),
+        ...formData,
+      }
+
+      fetch("/api/submit-contact-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formattedData),
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert("Formulário enviado com sucesso! Em breve entraremos em contato.")
+          } else {
+            alert("Ocorreu um erro ao enviar seu formulário. Por favor, tente novamente.")
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao enviar formulário:", error)
+          alert("Ocorreu um erro ao enviar seu formulário. Por favor, tente novamente.")
+        })
     }
   }
 
@@ -252,7 +276,7 @@ export default function ContatoPage() {
                 backgroundSize: "1.5em 1.5em",
               }}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Selecione o faturamento mensal
               </option>
               {[
@@ -290,7 +314,7 @@ export default function ContatoPage() {
                 backgroundSize: "1.5em 1.5em",
               }}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Selecione o segmento
               </option>
               {[
@@ -348,7 +372,7 @@ export default function ContatoPage() {
                 backgroundSize: "1.5em 1.5em",
               }}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Selecione seu cargo
               </option>
               {[
@@ -386,7 +410,7 @@ export default function ContatoPage() {
                 backgroundSize: "1.5em 1.5em",
               }}
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Selecione o prazo
               </option>
               {["Imediatamente", "Em até três meses", "Em seis meses", "Ainda não sei"].map((option) => (
