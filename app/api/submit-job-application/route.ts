@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-// ID do formulário Formspree para Candidaturas
-// Substitua "xyyyzzzz" pelo seu ID real do formulário Formspree
+
 const FORMSPREE_FORM_ID = "mzzrqaqy"
 const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`
 
@@ -14,7 +13,7 @@ export async function POST(request: NextRequest) {
     // Preparar os dados para o Formspree
     const formspreeData = {
       ...data,
-      _subject: `Nova candidatura para ${data.vaga} - CC Studios`,
+      _subject: `Nova candidatura para ${data.vaga} - CCStudios`,
       form_type: "job_application",
       submitted_at: data.data_candidatura || new Date().toISOString(),
     }

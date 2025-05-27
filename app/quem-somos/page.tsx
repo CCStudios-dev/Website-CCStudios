@@ -56,7 +56,7 @@ export default function QuemSomosPage() {
                 </h1>
 
                 <p className="text-gray-300 text-lg">
-                  Fundada em 2018, a CC Studios nasceu com a missão de transformar o marketing digital no Brasil,
+                  Fundada em 2018, a CCStudios nasceu com a missão de transformar o marketing digital no Brasil,
                   trazendo estratégias inovadoras e resultados mensuráveis para empresas de todos os portes.
                 </p>
 
@@ -81,7 +81,7 @@ export default function QuemSomosPage() {
                   src="/banners/FORM 01.png?height=600&width=600"
                   width={600}
                   height={600}
-                  alt="Equipe CC Studios"
+                  alt="Equipe CCStudios"
                   className="rounded-2xl object-cover"
                 />
                 <div className="absolute -inset-4 bg-[#4bb6ef]/5 rounded-full blur-[100px] -z-10"></div>

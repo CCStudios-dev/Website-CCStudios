@@ -59,7 +59,7 @@ export function FAQSection() {
     {
       question: "Quais serviços a CCS oferece?",
       answer:
-        "A CC Studios oferece uma gama completa de serviços de marketing digital, incluindo gestão de mídias sociais, marketing de conteúdo, SEO, campanhas de tráfego pago (Google Ads, Facebook Ads, Instagram Ads), desenvolvimento web, email marketing, análise de dados e consultoria estratégica personalizada para cada negócio.",
+        "A CCStudios oferece uma gama completa de serviços de marketing digital, incluindo gestão de mídias sociais, marketing de conteúdo, SEO, campanhas de tráfego pago (Google Ads, Facebook Ads, Instagram Ads), desenvolvimento web, email marketing, análise de dados e consultoria estratégica personalizada para cada negócio.",
     },
     {
       question: "Como funciona o processo de contratação da CCS?",

@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <Link href="/" className="inline-block mb-6">
-              <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
+              <Image src="/LogoCCS.png" alt="CCStudios Logo" width={150} height={40} />
             </Link>
             <p className="text-gray-400 mb-6">
               Soluções personalizadas de marketing digital para impulsionar seu negócio com estratégias eficientes e
@@ -95,7 +95,7 @@ export function SiteFooter() {
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 text-[#4bb6ef] mr-3" />
-                <span className="text-gray-400">+55 (27) 99613-6747</span>
+                <span className="text-gray-400">+55 (47) 99947-5150</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-[#4bb6ef] mr-3" />
@@ -106,7 +106,7 @@ export function SiteFooter() {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} CC Studios. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} CCStudios. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

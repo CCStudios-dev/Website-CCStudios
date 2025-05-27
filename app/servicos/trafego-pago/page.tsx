@@ -82,7 +82,7 @@ export default function TrafegoPagoPage() {
         "O investimento mínimo varia conforme seu mercado e objetivos. Para campanhas eficazes, recomendamos um orçamento mínimo que permita testes adequados e otimização contínua. Durante nossa reunião de diagnóstico, analisaremos seu mercado específico e recomendaremos um orçamento ideal para alcançar seus objetivos.",
     },
     {
-      question: "A CC Studios gerencia as contas de anúncios ou apenas cria as campanhas?",
+      question: "A CCStudios gerencia as contas de anúncios ou apenas cria as campanhas?",
       answer:
         "Oferecemos um serviço completo de gerenciamento de campanhas. Isso inclui a criação, implementação, monitoramento diário, otimização contínua e relatórios detalhados. Nossa equipe especializada cuida de todos os aspectos das suas campanhas para garantir o melhor desempenho possível.",
     },
@@ -125,7 +125,7 @@ export default function TrafegoPagoPage() {
       />
 
       <ServiceTestimonial
-        quote="A CC Studios revolucionou nossa estratégia de tráfego pago. Em apenas 3 meses, aumentamos nossas conversões em 320% e reduzimos o custo por aquisição em 30%."
+        quote="A CCStudios revolucionou nossa estratégia de tráfego pago. Em apenas 3 meses, aumentamos nossas conversões em 320% e reduzimos o custo por aquisição em 30%."
         author="Carlos Silva"
         position="CEO"
         company="TradingMEX"

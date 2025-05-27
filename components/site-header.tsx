@@ -16,7 +16,7 @@ export function SiteHeader() {
       <div className="container mx-auto flex h-20 items-center justify-between px-6">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
+            <Image src="/LogoCCS.png" alt="CCStudios Logo" width={150} height={40} />
           </Link>
         </div>
 

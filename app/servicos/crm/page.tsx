@@ -121,7 +121,7 @@ export default function CRMPage() {
       />
 
       <ServiceTestimonial
-        quote="A implementação de CRM realizada pela CC Studios revolucionou nossos processos de vendas. Aumentamos nossa taxa de conversão em 35% e reduzimos o ciclo de vendas em quase 40%."
+        quote="A implementação de CRM realizada pela CCStudios revolucionou nossos processos de vendas. Aumentamos nossa taxa de conversão em 35% e reduzimos o ciclo de vendas em quase 40%."
         author="Doutora Clarissa"
         position="Diretora"
         company="DoctorFIT"

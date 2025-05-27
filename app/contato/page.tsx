@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronRight, ArrowLeft, Phone } from "lucide-react"
@@ -31,6 +31,10 @@ export default function ContatoPage() {
     message: "",
   })
   const [isValid, setIsValid] = useState(false)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const selectRef = useRef<HTMLSelectElement>(null)
 
   // Add data-page attribute to body to hide header/footer
   useEffect(() => {
@@ -96,6 +100,28 @@ export default function ContatoPage() {
   ]
 
   useEffect(() => {
+    // Focar automaticamente no campo quando mudar de step
+    const focusTimer = setTimeout(() => {
+      try {
+        if (currentStep === 0 || currentStep === 1 || currentStep === 2 || currentStep === 3 || currentStep === 6) {
+          inputRef.current?.focus()
+          console.log("Focando no input", currentStep)
+        } else if (currentStep === 4 || currentStep === 5 || currentStep === 7 || currentStep === 8) {
+          selectRef.current?.focus()
+          console.log("Focando no select", currentStep)
+        } else if (currentStep === 9) {
+          textareaRef.current?.focus()
+          console.log("Focando no textarea", currentStep)
+        }
+      } catch (error) {
+        console.error("Erro ao focar:", error)
+      }
+    }, 500) // Aumentando o delay para 500ms
+
+    return () => clearTimeout(focusTimer)
+  }, [currentStep])
+
+  useEffect(() => {
     // Validate current step
     switch (currentStep) {
       case 0:
@@ -136,6 +162,13 @@ export default function ContatoPage() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && isValid) {
+      e.preventDefault()
+      handleNext()
+    }
   }
 
   const handleNext = () => {
@@ -203,10 +236,12 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <input
+              ref={inputRef}
               type="text"
               name="name"
               value={formData.name}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
               placeholder="Digite seu nome e sobrenome"
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
             />
@@ -216,10 +251,12 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <input
+              ref={inputRef}
               type="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
               placeholder="Digite o seu e-mail"
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
             />
@@ -234,6 +271,7 @@ export default function ContatoPage() {
                 <span className="text-gray-400">+55</span>
               </div>
               <input
+                ref={inputRef}
                 type="tel"
                 name="phone"
                 value={formData.phone}
@@ -241,6 +279,7 @@ export default function ContatoPage() {
                   const formatted = formatPhone(e.target.value)
                   setFormData((prev) => ({ ...prev, phone: formatted }))
                 }}
+                onKeyPress={handleKeyPress}
                 placeholder="Digite seu número"
                 className="flex-1 px-6 py-4 bg-[#0a0f18] border border-gray-800 border-l-0 rounded-r-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
               />
@@ -251,10 +290,12 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <input
+              ref={inputRef}
               type="text"
               name="company"
               value={formData.company}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
               placeholder="Qual o nome da sua empresa?"
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
             />
@@ -264,9 +305,11 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <select
+              ref={selectRef}
               name="revenue"
               value={formData.revenue}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
               style={{
                 backgroundImage:
@@ -302,9 +345,11 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <select
+              ref={selectRef}
               name="segment"
               value={formData.segment}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
               style={{
                 backgroundImage:
@@ -344,6 +389,7 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <input
+              ref={inputRef}
               type="text"
               name="cnpj"
               value={formData.cnpj}
@@ -351,6 +397,7 @@ export default function ContatoPage() {
                 const formatted = formatCNPJ(e.target.value)
                 setFormData((prev) => ({ ...prev, cnpj: formatted }))
               }}
+              onKeyPress={handleKeyPress}
               placeholder="Digite o CNPJ da empresa"
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
             />
@@ -360,9 +407,11 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <select
+              ref={selectRef}
               name="position"
               value={formData.position}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
               style={{
                 backgroundImage:
@@ -398,9 +447,11 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <select
+              ref={selectRef}
               name="timeline"
               value={formData.timeline}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
               style={{
                 backgroundImage:
@@ -425,9 +476,11 @@ export default function ContatoPage() {
         return (
           <div className="space-y-6">
             <Textarea
+              ref={textareaRef}
               name="message"
               value={formData.message}
               onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
               placeholder="Conte-nos sobre sua empresa e seus objetivos..."
               className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 min-h-[150px]"
             />
@@ -457,7 +510,7 @@ export default function ContatoPage() {
         {/* Right Column - Form */}
         <div className="w-full lg:w-1/2 bg-[#0e1420] p-8 lg:p-16 flex flex-col h-full">
           <div className="flex items-center justify-between mb-8">
-            <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
+            <Image src="/LogoCCS.png" alt="CCStudios Logo" width={150} height={40} />
 
             {currentStep > 0 && (
               <button

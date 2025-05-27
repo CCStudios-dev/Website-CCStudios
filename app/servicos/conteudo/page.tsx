@@ -117,7 +117,7 @@ export default function ConteudoPage() {
       />
 
       <ServiceTestimonial
-        quote="As estratégias de conteúdo da CC Studios transformaram completamente nossas redes sociais. Aumentamos nosso engajamento em 215% e as conversões provenientes das redes sociais cresceram 180% em apenas 3 meses."
+        quote="As estratégias de conteúdo da CCStudios transformaram completamente nossas redes sociais. Aumentamos nosso engajamento em 215% e as conversões provenientes das redes sociais cresceram 180% em apenas 3 meses."
         author="Fredo"
         position="Diretor Comercial"
         company="Saucy Rentals"

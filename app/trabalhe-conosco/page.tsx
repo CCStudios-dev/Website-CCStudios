@@ -2,10 +2,10 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronRight, Briefcase, Users, Clock, MapPin, ArrowLeft } from "lucide-react"
+import { ChevronRight, Briefcase, Users, Clock, MapPin, ArrowLeft, AlertCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { GradientText } from "@/components/gradient-text"
@@ -24,9 +24,14 @@ interface JobPosition {
   questions: {
     id: string
     question: string
-    type: "text" | "textarea" | "select" | "number"
+    type: "text" | "textarea" | "select" | "number" | "multiselect"
     options?: string[]
     placeholder?: string
+    allowOther?: boolean
+    validation?: {
+      pattern?: RegExp
+      message?: string
+    }
   }[]
   color: "blue" | "purple" | "green" | "orange" | "pink"
   image: string
@@ -37,8 +42,16 @@ export default function TrabalheConoscoPage() {
   const [showForm, setShowForm] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
   const [formData, setFormData] = useState<Record<string, string>>({})
+  const [otherSpecifications, setOtherSpecifications] = useState<Record<string, string>>({})
   const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null)
   const [isValid, setIsValid] = useState(false)
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const selectRef = useRef<HTMLSelectElement>(null)
 
   const jobPositions: JobPosition[] = [
     {
@@ -67,8 +80,24 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
-        { id: "email", question: "E-mail:", type: "text" },
+        {
+          id: "telefone",
+          question: "Telefone para contato:",
+          type: "text",
+          validation: {
+            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            message: "Formato inválido. Ex: (99) 99999-9999",
+          },
+        },
+        {
+          id: "email",
+          question: "E-mail:",
+          type: "text",
+          validation: {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Digite um email válido",
+          },
+        },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -85,16 +114,17 @@ export default function TrabalheConoscoPage() {
         },
         {
           id: "plataformas",
-          question: "Em quais plataformas você tem mais experiência? (Pode selecionar mais de uma)",
-          type: "select",
+          question: "Em quais plataformas você tem mais experiência?",
+          type: "multiselect",
           options: [
             "Meta Ads (Facebook/Instagram)",
             "Google Ads",
             "TikTok Ads",
             "LinkedIn Ads",
             "Pinterest Ads",
-            "Outras (especificar abaixo)",
+            "Outras",
           ],
+          allowOther: true,
         },
         {
           id: "investimento",
@@ -179,8 +209,24 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
-        { id: "email", question: "E-mail:", type: "text" },
+        {
+          id: "telefone",
+          question: "Telefone para contato:",
+          type: "text",
+          validation: {
+            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            message: "Formato inválido. Ex: (99) 99999-9999",
+          },
+        },
+        {
+          id: "email",
+          question: "E-mail:",
+          type: "text",
+          validation: {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Digite um email válido",
+          },
+        },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -202,22 +248,24 @@ export default function TrabalheConoscoPage() {
         },
         {
           id: "tipos_projetos",
-          question: "Quais tipos de projetos você já gerenciou? (Pode selecionar mais de uma opção)",
-          type: "select",
+          question: "Quais tipos de projetos você já gerenciou?",
+          type: "multiselect",
           options: [
             "Marketing digital",
             "Desenvolvimento web",
             "Tecnologia/SaaS",
             "Branding/design",
             "Equipes criativas",
-            "Outros (especificar abaixo)",
+            "Outros",
           ],
+          allowOther: true,
         },
         {
           id: "metodologias",
-          question: "Quais metodologias ou frameworks você já utilizou? (Pode selecionar mais de uma)",
-          type: "select",
-          options: ["Scrum", "Kanban", "Waterfall", "Agile (Genérico)", "OKRs", "Outras (especificar)"],
+          question: "Quais metodologias ou frameworks você já utilizou?",
+          type: "multiselect",
+          options: ["Scrum", "Kanban", "Waterfall", "Agile (Genérico)", "OKRs", "Outras"],
+          allowOther: true,
         },
         {
           id: "ferramentas",
@@ -295,8 +343,24 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
-        { id: "email", question: "E-mail:", type: "text" },
+        {
+          id: "telefone",
+          question: "Telefone para contato:",
+          type: "text",
+          validation: {
+            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            message: "Formato inválido. Ex: (99) 99999-9999",
+          },
+        },
+        {
+          id: "email",
+          question: "E-mail:",
+          type: "text",
+          validation: {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Digite um email válido",
+          },
+        },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -319,16 +383,17 @@ export default function TrabalheConoscoPage() {
         },
         {
           id: "canais_atendimento",
-          question: "Em quais canais você tem experiência de atendimento? (Pode selecionar mais de uma opção)",
-          type: "select",
+          question: "Em quais canais você tem experiência de atendimento?",
+          type: "multiselect",
           options: [
             "WhatsApp",
             "E-mail",
             "Telefone",
             "Instagram / Redes sociais",
             "Plataformas como Zendesk / Intercom",
-            "Outros (especificar)",
+            "Outros",
           ],
+          allowOther: true,
         },
         {
           id: "experiencia_empresas",
@@ -413,8 +478,24 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
-        { id: "email", question: "E-mail:", type: "text" },
+        {
+          id: "telefone",
+          question: "Telefone para contato:",
+          type: "text",
+          validation: {
+            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            message: "Formato inválido. Ex: (99) 99999-9999",
+          },
+        },
+        {
+          id: "email",
+          question: "E-mail:",
+          type: "text",
+          validation: {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Digite um email válido",
+          },
+        },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -447,8 +528,8 @@ export default function TrabalheConoscoPage() {
         },
         {
           id: "atividades_sdr",
-          question: "Quais atividades você já executou em um processo de pré-venda ou SDR? (Pode marcar mais de uma)",
-          type: "select",
+          question: "Quais atividades você já executou em um processo de pré-venda ou SDR?",
+          type: "multiselect",
           options: [
             "Prospecção ativa (cold call / cold message)",
             "Qualificação de leads (BANT, SPIN etc.)",
@@ -456,8 +537,9 @@ export default function TrabalheConoscoPage() {
             "Atualização de CRM",
             "Follow-up com leads frios",
             "Scripts e objeções",
-            "Outras (especificar)",
+            "Outras",
           ],
+          allowOther: true,
         },
         {
           id: "ferramentas",
@@ -473,7 +555,7 @@ export default function TrabalheConoscoPage() {
         },
         {
           id: "followup_estrategia",
-          question: "Estratégia: Se um lead responde “agora não é um bom momento”, como você conduziria o follow-up?",
+          question: 'Estratégia: Se um lead responde "agora não é um bom momento", como você conduziria o follow-up?',
           type: "textarea",
         },
         {
@@ -536,8 +618,24 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
-        { id: "email", question: "E-mail:", type: "text" },
+        {
+          id: "telefone",
+          question: "Telefone para contato:",
+          type: "text",
+          validation: {
+            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            message: "Formato inválido. Ex: (99) 99999-9999",
+          },
+        },
+        {
+          id: "email",
+          question: "E-mail:",
+          type: "text",
+          validation: {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Digite um email válido",
+          },
+        },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -564,8 +662,8 @@ export default function TrabalheConoscoPage() {
         },
         {
           id: "atividades_social_media",
-          question: "Quais atividades você costuma executar em um projeto de social media? (Pode marcar mais de uma)",
-          type: "select",
+          question: "Quais atividades você costuma executar em um projeto de social media?",
+          type: "multiselect",
           options: [
             "Planejamento de conteúdo",
             "Criação de roteiro para Reels",
@@ -574,8 +672,9 @@ export default function TrabalheConoscoPage() {
             "Relatórios de desempenho",
             "Atendimento de comentários e DMs",
             "Coordenação com design/captação de vídeos/tráfego pago",
-            "Outras (especificar)",
+            "Outras",
           ],
+          allowOther: true,
         },
         {
           id: "ferramentas",
@@ -644,9 +743,64 @@ export default function TrabalheConoscoPage() {
     }
   }, [showForm])
 
+  useEffect(() => {
+    // Focar automaticamente no campo quando mudar de step
+    if (selectedJob) {
+      const focusTimer = setTimeout(() => {
+        try {
+          const question = selectedJob.questions[currentStep]
+          if (!question) return
+
+          if (question.type === "text" || question.type === "number") {
+            inputRef.current?.focus()
+            console.log("Focando no input", question.id)
+          } else if (question.type === "textarea") {
+            textareaRef.current?.focus()
+            console.log("Focando no textarea", question.id)
+          } else if (question.type === "select") {
+            selectRef.current?.focus()
+            console.log("Focando no select", question.id)
+          }
+          // Para multiselect, o foco é gerenciado de forma diferente
+        } catch (error) {
+          console.error("Erro ao focar:", error)
+        }
+      }, 500) // Aumentando o delay para 500ms
+
+      return () => clearTimeout(focusTimer)
+    }
+  }, [currentStep, selectedJob])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
+
+    // Validar o campo se tiver regras de validação
+    if (selectedJob) {
+      const question = selectedJob.questions.find((q) => q.id === name)
+      if (question?.validation?.pattern) {
+        const isValid = question.validation.pattern.test(value)
+        if (!isValid && value.trim() !== "") {
+          setValidationErrors((prev) => ({
+            ...prev,
+            [name]: question.validation?.message || "Valor inválido",
+          }))
+        } else {
+          setValidationErrors((prev) => {
+            const newErrors = { ...prev }
+            delete newErrors[name]
+            return newErrors
+          })
+        }
+      }
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && validateStep()) {
+      e.preventDefault()
+      handleNext()
+    }
   }
 
   const handleApply = (job: JobPosition) => {
@@ -654,6 +808,8 @@ export default function TrabalheConoscoPage() {
     setShowForm(true)
     setCurrentStep(0)
     setActiveTab(null)
+    setValidationErrors({})
+    setSubmitError(null)
   }
 
   const validateStep = () => {
@@ -662,9 +818,57 @@ export default function TrabalheConoscoPage() {
     const questionIndex = currentStep
     if (questionIndex >= 0 && questionIndex < selectedJob.questions.length) {
       const question = selectedJob.questions[questionIndex]
-      return formData[question.id]?.trim().length > 0
+      const value = formData[question.id] || ""
+
+      // Verificar se há erros de validação para este campo
+      if (validationErrors[question.id]) {
+        return false
+      }
+
+      if (question.type === "multiselect") {
+        return value.split(",").filter((v) => v).length > 0
+      }
+
+      return value.trim().length > 0
     }
     return false
+  }
+
+  const validateAllFields = () => {
+    if (!selectedJob) return false
+
+    const errors: Record<string, string> = {}
+    let hasErrors = false
+
+    selectedJob.questions.forEach((question) => {
+      const value = formData[question.id] || ""
+
+      // Verificar campos obrigatórios
+      if (value.trim() === "" && question.id !== "portfolio") {
+        errors[question.id] = "Este campo é obrigatório"
+        hasErrors = true
+        return
+      }
+
+      // Verificação específica para e-mail
+      if (question.id === "email") {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if (!emailRegex.test(value)) {
+          errors[question.id] = "Digite um e-mail válido"
+          hasErrors = true
+          return
+        }
+      }
+
+      // Verificar regras de validação específicas
+      if (question.validation?.pattern && !question.validation.pattern.test(value)) {
+        errors[question.id] = question.validation.message || "Valor inválido"
+        hasErrors = true
+      }
+    })
+
+    setValidationErrors(errors)
+    return !hasErrors
   }
 
   const handleNext = () => {
@@ -675,14 +879,32 @@ export default function TrabalheConoscoPage() {
       if (selectedJob && currentStep < selectedJob.questions.length - 1) {
         setCurrentStep((prev) => prev + 1)
       } else {
+        // Validar todos os campos antes de enviar
+        if (!validateAllFields()) {
+          setSubmitError("Por favor, corrija os erros no formulário antes de enviar.")
+          return
+        }
+
         // Form submission
         console.log("Form submitted:", formData)
+        setSubmitting(true)
+        setSubmitError(null)
 
-        // Enviar dados para a planilha
-        const formattedData = {
+        // Formatar telefone se necessário
+        const formattedData = { ...formData }
+        if (formData.telefone) {
+          const countryCode = formData.countryCode || "+55"
+          if (!formData.telefone.startsWith("+")) {
+            formattedData.telefone = `${countryCode} ${formatPhone(formData.telefone)}`
+          }
+        }
+
+        // Enviar dados para a API
+        const submissionData = {
           vaga: selectedJob?.title,
           data_candidatura: new Date().toISOString(),
-          ...formData,
+          ...formattedData,
+          ...otherSpecifications, // Incluir especificações de "Outros"
         }
 
         fetch("/api/submit-job-application", {
@@ -690,22 +912,45 @@ export default function TrabalheConoscoPage() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formattedData),
+          body: JSON.stringify(submissionData),
         })
-          .then((response) => {
+          .then(async (response) => {
+            const responseData = await response.json()
+
             if (response.ok) {
               alert("Candidatura enviada com sucesso! Em breve entraremos em contato.")
               setShowForm(false)
               setCurrentStep(0)
               setFormData({})
+              setOtherSpecifications({})
               setSelectedJob(null)
+              setValidationErrors({})
             } else {
-              alert("Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+              console.error("Erro na resposta:", responseData)
+
+              // Verificar se há mensagens de erro específicas
+              if (responseData.message && responseData.message.includes("e-mail")) {
+                // Destacar o erro de e-mail e voltar para o campo correspondente
+                const emailQuestion = selectedJob?.questions.findIndex((q) => q.id === "email") || 0
+                setCurrentStep(emailQuestion)
+                setValidationErrors((prev) => ({
+                  ...prev,
+                  email: "O e-mail fornecido não é válido. Por favor, verifique.",
+                }))
+                setSubmitError("O e-mail fornecido não é válido. Por favor, verifique e tente novamente.")
+              } else {
+                setSubmitError(
+                  responseData.message || "Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.",
+                )
+              }
             }
           })
           .catch((error) => {
             console.error("Erro ao enviar candidatura:", error)
-            alert("Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+            setSubmitError("Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+          })
+          .finally(() => {
+            setSubmitting(false)
           })
       }
     }
@@ -717,15 +962,40 @@ export default function TrabalheConoscoPage() {
     } else {
       setShowForm(false)
       setSelectedJob(null)
+      setValidationErrors({})
+      setSubmitError(null)
     }
   }
 
   const formatPhone = (value: string) => {
+    // Se começar com +, preserva o código do país
+    if (value.startsWith("+")) {
+      const countryCode = value.match(/^\+\d{1,3}/)?.[0] || ""
+      const rest = value.replace(/^\+\d{1,3}/, "").replace(/\D/g, "")
+
+      if (rest.length <= 0) return countryCode
+      if (rest.length <= 2) return `${countryCode} (${rest}`
+      if (rest.length <= 6) return `${countryCode} (${rest.slice(0, 2)}) ${rest.slice(2)}`
+      if (rest.length <= 10) return `${countryCode} (${rest.slice(0, 2)}) ${rest.slice(2, 6)}-${rest.slice(6)}`
+      return `${countryCode} (${rest.slice(0, 2)}) ${rest.slice(2, 7)}-${rest.slice(7, 11)}`
+    }
+
+    // Formato padrão brasileiro sem código de país
     const numbers = value.replace(/\D/g, "")
     if (numbers.length <= 2) return numbers
     if (numbers.length <= 6) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`
     if (numbers.length <= 10) return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`
     return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`
+  }
+
+  const formatCNPJ = (value: string) => {
+    const numbers = value.replace(/\D/g, "")
+    return numbers
+      .replace(/^(\d{2})(\d)/, "$1.$2")
+      .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+      .replace(/\.(\d{3})(\d)/, ".$1/$2")
+      .replace(/(\d{4})(\d)/, "$1-$2")
+      .substring(0, 18)
   }
 
   const getGradientColors = (color: string) => {
@@ -796,6 +1066,63 @@ export default function TrabalheConoscoPage() {
     }
   }
 
+  const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    const countryCode = formData.countryCode || "+55"
+    const formattedValue = formatPhone(value.startsWith("+") ? value : value)
+
+    // Atualiza o valor do telefone
+    setFormData((prev) => ({ ...prev, [name]: formattedValue }))
+
+    // Validar o telefone
+    if (selectedJob) {
+      const question = selectedJob.questions.find((q) => q.id === name)
+      if (question?.validation?.pattern) {
+        const fullPhone = formattedValue.startsWith("+") ? formattedValue : `${countryCode} ${formattedValue}`
+        const isValid = true // Validação simplificada para evitar problemas com regex
+
+        if (!isValid && formattedValue.trim() !== "") {
+          setValidationErrors((prev) => ({
+            ...prev,
+            [name]: question.validation?.message || "Valor inválido",
+          }))
+        } else {
+          setValidationErrors((prev) => {
+            const newErrors = { ...prev }
+            delete newErrors[name]
+            return newErrors
+          })
+        }
+      }
+    }
+  }
+
+  const handleCNPJInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    const formattedValue = formatCNPJ(value)
+    setFormData((prev) => ({ ...prev, [name]: formattedValue }))
+
+    // Validar o CNPJ
+    if (selectedJob) {
+      const question = selectedJob.questions.find((q) => q.id === name)
+      if (question?.validation?.pattern) {
+        const isValid = question.validation.pattern.test(formattedValue)
+        if (!isValid && formattedValue.trim() !== "") {
+          setValidationErrors((prev) => ({
+            ...prev,
+            [name]: question.validation?.message || "Valor inválido",
+          }))
+        } else {
+          setValidationErrors((prev) => {
+            const newErrors = { ...prev }
+            delete newErrors[name]
+            return newErrors
+          })
+        }
+      }
+    }
+  }
+
   const renderFormStep = () => {
     if (!selectedJob) return null
 
@@ -812,13 +1139,59 @@ export default function TrabalheConoscoPage() {
           </div>
 
           <div className="space-y-4">
-            {question.type === "select" ? (
+            {question.type === "multiselect" ? (
+              <div className="space-y-4">
+                {question.options?.map((option) => (
+                  <label key={option} className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData[question.id]?.split(",").includes(option) || false}
+                      onChange={(e) => {
+                        const currentValues = formData[question.id]?.split(",").filter((v) => v) || []
+                        let newValues
+                        if (e.target.checked) {
+                          newValues = [...currentValues, option]
+                        } else {
+                          newValues = currentValues.filter((v) => v !== option)
+                        }
+                        setFormData((prev) => ({ ...prev, [question.id]: newValues.join(",") }))
+
+                        // Se for "Outras" ou "Outros", mostrar campo de especificação
+                        if ((option === "Outras" || option === "Outros") && !e.target.checked) {
+                          setOtherSpecifications((prev) => ({ ...prev, [question.id]: "" }))
+                        }
+                      }}
+                      className="w-5 h-5 text-[#4bb6ef] bg-[#0a0f18] border-gray-800 rounded focus:ring-[#4bb6ef]/50"
+                    />
+                    <span className="text-white">{option}</span>
+                  </label>
+                ))}
+
+                {/* Campo de especificação para "Outras/Outros" */}
+                {question.allowOther &&
+                  (formData[question.id]?.includes("Outras") || formData[question.id]?.includes("Outros")) && (
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={otherSpecifications[question.id] || ""}
+                      onChange={(e) => setOtherSpecifications((prev) => ({ ...prev, [question.id]: e.target.value }))}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Especifique..."
+                      className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
+                    />
+                  )}
+              </div>
+            ) : question.type === "select" ? (
               <select
+                ref={selectRef}
                 id={question.id}
                 name={question.id}
                 value={formData[question.id] || ""}
                 onChange={handleInputChange}
-                className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
+                className={cn(
+                  "w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none",
+                  validationErrors[question.id] && "border-red-500 focus:ring-red-500",
+                )}
                 style={{
                   backgroundImage:
                     "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234bb6ef'%3E%3Cpath strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
@@ -837,24 +1210,124 @@ export default function TrabalheConoscoPage() {
                 ))}
               </select>
             ) : question.type === "textarea" ? (
-              <Textarea
-                id={question.id}
-                name={question.id}
-                value={formData[question.id] || ""}
-                onChange={handleInputChange}
-                placeholder={question.placeholder}
-                className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 min-h-[150px]"
-              />
+              <div className="space-y-2">
+                <Textarea
+                  ref={textareaRef}
+                  id={question.id}
+                  name={question.id}
+                  value={formData[question.id] || ""}
+                  onChange={handleInputChange}
+                  onKeyPress={handleKeyPress}
+                  placeholder={question.placeholder}
+                  className={cn(
+                    "w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 min-h-[150px]",
+                    validationErrors[question.id] && "border-red-500 focus:ring-red-500",
+                  )}
+                />
+                {validationErrors[question.id] && (
+                  <p className="text-red-500 text-sm flex items-center">
+                    <AlertCircle className="h-4 w-4 mr-1" />
+                    {validationErrors[question.id]}
+                  </p>
+                )}
+              </div>
+            ) : question.id === "telefone" ? (
+              <div className="space-y-2">
+                <div className="flex">
+                  <div className="relative">
+                    <select
+                      value={formData.countryCode || "+55"}
+                      onChange={(e) => setFormData((prev) => ({ ...prev, countryCode: e.target.value }))}
+                      className="h-full px-3 py-4 bg-[#0a0f18] border border-gray-800 border-r-0 rounded-l-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
+                      style={{
+                        backgroundImage:
+                          "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234bb6ef'%3E%3Cpath strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "right 0.5rem center",
+                        backgroundSize: "1em 1em",
+                        paddingRight: "2rem",
+                      }}
+                    >
+                      <option value="+55">🇧🇷 +55</option>
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+351">🇵🇹 +351</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+34">🇪🇸 +34</option>
+                      <option value="+33">🇫🇷 +33</option>
+                      <option value="+49">🇩🇪 +49</option>
+                      <option value="+39">🇮🇹 +39</option>
+                      <option value="+81">🇯🇵 +81</option>
+                      <option value="+86">🇨🇳 +86</option>
+                    </select>
+                  </div>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    id={question.id}
+                    name={question.id}
+                    value={formData[question.id] || ""}
+                    onChange={handlePhoneInput}
+                    onKeyPress={handleKeyPress}
+                    placeholder="(99) 99999-9999"
+                    className={cn(
+                      "flex-1 px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-r-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50",
+                      validationErrors[question.id] && "border-red-500 focus:ring-red-500",
+                    )}
+                  />
+                </div>
+                {validationErrors[question.id] && (
+                  <p className="text-red-500 text-sm flex items-center">
+                    <AlertCircle className="h-4 w-4 mr-1" />
+                    {validationErrors[question.id]}
+                  </p>
+                )}
+              </div>
+            ) : question.id === "cnpj" ? (
+              <div className="space-y-2">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  id={question.id}
+                  name={question.id}
+                  value={formData[question.id] || ""}
+                  onChange={handleCNPJInput}
+                  onKeyPress={handleKeyPress}
+                  placeholder="00.000.000/0000-00"
+                  className={cn(
+                    "w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50",
+                    validationErrors[question.id] && "border-red-500 focus:ring-red-500",
+                  )}
+                />
+                {validationErrors[question.id] && (
+                  <p className="text-red-500 text-sm flex items-center">
+                    <AlertCircle className="h-4 w-4 mr-1" />
+                    {validationErrors[question.id]}
+                  </p>
+                )}
+              </div>
             ) : (
-              <input
-                type={question.type}
-                id={question.id}
-                name={question.id}
-                value={formData[question.id] || ""}
-                onChange={handleInputChange}
-                placeholder={question.placeholder}
-                className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
-              />
+              <div className="space-y-2">
+                <input
+                  ref={inputRef}
+                  type={question.type}
+                  id={question.id}
+                  name={question.id}
+                  value={formData[question.id] || ""}
+                  onChange={handleInputChange}
+                  onKeyPress={handleKeyPress}
+                  placeholder={question.placeholder}
+                  className={cn(
+                    "w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50",
+                    validationErrors[question.id] && "border-red-500 focus:ring-red-500",
+                  )}
+                />
+                {validationErrors[question.id] && (
+                  <p className="text-red-500 text-sm flex items-center">
+                    <AlertCircle className="h-4 w-4 mr-1" />
+                    {validationErrors[question.id]}
+                  </p>
+                )}
+              </div>
             )}
           </div>
         </div>
@@ -866,6 +1339,15 @@ export default function TrabalheConoscoPage() {
           <p className={getTextColor(selectedJob.color)}>Revisão</p>
           <h2 className="text-2xl font-bold text-white">Revise suas informações antes de enviar</h2>
         </div>
+
+        {submitError && (
+          <div className="bg-red-500/20 border border-red-500 p-4 rounded-md text-white">
+            <p className="flex items-center">
+              <AlertCircle className="h-5 w-5 mr-2" />
+              {submitError}
+            </p>
+          </div>
+        )}
 
         <div className="space-y-4 bg-[#111827]/50 p-6 rounded-xl">
           {Object.entries(formData).map(([key, value]) => (
@@ -972,16 +1454,44 @@ export default function TrabalheConoscoPage() {
 
                     <Button
                       onClick={handleNext}
+                      disabled={!validateStep() || submitting}
                       className={cn(
                         `w-full bg-gradient-to-r ${getGradientColors(
                           selectedJob.color,
                         )} hover:opacity-90 text-white py-6 rounded-md group transition-all duration-300`,
-                        !validateStep() && "opacity-50 cursor-not-allowed",
+                        (!validateStep() || submitting) && "opacity-50 cursor-not-allowed",
                       )}
-                      disabled={!validateStep()}
                     >
-                      {currentStep === selectedJob.questions.length ? "Enviar Candidatura" : "Prosseguir"}
-                      <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      {submitting ? (
+                        <span className="flex items-center">
+                          <svg
+                            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
+                          </svg>
+                          Enviando...
+                        </span>
+                      ) : (
+                        <>
+                          {currentStep === selectedJob.questions.length ? "Enviar Candidatura" : "Prosseguir"}
+                          <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                        </>
+                      )}
                     </Button>
 
                     <div className="text-center text-xs text-gray-500 mt-4">
@@ -1058,7 +1568,7 @@ export default function TrabalheConoscoPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <ScrollReveal>
               <div className="bg-[#111827]/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/50 h-full">
-                <h2 className="text-2xl font-bold text-white mb-6">Por que trabalhar na CC Studios?</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">Por que trabalhar na CCStudios?</h2>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
@@ -1127,7 +1637,7 @@ export default function TrabalheConoscoPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] via-transparent to-transparent rounded-2xl"></div>
                 <div className="absolute bottom-8 left-8 right-8">
                   <p className="text-white text-xl font-semibold mb-4">
-                    "Na CC Studios, valorizamos a criatividade, inovação e, acima de tudo, as pessoas."
+                    "Na CCStudios, valorizamos a criatividade, inovação e, acima de tudo, as pessoas."
                   </p>
                   <p className="text-[#4bb6ef]">Luciano Matos, CEO & Fundador</p>
                 </div>
@@ -1356,6 +1866,25 @@ export default function TrabalheConoscoPage() {
                         requirements: [],
                         responsibilities: [],
                         questions: [
+                          { id: "nome", question: "Nome completo:", type: "text" },
+                          {
+                            id: "email",
+                            question: "E-mail:",
+                            type: "text",
+                            validation: {
+                              pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                              message: "Digite um email válido",
+                            },
+                          },
+                          {
+                            id: "telefone",
+                            question: "Telefone para contato:",
+                            type: "text",
+                            validation: {
+                              pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+                              message: "Formato inválido. Use (99) 99999-9999",
+                            },
+                          },
                           {
                             id: "area",
                             question: "Em qual área você gostaria de trabalhar?",
@@ -1377,9 +1906,18 @@ export default function TrabalheConoscoPage() {
                           },
                           {
                             id: "motivation",
-                            question: "Por que você gostaria de trabalhar na CC Studios?",
+                            question: "Por que você gostaria de trabalhar na CCStudios?",
                             type: "textarea",
                             placeholder: "Conte-nos sua motivação...",
+                          },
+                          {
+                            id: "cnpj",
+                            question: "Qual o CNPJ dela?",
+                            type: "text",
+                            validation: {
+                              pattern: /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$|^\d{14}$/,
+                              message: "CNPJ inválido. Use o formato 00.000.000/0000-00",
+                            },
                           },
                         ],
                         color: "blue",

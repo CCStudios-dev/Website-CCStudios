@@ -181,8 +181,7 @@ export default function Home() {
               </div>
 
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-                <span className="text-white">Eleve sua marca com a</span>
-                <br />
+                <span className="text-white">Eleve sua marca com a </span>
                 <GradientText>CCSTUDIOS</GradientText>
               </h1>
 
@@ -192,17 +191,14 @@ export default function Home() {
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <Button className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white rounded-md px-8 py-6 text-lg group">
-                  Fale com um especialista
-                  <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Button>
+                <Button asChild className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white rounded-md px-8 py-6 text-lg group">
+  <a href="/contato">
+    Fale com um especialista
+    <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+  </a>
+</Button>
 
-                <Button
-                  variant="outline"
-                  className="border-gray-700 text-white hover:bg-white/5 rounded-md px-8 py-6 text-lg"
-                >
-                  Ver portfólio
-                </Button>
+          
               </div>
 
               <div className="pt-10 grid grid-cols-3 gap-8 border-t border-gray-800/50">
@@ -223,7 +219,7 @@ export default function Home() {
                   src="/escritorioccs.png?height=700&width=600"
                   width={600}
                   height={700}
-                  alt="Profissional CC Studios"
+                  alt="Profissional CCStudios"
                   className="rounded-2xl object-cover"
                   priority
                 />
@@ -442,13 +438,19 @@ export default function Home() {
           </div>
 
           <ScrollReveal>
-            <div className="mt-20 flex justify-center">
-              <Button className="bg-transparent border border-[#4bb6ef] text-[#4bb6ef] hover:bg-[#4bb6ef] hover:text-white transition-all duration-300 px-8 py-6 text-lg rounded-md group">
-                Ver todos os casos
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </div>
-          </ScrollReveal>
+  <div className="mt-20 flex justify-center">
+    <Button
+      asChild
+      className="bg-transparent border border-[#4bb6ef] text-[#4bb6ef] hover:bg-[#4bb6ef] hover:text-white transition-all duration-300 px-8 py-6 text-lg rounded-md group"
+    >
+      <a href="/contato">
+        Entre em contato
+        <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+      </a>
+    </Button>
+  </div>
+</ScrollReveal>
+
         </div>
       </section>
 

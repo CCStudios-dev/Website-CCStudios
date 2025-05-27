@@ -123,7 +123,7 @@ export default function DesenvolvimentoSitesLandingPagesPage() {
       />
 
       <ServiceTestimonial
-        quote="A equipe da CC Studios entregou um site que superou todas as nossas expectativas. Além do design excepcional, a performance e as taxas de conversão transformaram completamente nosso negócio online."
+        quote="A equipe da CCStudios entregou um site que superou todas as nossas expectativas. Além do design excepcional, a performance e as taxas de conversão transformaram completamente nosso negócio online."
         author="Carlos Martins"
         position="Diretor"
         company="TUBOTECNICA"
