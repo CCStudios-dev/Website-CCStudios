@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronRight, Users, Clock, MapPin, ArrowLeft } from "lucide-react"
+import { ChevronRight, Users, Clock, MapPin, ArrowLeft, ChevronDown, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
@@ -42,6 +42,7 @@ export default function JobApplicationPage() {
   const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null)
   const [isValid, setIsValid] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showJobDetails, setShowJobDetails] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -954,8 +955,8 @@ export default function JobApplicationPage() {
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden">
-      <div className="flex flex-col lg:flex-row h-full">
+    <div className="min-h-screen w-screen lg:h-screen lg:overflow-hidden">
+      <div className="flex flex-col lg:flex-row lg:h-full">
         {/* Left Column - Image */}
         <div className="w-full lg:w-1/2 bg-[#0a0f18] relative overflow-hidden">
           <div className="absolute inset-0">
@@ -968,7 +969,7 @@ export default function JobApplicationPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f18]/80 via-transparent to-transparent"></div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 p-12 z-10">
+          <div className="absolute bottom-0 left-0 right-0 p-12 z-10 hidden lg:block">
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
               Vaga: <span className={getTextColor(selectedJob.color)}>{selectedJob.title}</span>
             </h1>
@@ -988,7 +989,7 @@ export default function JobApplicationPage() {
             </div>
             <p className="text-gray-300 max-w-md mb-4">{selectedJob.description}</p>
 
-            <div className="mt-4 lg:block">
+            <div className="mt-4">
               <h3 className="text-lg font-semibold text-white mb-2">Requisitos:</h3>
               <ul className="space-y-1 mb-4">
                 {selectedJob.requirements.slice(0, 3).map((req, index) => (
@@ -1027,7 +1028,7 @@ export default function JobApplicationPage() {
         </div>
 
         {/* Right Column - Form */}
-        <div className="w-full lg:w-1/2 bg-[#0e1420] p-8 lg:p-16 flex flex-col h-full">
+        <div className="w-full lg:w-1/2 bg-[#0e1420] p-8 lg:p-16 flex flex-col lg:h-full min-h-screen lg:min-h-0">
           <div className="flex items-center justify-between mb-8">
             <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
 
@@ -1037,7 +1038,80 @@ export default function JobApplicationPage() {
             </button>
           </div>
 
-          <div className="flex-1 flex flex-col justify-center">
+          {/* Mobile Job Details */}
+          <div className="lg:hidden mb-6">
+            <h1 className="text-2xl font-bold text-white mb-2">
+              <span className={getTextColor(selectedJob.color)}>{selectedJob.title}</span>
+            </h1>
+            <div className="flex flex-wrap gap-4 mb-4">
+              <div className="flex items-center text-gray-300">
+                <Users className="h-4 w-4 mr-2" />
+                <span>{selectedJob.department}</span>
+              </div>
+              <div className="flex items-center text-gray-300">
+                <Clock className="h-4 w-4 mr-2" />
+                <span>{selectedJob.type}</span>
+              </div>
+              <div className="flex items-center text-gray-300">
+                <MapPin className="h-4 w-4 mr-2" />
+                <span>{selectedJob.location}</span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowJobDetails(!showJobDetails)}
+              className={`flex items-center justify-between w-full p-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white hover:bg-[#0f1520] transition-colors mb-4`}
+            >
+              <span className="font-medium">Ver requisitos e responsabilidades</span>
+              {showJobDetails ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+            </button>
+
+            <AnimatePresence>
+              {showJobDetails && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="bg-[#0a0f18] border border-gray-800 rounded-md p-4 space-y-4 mb-4">
+                    <p className="text-gray-300 text-sm">{selectedJob.description}</p>
+
+                    <div>
+                      <h3 className="text-lg font-semibold text-white mb-2">Requisitos:</h3>
+                      <ul className="space-y-1">
+                        {selectedJob.requirements.map((req, index) => (
+                          <li key={index} className="flex items-start gap-2 text-gray-300 text-sm">
+                            <div className="min-w-[16px] h-5 flex items-center justify-center">
+                              <div className={`w-1 h-1 rounded-full ${getTextColor(selectedJob.color)}`}></div>
+                            </div>
+                            {req}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold text-white mb-2">Responsabilidades:</h3>
+                      <ul className="space-y-1">
+                        {selectedJob.responsibilities.map((resp, index) => (
+                          <li key={index} className="flex items-start gap-2 text-gray-300 text-sm">
+                            <div className="min-w-[16px] h-5 flex items-center justify-center">
+                              <div className={`w-1 h-1 rounded-full ${getTextColor(selectedJob.color)}`}></div>
+                            </div>
+                            {resp}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div className="flex-1 flex flex-col justify-center lg:justify-center">
             <div className="max-w-md mx-auto w-full">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -1088,7 +1162,7 @@ export default function JobApplicationPage() {
             </div>
           </div>
 
-          <div className="mt-auto pt-8">
+          <div className="mt-auto pt-8 lg:mt-auto lg:pt-8">
             <div className="flex items-center justify-between">
               <div className="flex space-x-1">
                 {Array.from({ length: selectedJob.questions.length }).map((_, index) => (
