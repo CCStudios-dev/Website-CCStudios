@@ -129,13 +129,17 @@ export function FAQSection() {
         </div>
 
         <ScrollReveal delay={0.4}>
-          <div className="mt-16 text-center">
-            <p className="text-gray-400 mb-6">Não encontrou o que procurava?</p>
-            <button className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-4 rounded-md transition-all duration-300">
-              Entre em contato
-            </button>
-          </div>
-        </ScrollReveal>
+  <div className="mt-16 text-center">
+    <p className="text-gray-400 mb-6">Não encontrou o que procurava?</p>
+    <a
+      href="/contato"
+      className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-4 rounded-md transition-all duration-300 inline-block"
+    >
+      Entre em contato
+    </a>
+  </div>
+</ScrollReveal>
+
       </div>
     </section>
   )

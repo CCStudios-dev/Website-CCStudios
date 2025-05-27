@@ -203,10 +203,16 @@ export default function QuemSomosPage() {
                   Sul e outros estados, sempre com o mesmo padrão de excelência e resultados.
                 </p>
 
-                <Button className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-6 text-lg rounded-md group">
-                  Conheça nossa metodologia
-                  <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Button>
+                <Button
+  asChild
+  className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-6 text-lg rounded-md group"
+>
+  <a href="/contato">
+    Conheça nossa metodologia
+    <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+  </a>
+</Button>
+
               </div>
             </ScrollReveal>
 
@@ -246,11 +252,17 @@ export default function QuemSomosPage() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <Button className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-6 text-lg rounded-md group min-w-[200px]">
-                    Fale Conosco
-                    <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </div>
+  <Button
+    asChild
+    className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-6 text-lg rounded-md group min-w-[200px]"
+  >
+    <a href="/contato">
+      Fale Conosco
+      <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+    </a>
+  </Button>
+</div>
+
               </div>
             </div>
           </ScrollReveal>

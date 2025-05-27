@@ -1,13 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import type React from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
-import { motion } from "framer-motion"
-import { ChevronRight, Briefcase, Users, Clock, MapPin } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronRight, Users, Clock, MapPin, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ScrollReveal } from "@/components/scroll-reveal"
-import { GradientText } from "@/components/gradient-text"
-import { useRouter } from "next/navigation"
+import { Textarea } from "@/components/ui/textarea"
+import { cn } from "@/lib/utils"
+import { useParams, useRouter } from "next/navigation"
 
 interface JobPosition {
   id: string
@@ -25,18 +26,25 @@ interface JobPosition {
     options?: string[]
     placeholder?: string
     allowOther?: boolean
-    validation?: {
-      pattern?: RegExp
-      message?: string
-    }
   }[]
   color: "blue" | "purple" | "green" | "orange" | "pink"
   image: string
 }
 
-export default function TrabalheConoscoPage() {
-  const [activeTab, setActiveTab] = useState<string | null>(null)
+export default function JobApplicationPage() {
+  const params = useParams()
   const router = useRouter()
+  const slug = params.slug as string
+
+  const [currentStep, setCurrentStep] = useState(0)
+  const [formData, setFormData] = useState<Record<string, string>>({})
+  const [otherSpecifications, setOtherSpecifications] = useState<Record<string, string>>({})
+  const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null)
+  const [isValid, setIsValid] = useState(false)
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const selectRef = useRef<HTMLSelectElement>(null)
 
   const jobPositions: JobPosition[] = [
     {
@@ -65,24 +73,8 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        {
-          id: "telefone",
-          question: "Telefone para contato:",
-          type: "text",
-          validation: {
-            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
-            message: "Formato inválido. Ex: (99) 99999-9999",
-          },
-        },
-        {
-          id: "email",
-          question: "E-mail:",
-          type: "text",
-          validation: {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Digite um email válido",
-          },
-        },
+        { id: "telefone", question: "Telefone para contato:", type: "text" },
+        { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -164,7 +156,6 @@ export default function TrabalheConoscoPage() {
           type: "text",
         },
       ],
-
       color: "blue",
       image: "/vagas/GESTORDETRAF.png?height=600&width=600",
     },
@@ -194,24 +185,8 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        {
-          id: "telefone",
-          question: "Telefone para contato:",
-          type: "text",
-          validation: {
-            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
-            message: "Formato inválido. Ex: (99) 99999-9999",
-          },
-        },
-        {
-          id: "email",
-          question: "E-mail:",
-          type: "text",
-          validation: {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Digite um email válido",
-          },
-        },
+        { id: "telefone", question: "Telefone para contato:", type: "text" },
+        { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -328,24 +303,8 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        {
-          id: "telefone",
-          question: "Telefone para contato:",
-          type: "text",
-          validation: {
-            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
-            message: "Formato inválido. Ex: (99) 99999-9999",
-          },
-        },
-        {
-          id: "email",
-          question: "E-mail:",
-          type: "text",
-          validation: {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Digite um email válido",
-          },
-        },
+        { id: "telefone", question: "Telefone para contato:", type: "text" },
+        { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -433,7 +392,6 @@ export default function TrabalheConoscoPage() {
           options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
         },
       ],
-
       color: "green",
       image: "/vagas/ATENDIMENTOAOCLIENTE.png?height=600&width=600",
     },
@@ -463,24 +421,8 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        {
-          id: "telefone",
-          question: "Telefone para contato:",
-          type: "text",
-          validation: {
-            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
-            message: "Formato inválido. Ex: (99) 99999-9999",
-          },
-        },
-        {
-          id: "email",
-          question: "E-mail:",
-          type: "text",
-          validation: {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Digite um email válido",
-          },
-        },
+        { id: "telefone", question: "Telefone para contato:", type: "text" },
+        { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -603,24 +545,8 @@ export default function TrabalheConoscoPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        {
-          id: "telefone",
-          question: "Telefone para contato:",
-          type: "text",
-          validation: {
-            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
-            message: "Formato inválido. Ex: (99) 99999-9999",
-          },
-        },
-        {
-          id: "email",
-          question: "E-mail:",
-          type: "text",
-          validation: {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Digite um email válido",
-          },
-        },
+        { id: "telefone", question: "Telefone para contato:", type: "text" },
+        { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
         {
@@ -714,9 +640,138 @@ export default function TrabalheConoscoPage() {
     },
   ]
 
-  const handleApply = (job: JobPosition) => {
-    // Navegar para a rota específica da vaga
-    router.push(`/trabalhe-conosco/${job.id}`)
+  // Add data-page attribute to body to hide header/footer when showing form
+  useEffect(() => {
+    document.body.setAttribute("data-page", "job-application")
+
+    // Cleanup function to remove attribute when component unmounts
+    return () => {
+      document.body.removeAttribute("data-page")
+    }
+  }, [])
+
+  // Find the job based on slug
+  useEffect(() => {
+    const job = jobPositions.find((j) => j.id === slug)
+    if (job) {
+      setSelectedJob(job)
+    } else {
+      // Redirect to 404 or back to jobs page if job not found
+      router.push("/trabalhe-conosco")
+    }
+  }, [slug, router])
+
+  useEffect(() => {
+    // Focar automaticamente no campo quando mudar de step
+    if (selectedJob) {
+      const focusTimer = setTimeout(() => {
+        try {
+          const question = selectedJob.questions[currentStep]
+          if (!question) return
+
+          if (question.type === "text" || question.type === "number") {
+            inputRef.current?.focus()
+          } else if (question.type === "textarea") {
+            textareaRef.current?.focus()
+          } else if (question.type === "select") {
+            selectRef.current?.focus()
+          }
+        } catch (error) {
+          console.error("Erro ao focar:", error)
+        }
+      }, 500)
+
+      return () => clearTimeout(focusTimer)
+    }
+  }, [currentStep, selectedJob])
+
+  useEffect(() => {
+    // Validate current step - mesma lógica do formulário de contato
+    if (selectedJob) {
+      const questionIndex = currentStep
+      if (questionIndex >= 0 && questionIndex < selectedJob.questions.length) {
+        const question = selectedJob.questions[questionIndex]
+        const value = formData[question.id] || ""
+
+        // Portfolio é opcional
+        if (question.id === "portfolio") {
+          setIsValid(true)
+          return
+        }
+
+        // Validação básica de email
+        if (question.id === "email") {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+          setIsValid(value.trim().length > 0 && emailRegex.test(value))
+          return
+        }
+
+        if (question.type === "multiselect") {
+          setIsValid(value.split(",").filter((v) => v).length > 0)
+        } else {
+          setIsValid(value.trim().length > 0)
+        }
+      }
+    }
+  }, [currentStep, formData, selectedJob])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && isValid) {
+      e.preventDefault()
+      handleNext()
+    }
+  }
+
+  const handleNext = () => {
+    if (isValid && selectedJob && currentStep < selectedJob.questions.length - 1) {
+      setCurrentStep((prev) => prev + 1)
+    } else if (isValid && selectedJob && currentStep === selectedJob.questions.length - 1) {
+      // Submit form - mesma lógica do formulário de contato
+      console.log("Form submitted:", formData)
+
+      // Enviar dados para a API
+      const formattedData = {
+        vaga: selectedJob.title,
+        data_candidatura: new Date().toISOString(),
+        ...formData,
+        ...otherSpecifications,
+      }
+
+      fetch("/api/submit-job-application", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formattedData),
+      })
+        .then(async (response) => {
+          const responseData = await response.json()
+
+          if (response.ok) {
+            alert("Candidatura enviada com sucesso! Em breve entraremos em contato.")
+            router.push("/trabalhe-conosco")
+          } else {
+            alert(responseData.message || "Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao enviar candidatura:", error)
+          alert("Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+        })
+    }
+  }
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep((prev) => prev - 1)
+    } else {
+      router.push("/trabalhe-conosco")
+    }
   }
 
   const getGradientColors = (color: string) => {
@@ -770,354 +825,267 @@ export default function TrabalheConoscoPage() {
     }
   }
 
-  const getBorderColor = (color: string) => {
-    switch (color) {
-      case "blue":
-        return "border-[#4bb6ef]"
-      case "purple":
-        return "border-[#8a63d2]"
-      case "green":
-        return "border-[#4cd5b6]"
-      case "orange":
-        return "border-[#ff9966]"
-      case "pink":
-        return "border-[#ff6b9d]"
-      default:
-        return "border-[#4bb6ef]"
+  const renderStepContent = () => {
+    if (!selectedJob) return null
+
+    const questionIndex = currentStep
+    if (selectedJob && questionIndex >= 0 && questionIndex < selectedJob.questions.length) {
+      const question = selectedJob.questions[questionIndex]
+      return (
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <p className={getTextColor(selectedJob.color)}>
+              Pergunta {questionIndex + 1} de {selectedJob.questions.length}
+            </p>
+            <h2 className="text-2xl font-bold text-white">{question.question}</h2>
+          </div>
+
+          <div className="space-y-4">
+            {question.type === "multiselect" ? (
+              <div className="space-y-4">
+                {question.options?.map((option) => (
+                  <label key={option} className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={formData[question.id]?.split(",").includes(option) || false}
+                      onChange={(e) => {
+                        const currentValues = formData[question.id]?.split(",").filter((v) => v) || []
+                        let newValues
+                        if (e.target.checked) {
+                          newValues = [...currentValues, option]
+                        } else {
+                          newValues = currentValues.filter((v) => v !== option)
+                        }
+                        setFormData((prev) => ({ ...prev, [question.id]: newValues.join(",") }))
+
+                        // Se for "Outras" ou "Outros", mostrar campo de especificação
+                        if ((option === "Outras" || option === "Outros") && !e.target.checked) {
+                          setOtherSpecifications((prev) => ({ ...prev, [question.id]: "" }))
+                        }
+                      }}
+                      className="w-5 h-5 text-[#4bb6ef] bg-[#0a0f18] border-gray-800 rounded focus:ring-[#4bb6ef]/50"
+                    />
+                    <span className="text-white">{option}</span>
+                  </label>
+                ))}
+
+                {/* Campo de especificação para "Outras/Outros" */}
+                {question.allowOther &&
+                  (formData[question.id]?.includes("Outras") || formData[question.id]?.includes("Outros")) && (
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={otherSpecifications[question.id] || ""}
+                      onChange={(e) => setOtherSpecifications((prev) => ({ ...prev, [question.id]: e.target.value }))}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Especifique..."
+                      className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
+                    />
+                  )}
+              </div>
+            ) : question.type === "select" ? (
+              <select
+                ref={selectRef}
+                name={question.id}
+                value={formData[question.id] || ""}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
+                className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 appearance-none"
+                style={{
+                  backgroundImage:
+                    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234bb6ef'%3E%3Cpath strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E\")",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "right 1rem center",
+                  backgroundSize: "1.5em 1.5em",
+                }}
+              >
+                <option value="" disabled>
+                  Selecione uma opção
+                </option>
+                {question.options?.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : question.type === "textarea" ? (
+              <Textarea
+                ref={textareaRef}
+                name={question.id}
+                value={formData[question.id] || ""}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
+                placeholder={question.placeholder}
+                className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50 min-h-[150px]"
+              />
+            ) : (
+              <input
+                ref={inputRef}
+                type={question.type}
+                name={question.id}
+                value={formData[question.id] || ""}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
+                placeholder={question.placeholder}
+                className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
+              />
+            )}
+          </div>
+        </div>
+      )
     }
+    return null
+  }
+
+  if (!selectedJob) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center bg-[#0a0f18]">
+        <div className="text-white text-center">
+          <h1 className="text-2xl font-bold mb-4">Carregando...</h1>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      {/* Hero Section */}
-      <section className="relative py-32 bg-[#0a0f18]">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
-        </div>
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-20 max-w-3xl mx-auto">
-              <div className="inline-flex items-center px-4 py-2 bg-[#4bb6ef]/10 backdrop-blur-sm rounded-full mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#4bb6ef] mr-2"></span>
-                <span className="text-[#4bb6ef] font-medium text-sm">Carreira</span>
+    <div className="h-screen w-screen overflow-hidden">
+      <div className="flex flex-col lg:flex-row h-full">
+        {/* Left Column - Image */}
+        <div className="w-full lg:w-1/2 bg-[#0a0f18] relative overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src={selectedJob.image || "/placeholder.svg?height=600&width=600"}
+              alt={`Vaga de ${selectedJob.title}`}
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f18]/80 via-transparent to-transparent"></div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 p-12 z-10">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Vaga: <span className={getTextColor(selectedJob.color)}>{selectedJob.title}</span>
+            </h1>
+            <div className="flex flex-wrap gap-4 mb-4">
+              <div className="flex items-center text-gray-300">
+                <Users className="h-4 w-4 mr-2" />
+                <span>{selectedJob.department}</span>
               </div>
-
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Trabalhe <GradientText>Conosco</GradientText>
-              </h1>
-
-              <p className="text-gray-300 text-lg">
-                Junte-se à nossa equipe de talentos e faça parte de uma agência em constante crescimento. Estamos sempre
-                em busca de profissionais apaixonados por marketing digital e inovação.
-              </p>
+              <div className="flex items-center text-gray-300">
+                <Clock className="h-4 w-4 mr-2" />
+                <span>{selectedJob.type}</span>
+              </div>
+              <div className="flex items-center text-gray-300">
+                <MapPin className="h-4 w-4 mr-2" />
+                <span>{selectedJob.location}</span>
+              </div>
             </div>
-          </ScrollReveal>
+            <p className="text-gray-300 max-w-md mb-4">{selectedJob.description}</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <ScrollReveal>
-              <div className="bg-[#111827]/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/50 h-full">
-                <h2 className="text-2xl font-bold text-white mb-6">Por que trabalhar na CCStudios?</h2>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
-                      <Users className="h-5 w-5 text-[#4bb6ef]" />
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold text-white mb-2">Requisitos:</h3>
+              <ul className="space-y-1 mb-4">
+                {selectedJob.requirements.map((req, index) => (
+                  <li key={index} className="flex items-start gap-2 text-gray-300">
+                    <div className="min-w-[20px] h-5 flex items-center justify-center">
+                      <div className={`w-1.5 h-1.5 rounded-full ${getTextColor(selectedJob.color)}`}></div>
                     </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Ambiente Colaborativo</h3>
-                      <p className="text-gray-300">
-                        Trabalhamos em equipe para alcançar resultados extraordinários, compartilhando conhecimento e
-                        celebrando conquistas juntos.
-                      </p>
-                    </div>
-                  </div>
+                    {req}
+                  </li>
+                ))}
+              </ul>
 
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
-                      <Briefcase className="h-5 w-5 text-[#4bb6ef]" />
+              <h3 className="text-lg font-semibold text-white mb-2">Responsabilidades:</h3>
+              <ul className="space-y-1">
+                {selectedJob.responsibilities.map((resp, index) => (
+                  <li key={index} className="flex items-start gap-2 text-gray-300">
+                    <div className="min-w-[20px] h-5 flex items-center justify-center">
+                      <div className={`w-1.5 h-1.5 rounded-full ${getTextColor(selectedJob.color)}`}></div>
                     </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Crescimento Profissional</h3>
-                      <p className="text-gray-300">
-                        Investimos no desenvolvimento contínuo de nossos colaboradores, com treinamentos, workshops e
-                        oportunidades de crescimento.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
-                      <Clock className="h-5 w-5 text-[#4bb6ef]" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Flexibilidade</h3>
-                      <p className="text-gray-300">
-                        Oferecemos modelos de trabalho flexíveis, incluindo opções remotas e híbridas, para que você
-                        possa equilibrar vida pessoal e profissional.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
-                      <MapPin className="h-5 w-5 text-[#4bb6ef]" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Projetos Desafiadores</h3>
-                      <p className="text-gray-300">
-                        Trabalhamos com clientes de diversos segmentos e portes, proporcionando experiências
-                        enriquecedoras e desafios constantes.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.2}>
-              <div className="relative h-full">
-                <Image
-                  src="/banners/FORM 10.png?height=600&width=600"
-                  width={600}
-                  height={600}
-                  alt="Equipe CC Studios"
-                  className="rounded-2xl object-cover h-full w-full"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] via-transparent to-transparent rounded-2xl"></div>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <p className="text-white text-xl font-semibold mb-4">
-                    "Na CCStudios, valorizamos a criatividade, inovação e, acima de tudo, as pessoas."
-                  </p>
-                  <p className="text-[#4bb6ef]">Luciano Matos, CEO & Fundador</p>
-                </div>
-              </div>
-            </ScrollReveal>
+                    {resp}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* Job Positions Section */}
-      <section className="relative py-32 bg-[#0e1420]">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
-        </div>
+        {/* Right Column - Form */}
+        <div className="w-full lg:w-1/2 bg-[#0e1420] p-8 lg:p-16 flex flex-col h-full">
+          <div className="flex items-center justify-between mb-8">
+            <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
 
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-20 max-w-3xl mx-auto">
-              <div className="inline-flex items-center px-4 py-2 bg-[#4bb6ef]/10 backdrop-blur-sm rounded-full mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#4bb6ef] mr-2"></span>
-                <span className="text-[#4bb6ef] font-medium text-sm">Oportunidades</span>
-              </div>
+            <button onClick={handleBack} className="flex items-center text-gray-400 hover:text-white transition-colors">
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Voltar
+            </button>
+          </div>
 
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Vagas <GradientText>Disponíveis</GradientText>
-              </h2>
-
-              <p className="text-gray-300 text-lg">
-                Confira nossas vagas abertas e encontre a oportunidade perfeita
-                <br /> para o seu próximo desafio profissional.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {jobPositions.map((job, index) => (
-              <ScrollReveal key={job.id} delay={index * 0.1}>
+          <div className="flex-1 flex flex-col justify-center">
+            <div className="max-w-md mx-auto w-full">
+              <AnimatePresence mode="wait">
                 <motion.div
-                  className={`group relative overflow-hidden rounded-2xl h-full transition-all duration-300`}
-                  whileHover={{ y: -5 }}
-                  onClick={() => setActiveTab(job.id === activeTab ? null : job.id)}
+                  key={currentStep}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-8"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#111827] to-[#0e1420] z-0"></div>
+                  {renderStepContent()}
 
-                  {/* Gradient border effect */}
-                  <div className="absolute inset-0 p-[1px] rounded-2xl overflow-hidden z-10">
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${getGradientColors(
-                        job.color,
-                      )}/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-                    ></div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="relative z-20 p-8 flex flex-col h-full">
-                    <div
-                      className={`w-14 h-14 rounded-full ${getGlowColor(job.color)} border ${getBorderColor(
-                        job.color,
-                      )}/20 flex items-center justify-center mb-6 transition-all duration-300 group-hover:${getGlowColor(
-                        job.color,
-                      )}/30`}
-                    >
-                      <Briefcase className={`h-6 w-6 ${getTextColor(job.color)}`} />
-                    </div>
-
-                    <h3 className="text-xl font-bold text-white mb-2 truncate">{job.title}</h3>
-
-                    <div className="space-y-2 mb-6">
-                      <div className="flex items-center text-gray-400 text-sm">
-                        <Users className="h-4 w-4 mr-2 flex-shrink-0" />
-                        <span className="truncate">{job.department}</span>
-                      </div>
-                      <div className="flex items-center text-gray-400 text-sm">
-                        <Clock className="h-4 w-4 mr-2 flex-shrink-0" />
-                        <span className="truncate">{job.type}</span>
-                      </div>
-                      <div className="flex items-center text-gray-400 text-sm">
-                        <MapPin className="h-4 w-4 mr-2 flex-shrink-0" />
-                        <span className="truncate">{job.location}</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-auto">
-                      <Button
-                        onClick={() => handleApply(job)}
-                        className={`w-full bg-transparent border ${getBorderColor(job.color)} ${getTextColor(
-                          job.color,
-                        )} hover:bg-gradient-to-r ${getGradientColors(
-                          job.color,
-                        )} hover:text-white transition-all duration-300 group`}
-                      >
-                        Candidatar-se
-                        <ChevronRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </div>
-                  </div>
-                </motion.div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          {activeTab && (
-            <ScrollReveal>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.5 }}
-                className="bg-[#111827]/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/50"
-              >
-                {jobPositions
-                  .filter((job) => job.id === activeTab)
-                  .map((job) => (
-                    <div key={job.id} className="space-y-8">
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <div>
-                          <h3 className="text-2xl font-bold text-white mb-2">{job.title}</h3>
-                          <div className="flex flex-wrap gap-4">
-                            <div className="flex items-center text-gray-400">
-                              <Users className="h-4 w-4 mr-2" />
-                              <span>{job.department}</span>
-                            </div>
-                            <div className="flex items-center text-gray-400">
-                              <Clock className="h-4 w-4 mr-2" />
-                              <span>{job.type}</span>
-                            </div>
-                            <div className="flex items-center text-gray-400">
-                              <MapPin className="h-4 w-4 mr-2" />
-                              <span>{job.location}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <Button
-                          onClick={() => handleApply(job)}
-                          className={`bg-gradient-to-r ${getGradientColors(job.color)} hover:opacity-90 text-white px-6 py-2 rounded-md`}
-                        >
-                          Candidatar-se
-                        </Button>
-                      </div>
-
-                      <div>
-                        <h4 className="text-xl font-semibold text-white mb-4">Descrição da Vaga</h4>
-                        <p className="text-gray-300">{job.description}</p>
-                      </div>
-
-                      <div>
-                        <h4 className="text-xl font-semibold text-white mb-4">Requisitos</h4>
-                        <ul className="space-y-2">
-                          {job.requirements.map((req, index) => (
-                            <li key={index} className="flex items-start gap-2 text-gray-300">
-                              <div className="min-w-[20px] h-5 flex items-center justify-center">
-                                <div className={`w-1.5 h-1.5 rounded-full ${getTextColor(job.color)}`}></div>
-                              </div>
-                              {req}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div>
-                        <h4 className="text-xl font-semibold text-white mb-4">Responsabilidades</h4>
-                        <ul className="space-y-2">
-                          {job.responsibilities.map((resp, index) => (
-                            <li key={index} className="flex items-start gap-2 text-gray-300">
-                              <div className="min-w-[20px] h-5 flex items-center justify-center">
-                                <div className={`w-1.5 h-1.5 rounded-full ${getTextColor(job.color)}`}></div>
-                              </div>
-                              {resp}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="pt-4">
-                        <Button
-                          onClick={() => handleApply(job)}
-                          className={`bg-gradient-to-r ${getGradientColors(job.color)} hover:opacity-90 text-white px-8 py-4 rounded-md`}
-                        >
-                          Candidatar-se a esta vaga
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-              </motion.div>
-            </ScrollReveal>
-          )}
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative py-32 bg-[#0a0f18]">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollReveal>
-            <div className="relative overflow-hidden rounded-3xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#111827] via-[#1a2234] to-[#0e1420]"></div>
-
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-[#4bb6ef]/10 rounded-full blur-[80px]"></div>
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#4bb6ef]/5 rounded-full blur-[80px]"></div>
-
-              <div className="relative z-10 p-16 flex flex-col md:flex-row items-center justify-between gap-10">
-                <div className="max-w-2xl">
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                    Não encontrou a <span className="text-[#4bb6ef]">vaga ideal</span>?
-                  </h2>
-
-                  <p className="text-gray-300 text-lg">
-                    Envie seu currículo para nosso banco de talentos e entraremos em contato assim que surgir uma
-                    oportunidade compatível com o seu perfil.
-                  </p>
-                </div>
-
-                <div className="flex flex-col gap-4">
                   <Button
-                    onClick={() => router.push("/trabalhe-conosco/banco-talentos")}
-                    className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-6 text-lg rounded-md group min-w-[200px]"
+                    onClick={handleNext}
+                    disabled={!isValid}
+                    className={cn(
+                      `w-full bg-gradient-to-r ${getGradientColors(
+                        selectedJob.color,
+                      )} hover:opacity-90 text-white py-6 rounded-md group transition-all duration-300`,
+                      !isValid && "opacity-50 cursor-not-allowed",
+                    )}
                   >
-                    Enviar Currículo
+                    {currentStep === selectedJob.questions.length - 1 ? "Enviar Candidatura" : "Prosseguir"}
                     <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                </div>
+
+                  <div className="text-center text-xs text-gray-500 mt-4">
+                    Ao clicar em PROSSEGUIR você automaticamente concorda com os{" "}
+                    <a href="#" className={getTextColor(selectedJob.color) + " hover:underline"}>
+                      termos de uso
+                    </a>{" "}
+                    e{" "}
+                    <a href="#" className={getTextColor(selectedJob.color) + " hover:underline"}>
+                      política de privacidade
+                    </a>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          <div className="mt-auto pt-8">
+            <div className="flex items-center justify-between">
+              <div className="flex space-x-1">
+                {Array.from({ length: selectedJob.questions.length }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      index === currentStep
+                        ? `w-6 bg-gradient-to-r ${getGradientColors(selectedJob.color)}`
+                        : index < currentStep
+                          ? `w-3 ${getGlowColor(selectedJob.color)}`
+                          : "w-3 bg-gray-700"
+                    }`}
+                  ></div>
+                ))}
+              </div>
+              <div className="text-gray-500 text-sm">
+                Etapa {currentStep + 1} de {selectedJob.questions.length}
               </div>
             </div>
-          </ScrollReveal>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   )
 }

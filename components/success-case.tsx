@@ -94,16 +94,23 @@ export function SuccessCase({
           </div>
 
           <Button
-            className={cn(
-              "mt-6 bg-transparent border border-[#4bb6ef] text-[#4bb6ef] hover:bg-[#4bb6ef] hover:text-white transition-all duration-300 group-hover:pl-7",
-              isHovered ? "pl-7" : "pl-6",
-            )}
-          >
-            Saiba mais
-            <ChevronRight
-              className={cn("ml-2 h-4 w-4 transition-all duration-300", isHovered ? "translate-x-1" : "translate-x-0")}
-            />
-          </Button>
+  asChild
+  className={cn(
+    "mt-6 bg-transparent border border-[#4bb6ef] text-[#4bb6ef] hover:bg-[#4bb6ef] hover:text-white transition-all duration-300 group-hover:pl-7",
+    isHovered ? "pl-7" : "pl-6",
+  )}
+>
+  <a href="/contato">
+    Saiba mais
+    <ChevronRight
+      className={cn(
+        "ml-2 h-4 w-4 transition-all duration-300",
+        isHovered ? "translate-x-1" : "translate-x-0"
+      )}
+    />
+  </a>
+</Button>
+
         </div>
       </div>
     </motion.div>

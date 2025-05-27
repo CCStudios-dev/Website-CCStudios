@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-
 const FORMSPREE_FORM_ID = "mzzrqaqy"
 const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`
 
@@ -9,6 +8,18 @@ export async function POST(request: NextRequest) {
   try {
     const data = await request.json()
     console.log("Dados da candidatura recebidos:", data)
+
+    // Validação básica do email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(data.email)) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Por favor, insira um email válido.",
+        },
+        { status: 400 },
+      )
+    }
 
     // Preparar os dados para o Formspree
     const formspreeData = {
@@ -29,8 +40,23 @@ export async function POST(request: NextRequest) {
     })
 
     if (!response.ok) {
-      const errorText = await response.text()
-      console.error("Erro na resposta do Formspree:", errorText)
+      const errorData = await response.json()
+      console.error("Erro na resposta do Formspree:", errorData)
+
+      // Tratar erros específicos do Formspree
+      if (errorData.errors) {
+        const emailError = errorData.errors.find((err: any) => err.field === "email")
+        if (emailError) {
+          return NextResponse.json(
+            {
+              success: false,
+              message: "Por favor, insira um email válido.",
+            },
+            { status: 400 },
+          )
+        }
+      }
+
       throw new Error("Falha ao enviar candidatura")
     }
 
