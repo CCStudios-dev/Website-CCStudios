@@ -41,6 +41,7 @@ export default function JobApplicationPage() {
   const [otherSpecifications, setOtherSpecifications] = useState<Record<string, string>>({})
   const [selectedJob, setSelectedJob] = useState<JobPosition | null>(null)
   const [isValid, setIsValid] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -459,7 +460,7 @@ export default function JobApplicationPage() {
           type: "multiselect",
           options: [
             "Prospecção ativa (cold call / cold message)",
-            "Qualificação de leads (BANT, SPIN etc.)",
+            "Qualificação de leads BANT SPIN etc",
             "Marcação de reuniões para closer ou consultores",
             "Atualização de CRM",
             "Follow-up com leads frios",
@@ -721,48 +722,51 @@ export default function JobApplicationPage() {
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && isValid) {
+    if (e.key === "Enter" && isValid && !isSubmitting) {
       e.preventDefault()
       handleNext()
     }
   }
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (isSubmitting) return
+
     if (isValid && selectedJob && currentStep < selectedJob.questions.length - 1) {
       setCurrentStep((prev) => prev + 1)
     } else if (isValid && selectedJob && currentStep === selectedJob.questions.length - 1) {
-      // Submit form - mesma lógica do formulário de contato
-      console.log("Form submitted:", formData)
+      setIsSubmitting(true)
 
-      // Enviar dados para a API
-      const formattedData = {
-        vaga: selectedJob.title,
-        data_candidatura: new Date().toISOString(),
-        ...formData,
-        ...otherSpecifications,
+      try {
+        // Enviar dados para a API
+        const formattedData = {
+          vaga: selectedJob.title,
+          data_candidatura: new Date().toISOString(),
+          ...formData,
+          ...otherSpecifications,
+        }
+
+        const response = await fetch("/api/submit-job-application", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formattedData),
+        })
+
+        const responseData = await response.json()
+
+        if (response.ok) {
+          // Redirecionar para página de obrigado
+          router.push("/trabalhe-conosco/obrigado")
+        } else {
+          alert(responseData.message || "Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+          setIsSubmitting(false)
+        }
+      } catch (error) {
+        console.error("Erro ao enviar candidatura:", error)
+        alert("Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+        setIsSubmitting(false)
       }
-
-      fetch("/api/submit-job-application", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formattedData),
-      })
-        .then(async (response) => {
-          const responseData = await response.json()
-
-          if (response.ok) {
-            alert("Candidatura enviada com sucesso! Em breve entraremos em contato.")
-            router.push("/trabalhe-conosco")
-          } else {
-            alert(responseData.message || "Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
-          }
-        })
-        .catch((error) => {
-          console.error("Erro ao enviar candidatura:", error)
-          alert("Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
-        })
     }
   }
 
@@ -847,14 +851,16 @@ export default function JobApplicationPage() {
                   <label key={option} className="flex items-center space-x-3 cursor-pointer">
                     <input
                       type="checkbox"
-                      checked={formData[question.id]?.split(",").includes(option) || false}
+                      checked={
+                        formData[question.id]?.split(",").some((value) => value.trim() === option.trim()) || false
+                      }
                       onChange={(e) => {
-                        const currentValues = formData[question.id]?.split(",").filter((v) => v) || []
+                        const currentValues = formData[question.id]?.split(",").filter((v) => v.trim()) || []
                         let newValues
                         if (e.target.checked) {
-                          newValues = [...currentValues, option]
+                          newValues = [...currentValues, option.trim()]
                         } else {
-                          newValues = currentValues.filter((v) => v !== option)
+                          newValues = currentValues.filter((v) => v.trim() !== option.trim())
                         }
                         setFormData((prev) => ({ ...prev, [question.id]: newValues.join(",") }))
 
@@ -982,10 +988,10 @@ export default function JobApplicationPage() {
             </div>
             <p className="text-gray-300 max-w-md mb-4">{selectedJob.description}</p>
 
-            <div className="mt-4">
+            <div className="mt-4 lg:block">
               <h3 className="text-lg font-semibold text-white mb-2">Requisitos:</h3>
               <ul className="space-y-1 mb-4">
-                {selectedJob.requirements.map((req, index) => (
+                {selectedJob.requirements.slice(0, 3).map((req, index) => (
                   <li key={index} className="flex items-start gap-2 text-gray-300">
                     <div className="min-w-[20px] h-5 flex items-center justify-center">
                       <div className={`w-1.5 h-1.5 rounded-full ${getTextColor(selectedJob.color)}`}></div>
@@ -993,11 +999,16 @@ export default function JobApplicationPage() {
                     {req}
                   </li>
                 ))}
+                {selectedJob.requirements.length > 3 && (
+                  <li className="text-gray-400 text-sm">
+                    + {selectedJob.requirements.length - 3} requisitos adicionais
+                  </li>
+                )}
               </ul>
 
               <h3 className="text-lg font-semibold text-white mb-2">Responsabilidades:</h3>
               <ul className="space-y-1">
-                {selectedJob.responsibilities.map((resp, index) => (
+                {selectedJob.responsibilities.slice(0, 3).map((resp, index) => (
                   <li key={index} className="flex items-start gap-2 text-gray-300">
                     <div className="min-w-[20px] h-5 flex items-center justify-center">
                       <div className={`w-1.5 h-1.5 rounded-full ${getTextColor(selectedJob.color)}`}></div>
@@ -1005,6 +1016,11 @@ export default function JobApplicationPage() {
                     {resp}
                   </li>
                 ))}
+                {selectedJob.responsibilities.length > 3 && (
+                  <li className="text-gray-400 text-sm">
+                    + {selectedJob.responsibilities.length - 3} responsabilidades adicionais
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -1036,16 +1052,25 @@ export default function JobApplicationPage() {
 
                   <Button
                     onClick={handleNext}
-                    disabled={!isValid}
+                    disabled={!isValid || isSubmitting}
                     className={cn(
                       `w-full bg-gradient-to-r ${getGradientColors(
                         selectedJob.color,
                       )} hover:opacity-90 text-white py-6 rounded-md group transition-all duration-300`,
-                      !isValid && "opacity-50 cursor-not-allowed",
+                      (!isValid || isSubmitting) && "opacity-50 cursor-not-allowed",
                     )}
                   >
-                    {currentStep === selectedJob.questions.length - 1 ? "Enviar Candidatura" : "Prosseguir"}
-                    <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        {currentStep === selectedJob.questions.length - 1 ? "Enviar Candidatura" : "Prosseguir"}
+                        <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
                   </Button>
 
                   <div className="text-center text-xs text-gray-500 mt-4">

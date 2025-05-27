@@ -54,7 +54,7 @@ export default function BlogPage() {
       excerpt:
         "Descubra como o remarketing pode ajudar a recuperar clientes potenciais e aumentar significativamente suas taxas de conversão.",
       date: "agosto 18, 2024",
-      image: "/blog-remarketing.png?height=400&width=600",
+      image: "/blog/BLOG-REMKT.png?height=400&width=600",
       slug: "remarketing-o-que-e-como-usar",
     },
     {
@@ -62,7 +62,7 @@ export default function BlogPage() {
       excerpt:
         "Aprenda a estruturar um funil de vendas eficaz que converta visitantes em leads qualificados e, finalmente, em clientes fiéis.",
       date: "abril 25, 2024",
-      image: "/blog-funil-vendas.png?height=400&width=600",
+      image: "/blog/BLOG-FUNIL.png?height=400&width=600",
       slug: "como-criar-funil-vendas-eficiente",
     },
     {
@@ -70,7 +70,7 @@ export default function BlogPage() {
       excerpt:
         "Um guia completo para PMEs desenvolverem estratégias de marketing digital eficientes mesmo com orçamentos limitados.",
       date: "março 5, 2024",
-      image: "/blog-planejamento.png?height=400&width=600",
+      image: "/blog/BLOG-PLANEJAMENTO.png?height=400&width=600",
       slug: "planejamento-marketing-digital-pmes",
     },
     {
@@ -78,7 +78,7 @@ export default function BlogPage() {
       excerpt:
         "Entenda por que a experiência do usuário é fundamental para o sucesso do seu site e como implementar melhorias efetivas.",
       date: "fevereiro 20, 2024",
-      image: "/blog-ux.png?height=400&width=600",
+      image: "/blog/BLOG-UX.png?height=400&width=600",
       slug: "importancia-experiencia-usuario-ux",
     },
     {
@@ -86,7 +86,7 @@ export default function BlogPage() {
       excerpt:
         "Uma introdução completa ao marketing digital e os motivos pelos quais sua empresa não pode ficar de fora dessa estratégia.",
       date: "janeiro 12, 2024",
-      image: "/blog-marketing-digital.png?height=400&width=600",
+      image: "/blog/BLOG-MKT.png?height=400&width=600",
       slug: "marketing-digital-o-que-e",
     },
   ]

@@ -7,6 +7,7 @@ import { ChevronRight, Briefcase, Users, Clock, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/scroll-reveal"
 import { GradientText } from "@/components/gradient-text"
+import { useRouter } from "next/navigation"
 
 interface JobPosition {
   id: string
@@ -35,6 +36,7 @@ interface JobPosition {
 
 export default function TrabalheConoscoPage() {
   const [activeTab, setActiveTab] = useState<string | null>(null)
+  const router = useRouter()
 
   const jobPositions: JobPosition[] = [
     {
@@ -197,7 +199,7 @@ export default function TrabalheConoscoPage() {
           question: "Telefone para contato:",
           type: "text",
           validation: {
-            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
             message: "Formato inválido. Ex: (99) 99999-9999",
           },
         },
@@ -331,7 +333,7 @@ export default function TrabalheConoscoPage() {
           question: "Telefone para contato:",
           type: "text",
           validation: {
-            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
             message: "Formato inválido. Ex: (99) 99999-9999",
           },
         },
@@ -466,7 +468,7 @@ export default function TrabalheConoscoPage() {
           question: "Telefone para contato:",
           type: "text",
           validation: {
-            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
             message: "Formato inválido. Ex: (99) 99999-9999",
           },
         },
@@ -606,7 +608,7 @@ export default function TrabalheConoscoPage() {
           question: "Telefone para contato:",
           type: "text",
           validation: {
-            pattern: /^(\+\d{1,3}\s?)?$$\d{2}$$[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
             message: "Formato inválido. Ex: (99) 99999-9999",
           },
         },
@@ -714,7 +716,7 @@ export default function TrabalheConoscoPage() {
 
   const handleApply = (job: JobPosition) => {
     // Navegar para a rota específica da vaga
-    window.location.href = `/trabalhe-conosco/${job.id}`
+    router.push(`/trabalhe-conosco/${job.id}`)
   }
 
   const getGradientColors = (color: string) => {
@@ -787,116 +789,7 @@ export default function TrabalheConoscoPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Hero Section */}
-      <section className="relative py-32 bg-[#0a0f18]">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
-        </div>
-
-        <div className="container relative z-10 mx-auto px-4">
-          <ScrollReveal>
-            <div className="text-center mb-20 max-w-3xl mx-auto">
-              <div className="inline-flex items-center px-4 py-2 bg-[#4bb6ef]/10 backdrop-blur-sm rounded-full mb-4">
-                <span className="w-2 h-2 rounded-full bg-[#4bb6ef] mr-2"></span>
-                <span className="text-[#4bb6ef] font-medium text-sm">Carreira</span>
-              </div>
-
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Trabalhe <GradientText>Conosco</GradientText>
-              </h1>
-
-              <p className="text-gray-300 text-lg">
-                Junte-se à nossa equipe de talentos e faça parte de uma agência em constante crescimento. Estamos sempre
-                em busca de profissionais apaixonados por marketing digital e inovação.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <ScrollReveal>
-              <div className="bg-[#111827]/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/50 h-full">
-                <h2 className="text-2xl font-bold text-white mb-6">Por que trabalhar na CCStudios?</h2>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
-                      <Users className="h-5 w-5 text-[#4bb6ef]" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Ambiente Colaborativo</h3>
-                      <p className="text-gray-300">
-                        Trabalhamos em equipe para alcançar resultados extraordinários, compartilhando conhecimento e
-                        celebrando conquistas juntos.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
-                      <Briefcase className="h-5 w-5 text-[#4bb6ef]" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Crescimento Profissional</h3>
-                      <p className="text-gray-300">
-                        Investimos no desenvolvimento contínuo de nossos colaboradores, com treinamentos, workshops e
-                        oportunidades de crescimento.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
-                      <Clock className="h-5 w-5 text-[#4bb6ef]" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Flexibilidade</h3>
-                      <p className="text-gray-300">
-                        Oferecemos modelos de trabalho flexíveis, incluindo opções remotas e híbridas, para que você
-                        possa equilibrar vida pessoal e profissional.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
-                      <MapPin className="h-5 w-5 text-[#4bb6ef]" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Projetos Desafiadores</h3>
-                      <p className="text-gray-300">
-                        Trabalhamos com clientes de diversos segmentos e portes, proporcionando experiências
-                        enriquecedoras e desafios constantes.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.2}>
-              <div className="relative h-full">
-                <Image
-                  src="/banners/FORM 10.png?height=600&width=600"
-                  width={600}
-                  height={600}
-                  alt="Equipe CC Studios"
-                  className="rounded-2xl object-cover h-full w-full"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] via-transparent to-transparent rounded-2xl"></div>
-                <div className="absolute bottom-8 left-8 right-8">
-                  <p className="text-white text-xl font-semibold mb-4">
-                    "Na CCStudios, valorizamos a criatividade, inovação e, acima de tudo, as pessoas."
-                  </p>
-                  <p className="text-[#4bb6ef]">Luciano Matos, CEO & Fundador</p>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Job Positions Section */}
+      {/* Job Positions Section - AGORA É A PRIMEIRA SEÇÃO */}
       <section className="relative py-32 bg-[#0e1420]">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
@@ -1077,8 +970,131 @@ export default function TrabalheConoscoPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Hero Section - Movido para baixo */}
       <section className="relative py-32 bg-[#0a0f18]">
+        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <ScrollReveal>
+            <div className="text-center mb-20 max-w-3xl mx-auto">
+              <div className="inline-flex items-center px-4 py-2 bg-[#4bb6ef]/10 backdrop-blur-sm rounded-full mb-4">
+                <span className="w-2 h-2 rounded-full bg-[#4bb6ef] mr-2"></span>
+                <span className="text-[#4bb6ef] font-medium text-sm">Carreira</span>
+              </div>
+
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Trabalhe <GradientText>Conosco</GradientText>
+              </h1>
+
+              <p className="text-gray-300 text-lg">
+                Junte-se à nossa equipe de talentos e faça parte de uma agência em constante crescimento. Estamos sempre
+                em busca de profissionais apaixonados por marketing digital e inovação.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Seção "Por que trabalhar na CCStudios" - MOVER PARA DEPOIS */}
+      <section className="relative py-32 bg-[#0a0f18]">
+        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
+
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
+        </div>
+
+        <div className="container relative z-10 mx-auto px-4">
+          <ScrollReveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <ScrollReveal>
+                <div className="bg-[#111827]/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/50 h-full">
+                  <h2 className="text-2xl font-bold text-white mb-6">Por que trabalhar na CCStudios?</h2>
+                  <div className="space-y-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
+                        <Users className="h-5 w-5 text-[#4bb6ef]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white mb-2">Ambiente Colaborativo</h3>
+                        <p className="text-gray-300">
+                          Trabalhamos em equipe para alcançar resultados extraordinários, compartilhando conhecimento e
+                          celebrando conquistas juntos.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
+                        <Briefcase className="h-5 w-5 text-[#4bb6ef]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white mb-2">Crescimento Profissional</h3>
+                        <p className="text-gray-300">
+                          Investimos no desenvolvimento contínuo de nossos colaboradores, com treinamentos, workshops e
+                          oportunidades de crescimento.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
+                        <Clock className="h-5 w-5 text-[#4bb6ef]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white mb-2">Flexibilidade</h3>
+                        <p className="text-gray-300">
+                          Oferecemos modelos de trabalho flexíveis, incluindo opções remotas e híbridas, para que você
+                          possa equilibrar vida pessoal e profissional.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-full bg-[#4bb6ef]/20 flex items-center justify-center mt-1">
+                        <MapPin className="h-5 w-5 text-[#4bb6ef]" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white mb-2">Projetos Desafiadores</h3>
+                        <p className="text-gray-300">
+                          Trabalhamos com clientes de diversos segmentos e portes, proporcionando experiências
+                          enriquecedoras e desafios constantes.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.2}>
+                <div className="relative h-full">
+                  <Image
+                    src="/banners/FORM 10.png?height=600&width=600"
+                    width={600}
+                    height={600}
+                    alt="Equipe CC Studios"
+                    className="rounded-2xl object-cover h-full w-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] via-transparent to-transparent rounded-2xl"></div>
+                  <div className="absolute bottom-8 left-8 right-8">
+                    <p className="text-white text-xl font-semibold mb-4">
+                      "Na CCStudios, valorizamos a criatividade, inovação e, acima de tudo, as pessoas."
+                    </p>
+                    <p className="text-[#4bb6ef]">Luciano Matos, CEO & Fundador</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative py-32 bg-[#0e1420]">
         <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
 
         <div className="container relative z-10 mx-auto px-4">
@@ -1104,7 +1120,7 @@ export default function TrabalheConoscoPage() {
 
                 <div className="flex flex-col gap-4">
                   <Button
-                    onClick={() => {}}
+                    onClick={() => router.push("/trabalhe-conosco/banco-talentos")}
                     className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-6 text-lg rounded-md group min-w-[200px]"
                   >
                     Enviar Currículo

@@ -194,7 +194,8 @@ export default function ContatoPage() {
       })
         .then((response) => {
           if (response.ok) {
-            alert("Formulário enviado com sucesso! Em breve entraremos em contato.")
+            // Redirecionar para o domínio externo
+            window.location.href = "https://lp.ccstudios.com.br/projetoescala"
           } else {
             alert("Ocorreu um erro ao enviar seu formulário. Por favor, tente novamente.")
           }
@@ -510,7 +511,7 @@ export default function ContatoPage() {
         {/* Right Column - Form */}
         <div className="w-full lg:w-1/2 bg-[#0e1420] p-8 lg:p-16 flex flex-col h-full">
           <div className="flex items-center justify-between mb-8">
-            <Image src="/LogoCCS.png" alt="CCStudios Logo" width={150} height={40} />
+            <Image src="/LogoCCS.png" alt="CC Studios Logo" width={150} height={40} />
 
             {currentStep > 0 && (
               <button
