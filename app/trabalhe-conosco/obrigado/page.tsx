@@ -227,43 +227,19 @@ export default function ThanksJobPage() {
                 {/* Content */}
                 <div className="text-center space-y-6">
                   <div className="space-y-4">
-                    <h3 className="text-2xl font-bold text-white">Bem-vindo(a) à família CCStudios!</h3>
+                    <h3 className="text-2xl font-bold text-white">Obrigado pela sua inscrição!</h3>
                     <p className="text-gray-300">
-                      Estamos ansiosos para conhecer você melhor e descobrir como podemos crescer juntos.
+                      Recebemos seus dados com sucesso e <br/>ficamos felizes pelo seu interesse<br/>em fazer parte do nosso time.<br/>
+Agora vamos analisar cuidadosamente todas as candidaturas. Caso o seu perfil esteja alinhado com os requisitos da vaga, entraremos em contato para os próximos passos do processo seletivo.
                     </p>
                   </div>
 
                   {/* Contact Info */}
                   <div className="space-y-4 pt-6 border-t border-gray-700">
-                    <h4 className="text-lg font-semibold text-white mb-4">Entre em contato se tiver dúvidas:</h4>
+                    <h4 className="text-lg font-semibold text-white mb-4">Fique atento ao seu e-mail e <br/>WhatsApp nos próximos dias!<br/>Boa sorte e até breve!</h4>
 
-                    <div className="space-y-3">
-                      <a
-                        href="mailto:marketing@ccstudios.com.br"
-                        className="flex items-center gap-3 text-gray-300 hover:text-[#4bb6ef] transition-colors"
-                      >
-                        <Mail className="h-5 w-5" />
-                        marketing@ccstudios.com.br
-                      </a>
-
-                      <a
-                        href="tel:+5547999475150"
-                        className="flex items-center gap-3 text-gray-300 hover:text-[#4bb6ef] transition-colors"
-                      >
-                        <Phone className="h-5 w-5" />
-                        (47) 99947-5150
-                      </a>
-
-                      <a
-                        href="https://wa.me/5547999475150"
-                        className="flex items-center gap-3 text-gray-300 hover:text-[#10b981] transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MessageCircle className="h-5 w-5" />
-                        WhatsApp
-                      </a>
-                    </div>
+                    
+                    
                   </div>
                 </div>
               </div>
