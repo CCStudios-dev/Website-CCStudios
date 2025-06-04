@@ -992,7 +992,7 @@ export default function JobApplicationPage() {
             <div className="mt-4">
               <h3 className="text-lg font-semibold text-white mb-2">Requisitos:</h3>
               <ul className="space-y-1 mb-4">
-                {selectedJob.requirements.slice(0, 3).map((req, index) => (
+                {selectedJob.requirements.slice(0, 5).map((req, index) => (
                   <li key={index} className="flex items-start gap-2 text-gray-300">
                     <div className="min-w-[20px] h-5 flex items-center justify-center">
                       <div className={`w-1.5 h-1.5 rounded-full ${getTextColor(selectedJob.color)}`}></div>
@@ -1000,16 +1000,16 @@ export default function JobApplicationPage() {
                     {req}
                   </li>
                 ))}
-                {selectedJob.requirements.length > 3 && (
+                {selectedJob.requirements.length > 5 && (
                   <li className="text-gray-400 text-sm">
-                    + {selectedJob.requirements.length - 3} requisitos adicionais
+                    + {selectedJob.requirements.length - 5} requisitos adicionais
                   </li>
                 )}
               </ul>
 
               <h3 className="text-lg font-semibold text-white mb-2">Responsabilidades:</h3>
               <ul className="space-y-1">
-                {selectedJob.responsibilities.slice(0, 3).map((resp, index) => (
+                {selectedJob.responsibilities.slice(0, 7).map((resp, index) => (
                   <li key={index} className="flex items-start gap-2 text-gray-300">
                     <div className="min-w-[20px] h-5 flex items-center justify-center">
                       <div className={`w-1.5 h-1.5 rounded-full ${getTextColor(selectedJob.color)}`}></div>
@@ -1017,9 +1017,9 @@ export default function JobApplicationPage() {
                     {resp}
                   </li>
                 ))}
-                {selectedJob.responsibilities.length > 3 && (
+                {selectedJob.responsibilities.length > 5 && (
                   <li className="text-gray-400 text-sm">
-                    + {selectedJob.responsibilities.length - 3} responsabilidades adicionais
+                    + {selectedJob.responsibilities.length - 5} responsabilidades adicionais
                   </li>
                 )}
               </ul>
