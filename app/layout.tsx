@@ -9,6 +9,9 @@ export const metadata = {
   title: "CCStudios - Marketing Digital e Desenvolvimento Web",
   description:
     "Soluções personalizadas de marketing digital para impulsionar seu negócio com estratégias eficientes e resultados mensuráveis.",
+    icons: {
+    icon: "/favicon.ico",
+    },
 }
 
 export default function RootLayout({ children }) {
