@@ -30,7 +30,7 @@ interface JobPosition {
       message?: string
     }
   }[]
-  color: "blue" | "purple" | "green" | "orange" | "pink"
+  color: "blue" | "purple" | "green" | "orange" | "pink" | "teal" | "cyan"
   image: string
 }
 
@@ -712,6 +712,165 @@ export default function TrabalheConoscoPage() {
       color: "pink",
       image: "/vagas/SOCIALMEDIA.png?height=600&width=600",
     },
+    {
+      id: "videomaker",
+      title: "Videomaker",
+      department: "Produção Audiovisual",
+      type: "Tempo Integral",
+      location: "Presencial – Balneário Camboriú",
+      description:
+        "Estamos em busca de um(a) Videomaker criativo(a), técnico(a) e apaixonado(a) por contar histórias através das lentes. Você será responsável por captar e editar vídeos para marcas e campanhas diversas, garantindo uma entrega audiovisual de alto impacto e alinhada à identidade dos nossos clientes.",
+      requirements: [
+        "Experiência em gravação e edição de vídeos;",
+        "Conhecimento técnico em câmeras DSLR/Mirrorless ou smartphones com uso profissional;",
+        "Domínio de programas de edição como Premiere, After Effects, CapCut, entre outros;",
+        "Organização, proatividade e senso estético apurado;",
+        "Capacidade de criar vídeos com foco em redes sociais (Reels, YouTube Shorts, etc.);",
+        "Familiaridade com cronogramas de produção e prazos de entrega.",
+      ],
+      responsibilities: [
+        "Captação de imagens em ambiente interno e externo;",
+        "Edição de vídeos com foco em storytelling, ritmo e estética visual;",
+        "Inserção de efeitos, trilhas, cortes e legendas;",
+        "Colaboração com a equipe de social media e branding;",
+        "Adaptação de vídeos para diferentes formatos e canais;",
+        "Apoio em gravações de clientes e projetos internos.",
+      ],
+      questions: [
+        { id: "nome", question: "Nome completo:", type: "text" },
+        { id: "idade", question: "Idade:", type: "number" },
+        { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+        {
+          id: "telefone",
+          question: "Telefone para contato (com DDD):",
+          type: "text",
+          validation: {
+            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            message: "Formato inválido. Ex: (99) 99999-9999",
+          },
+        },
+        {
+          id: "email",
+          question: "E-mail:",
+          type: "text",
+          validation: {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Digite um email válido",
+          },
+        },
+        { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+        { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+        { id: "portfolio", question: "Portfólio (Google Drive, YouTube, Vimeo, etc):", type: "text" },
+        {
+          id: "trabalha",
+          question: "Você está trabalhando no momento?",
+          type: "select",
+          options: ["Sim, em tempo integral", "Sim, como freelancer ou PJ", "Não estou trabalhando atualmente"],
+        },
+        {
+          id: "clientes_ativos",
+          question: "Você possui clientes ou projetos ativos atualmente?",
+          type: "select",
+          options: ["Sim", "Não"],
+        },
+        {
+          id: "tempo_videomaker",
+          question: "Há quanto tempo você atua como videomaker? (Ex: 1 ano, 3 anos, 5+ anos...)",
+          type: "text",
+        },
+        {
+          id: "locomocao",
+          question: "Você possui meio de locomoção (carro ou moto)?",
+          type: "text",
+        },
+        {
+          id: "cnh",
+          question: "Você possui CNH?",
+          type: "select",
+          options: ["Sim", "Não"],
+        },
+        {
+          id: "tipos_projetos",
+          question: "Com quais tipos de projeto você já trabalhou?",
+          type: "multiselect",
+          options: [
+            "Reels para redes sociais",
+            "Vídeos institucionais",
+            "Pós-produção (edição apenas)",
+            "Gravação de eventos",
+            "Comerciais / publicidade",
+            "Outros",
+          ],
+          allowOther: true,
+        },
+        {
+          id: "grava_com",
+          question: "Você grava com:",
+          type: "select",
+          options: ["Celular", "Câmera DSLR ou Mirrorless", "Ambos", "Não gravo, apenas edito"],
+        },
+        {
+          id: "equipamentos",
+          question: "Quais equipamentos você possui atualmente? Informe o modelo da sua câmera ou celular:",
+          type: "textarea",
+          placeholder: "Ex: câmera, lentes, microfone, iluminação...",
+        },
+        {
+          id: "programas_edicao",
+          question: "Quais programas de edição você domina?",
+          type: "multiselect",
+          options: ["Adobe Premiere", "Final Cut Pro", "DaVinci Resolve", "CapCut", "After Effects", "Outros"],
+          allowOther: true,
+        },
+        {
+          id: "preferencia_atuacao",
+          question: "Você prefere atuar em:",
+          type: "select",
+          options: ["Captação e edição", "Apenas captação", "Apenas edição", "Estou aberto(a) às demandas"],
+        },
+        {
+          id: "marketing_digital",
+          question: "Você já atuou com vídeos voltados para marketing digital, redes sociais ou vendas?",
+          type: "select",
+          options: ["Sim", "Não"],
+        },
+        {
+          id: "marketing_digital_explicacao",
+          question: "Se sim, explique brevemente:",
+          type: "textarea",
+        },
+        {
+          id: "cronogramas_agencias",
+          question: "Você já trabalhou com cronogramas e prazos de agências ou produtoras?",
+          type: "select",
+          options: ["Sim", "Não"],
+        },
+        {
+          id: "disponibilidade_horario",
+          question: "Qual é a sua disponibilidade de horário durante a semana?",
+          type: "textarea",
+        },
+        {
+          id: "remuneracao",
+          question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
+          type: "text",
+        },
+        {
+          id: "modelo_contratacao",
+          question: "Qual modelo de contratação você prefere?",
+          type: "select",
+          options: ["CLT", "PJ", "MEI", "Indiferente"],
+        },
+        {
+          id: "presencial",
+          question: "Tem disponibilidade para atuar presencialmente em Balneário Camboriú?",
+          type: "select",
+          options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+        },
+      ],
+      color: "cyan",
+      image: "/vagas/VIDEOMAKER.png?height=600&width=600",
+    },
   ]
 
   const handleApply = (job: JobPosition) => {
@@ -731,6 +890,10 @@ export default function TrabalheConoscoPage() {
         return "from-[#ff9966] to-[#ff7e47]"
       case "pink":
         return "from-[#ff6b9d] to-[#e84c88]"
+      case "teal":
+        return "from-[#14b8a6] to-[#0d9488]"
+      case "cyan":
+        return "from-[#06b6d4] to-[#0891b2]"
       default:
         return "from-[#4bb6ef] to-[#3a9fd8]"
     }
@@ -748,6 +911,10 @@ export default function TrabalheConoscoPage() {
         return "bg-[#ff9966]/10"
       case "pink":
         return "bg-[#ff6b9d]/10"
+      case "teal":
+        return "bg-[#14b8a6]/10"
+      case "cyan":
+        return "bg-[#06b6d4]/10"
       default:
         return "bg-[#4bb6ef]/10"
     }
@@ -765,6 +932,10 @@ export default function TrabalheConoscoPage() {
         return "text-[#ff9966]"
       case "pink":
         return "text-[#ff6b9d]"
+      case "teal":
+        return "text-[#14b8a6]"
+      case "cyan":
+        return "text-[#06b6d4]"
       default:
         return "text-[#4bb6ef]"
     }
@@ -782,6 +953,10 @@ export default function TrabalheConoscoPage() {
         return "border-[#ff9966]"
       case "pink":
         return "border-[#ff6b9d]"
+      case "teal":
+        return "border-[#14b8a6]"
+      case "cyan":
+        return "border-[#06b6d4]"
       default:
         return "border-[#4bb6ef]"
     }
@@ -1081,10 +1256,8 @@ export default function TrabalheConoscoPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] via-transparent to-transparent rounded-2xl"></div>
                   <div className="absolute bottom-8 left-8 right-8">
-                    <p className="text-white text-xl font-semibold mb-4">
-                      "Na CCStudios, valorizamos a criatividade, inovação e, acima de tudo, as pessoas."
-                    </p>
-                    <p className="text-[#4bb6ef]">Luciano Matos, CEO & Fundador</p>
+                    <p className="text-white text-xl font-semibold mb-2">Faça parte da nossa equipe!</p>
+                    <p className="text-gray-300">Junte-se a nós e construa uma carreira sólida no marketing digital.</p>
                   </div>
                 </div>
               </ScrollReveal>
@@ -1093,41 +1266,37 @@ export default function TrabalheConoscoPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* Banco de Talentos Section */}
       <section className="relative py-32 bg-[#0e1420]">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=20&width=20')] bg-[length:40px_40px] opacity-[0.03]"></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#4bb6ef]/5 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#4bb6ef]/5 rounded-full blur-[100px] transform -translate-x-1/3 translate-y-1/3"></div>
+        </div>
 
         <div className="container relative z-10 mx-auto px-4">
           <ScrollReveal>
-            <div className="relative overflow-hidden rounded-3xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#111827] via-[#1a2234] to-[#0e1420]"></div>
-
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-[#4bb6ef]/10 rounded-full blur-[80px]"></div>
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#4bb6ef]/5 rounded-full blur-[80px]"></div>
-
-              <div className="relative z-10 p-16 flex flex-col md:flex-row items-center justify-between gap-10">
-                <div className="max-w-2xl">
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                    Não encontrou a <span className="text-[#4bb6ef]">vaga ideal</span>?
-                  </h2>
-
-                  <p className="text-gray-300 text-lg">
-                    Envie seu currículo para nosso banco de talentos e entraremos em contato assim que surgir uma
-                    oportunidade compatível com o seu perfil.
-                  </p>
-                </div>
-
-                <div className="flex flex-col gap-4">
-                  <Button
-                    onClick={() => router.push("/trabalhe-conosco/banco-talentos")}
-                    className="bg-[#4bb6ef] hover:bg-[#3a9fd8] text-white px-8 py-6 text-lg rounded-md group min-w-[200px]"
-                  >
-                    Enviar Currículo
-                    <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </div>
+            <div className="text-center mb-20 max-w-3xl mx-auto">
+              <div className="inline-flex items-center px-4 py-2 bg-[#4bb6ef]/10 backdrop-blur-sm rounded-full mb-4">
+                <span className="w-2 h-2 rounded-full bg-[#4bb6ef] mr-2"></span>
+                <span className="text-[#4bb6ef] font-medium text-sm">Banco de Talentos</span>
               </div>
+
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Não encontrou sua <GradientText>vaga ideal?</GradientText>
+              </h2>
+
+              <p className="text-gray-300 text-lg mb-8">
+                Cadastre-se em nosso banco de talentos e seja o primeiro a saber sobre novas oportunidades que combinam
+                com seu perfil.
+              </p>
+
+              <Button
+                onClick={() => router.push("/trabalhe-conosco/banco-talentos")}
+                className="bg-gradient-to-r from-[#4bb6ef] to-[#3a9fd8] hover:opacity-90 text-white px-8 py-4 rounded-md text-lg"
+              >
+                Cadastrar no Banco de Talentos
+                <ChevronRight className="ml-2 h-5 w-5" />
+              </Button>
             </div>
           </ScrollReveal>
         </div>

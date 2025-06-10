@@ -27,7 +27,7 @@ interface JobPosition {
     placeholder?: string
     allowOther?: boolean
   }[]
-  color: "blue" | "purple" | "green" | "orange" | "pink"
+  color: "blue" | "purple" | "green" | "orange" | "pink" | "teal"
   image: string
 }
 
@@ -640,6 +640,165 @@ export default function JobApplicationPage() {
       color: "pink",
       image: "/vagas/SOCIALMEDIA.png?height=600&width=600",
     },
+    {
+      id: "videomaker",
+      title: "Videomaker",
+      department: "Produção Audiovisual",
+      type: "Tempo Integral",
+      location: "Presencial – Balneário Camboriú",
+      description:
+        "Estamos em busca de um(a) Videomaker criativo(a), técnico(a) e apaixonado(a) por contar histórias através das lentes. Você será responsável por captar e editar vídeos para marcas e campanhas diversas, garantindo uma entrega audiovisual de alto impacto e alinhada à identidade dos nossos clientes.",
+      requirements: [
+        "Experiência em gravação e edição de vídeos;",
+        "Conhecimento técnico em câmeras DSLR/Mirrorless ou smartphones com uso profissional;",
+        "Domínio de programas de edição como Premiere, After Effects, CapCut, entre outros;",
+        "Organização, proatividade e senso estético apurado;",
+        "Capacidade de criar vídeos com foco em redes sociais (Reels, YouTube Shorts, etc.);",
+        "Familiaridade com cronogramas de produção e prazos de entrega.",
+      ],
+      responsibilities: [
+        "Captação de imagens em ambiente interno e externo;",
+        "Edição de vídeos com foco em storytelling, ritmo e estética visual;",
+        "Inserção de efeitos, trilhas, cortes e legendas;",
+        "Colaboração com a equipe de social media e branding;",
+        "Adaptação de vídeos para diferentes formatos e canais;",
+        "Apoio em gravações de clientes e projetos internos.",
+      ],
+      questions: [
+        { id: "nome", question: "Nome completo:", type: "text" },
+        { id: "idade", question: "Idade:", type: "number" },
+        { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+        {
+          id: "telefone",
+          question: "Telefone para contato (com DDD):",
+          type: "text",
+          validation: {
+            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
+            message: "Formato inválido. Ex: (99) 99999-9999",
+          },
+        },
+        {
+          id: "email",
+          question: "E-mail:",
+          type: "text",
+          validation: {
+            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            message: "Digite um email válido",
+          },
+        },
+        { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+        { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+        { id: "portfolio", question: "Portfólio (Google Drive, YouTube, Vimeo, etc):", type: "text" },
+        {
+          id: "trabalha",
+          question: "Você está trabalhando no momento?",
+          type: "select",
+          options: ["Sim, em tempo integral", "Sim, como freelancer ou PJ", "Não estou trabalhando atualmente"],
+        },
+        {
+          id: "clientes_ativos",
+          question: "Você possui clientes ou projetos ativos atualmente?",
+          type: "select",
+          options: ["Sim", "Não"],
+        },
+        {
+          id: "tempo_videomaker",
+          question: "Há quanto tempo você atua como videomaker? (Ex: 1 ano, 3 anos, 5+ anos...)",
+          type: "text",
+        },
+        {
+          id: "locomocao",
+          question: "Você possui meio de locomoção (carro ou moto)?",
+          type: "text",
+        },
+        {
+          id: "cnh",
+          question: "Você possui CNH?",
+          type: "select",
+          options: ["Sim", "Não"],
+        },
+        {
+          id: "tipos_projetos",
+          question: "Com quais tipos de projeto você já trabalhou?",
+          type: "multiselect",
+          options: [
+            "Reels para redes sociais",
+            "Vídeos institucionais",
+            "Pós-produção (edição apenas)",
+            "Gravação de eventos",
+            "Comerciais / publicidade",
+            "Outros",
+          ],
+          allowOther: true,
+        },
+        {
+          id: "grava_com",
+          question: "Você grava com:",
+          type: "select",
+          options: ["Celular", "Câmera DSLR ou Mirrorless", "Ambos", "Não gravo, apenas edito"],
+        },
+        {
+          id: "equipamentos",
+          question: "Quais equipamentos você possui atualmente? Informe o modelo da sua câmera ou celular:",
+          type: "textarea",
+          placeholder: "Ex: câmera, lentes, microfone, iluminação...",
+        },
+        {
+          id: "programas_edicao",
+          question: "Quais programas de edição você domina?",
+          type: "multiselect",
+          options: ["Adobe Premiere", "Final Cut Pro", "DaVinci Resolve", "CapCut", "After Effects", "Outros"],
+          allowOther: true,
+        },
+        {
+          id: "preferencia_atuacao",
+          question: "Você prefere atuar em:",
+          type: "select",
+          options: ["Captação e edição", "Apenas captação", "Apenas edição", "Estou aberto(a) às demandas"],
+        },
+        {
+          id: "marketing_digital",
+          question: "Você já atuou com vídeos voltados para marketing digital, redes sociais ou vendas?",
+          type: "select",
+          options: ["Sim", "Não"],
+        },
+        {
+          id: "marketing_digital_explicacao",
+          question: "Se sim, explique brevemente:",
+          type: "textarea",
+        },
+        {
+          id: "cronogramas_agencias",
+          question: "Você já trabalhou com cronogramas e prazos de agências ou produtoras?",
+          type: "select",
+          options: ["Sim", "Não"],
+        },
+        {
+          id: "disponibilidade_horario",
+          question: "Qual é a sua disponibilidade de horário durante a semana?",
+          type: "textarea",
+        },
+        {
+          id: "remuneracao",
+          question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
+          type: "text",
+        },
+        {
+          id: "modelo_contratacao",
+          question: "Qual modelo de contratação você prefere?",
+          type: "select",
+          options: ["CLT", "PJ", "MEI", "Indiferente"],
+        },
+        {
+          id: "presencial",
+          question: "Tem disponibilidade para atuar presencialmente em Balneário Camboriú?",
+          type: "select",
+          options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+        },
+      ],
+      color: "teal",
+      image: "/vagas/VIDEOMAKER.png?height=600&width=600",
+    },
   ]
 
   // Add data-page attribute to body to hide header/footer when showing form
@@ -791,6 +950,8 @@ export default function JobApplicationPage() {
         return "from-[#ff9966] to-[#ff7e47]"
       case "pink":
         return "from-[#ff6b9d] to-[#e84c88]"
+      case "teal":
+        return "from-[#14b8a6] to-[#0d9488]"
       default:
         return "from-[#4bb6ef] to-[#3a9fd8]"
     }
@@ -808,6 +969,8 @@ export default function JobApplicationPage() {
         return "bg-[#ff9966]/10"
       case "pink":
         return "bg-[#ff6b9d]/10"
+      case "teal":
+        return "bg-[#14b8a6]/10"
       default:
         return "bg-[#4bb6ef]/10"
     }
@@ -825,6 +988,8 @@ export default function JobApplicationPage() {
         return "text-[#ff9966]"
       case "pink":
         return "text-[#ff6b9d]"
+      case "teal":
+        return "text-[#14b8a6]"
       default:
         return "text-[#4bb6ef]"
     }
