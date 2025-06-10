@@ -6,7 +6,7 @@ import Script from "next/script"
 import "@/app/globals.css"
 
 export const metadata = {
-  title: "CCStudios - Marketing Digital e Desenvolvimento Web",
+  title: "CCStudios - A Melhor Agência de Marketing Digital.",
   description:
     "Soluções personalizadas de marketing digital para impulsionar seu negócio com estratégias eficientes e resultados mensuráveis.",
     icons: {

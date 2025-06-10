@@ -26,6 +26,10 @@ interface JobPosition {
     options?: string[]
     placeholder?: string
     allowOther?: boolean
+    validation?: {
+      pattern: RegExp
+      message: string
+    }
   }[]
   color: "blue" | "purple" | "green" | "orange" | "pink" | "teal"
   image: string
@@ -43,6 +47,7 @@ export default function JobApplicationPage() {
   const [isValid, setIsValid] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showJobDetails, setShowJobDetails] = useState(false)
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
 
   const inputRef = useRef<HTMLInputElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -847,31 +852,36 @@ export default function JobApplicationPage() {
   }, [currentStep, selectedJob])
 
   useEffect(() => {
-    // Validate current step - mesma lógica do formulário de contato
+    // Validate current step - todos os campos são obrigatórios
     if (selectedJob) {
       const questionIndex = currentStep
       if (questionIndex >= 0 && questionIndex < selectedJob.questions.length) {
         const question = selectedJob.questions[questionIndex]
         const value = formData[question.id] || ""
 
-        // Portfolio é opcional
-        if (question.id === "portfolio") {
-          setIsValid(true)
-          return
-        }
-
-        // Validação básica de email
+        // Validação de email
         if (question.id === "email") {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
           setIsValid(value.trim().length > 0 && emailRegex.test(value))
           return
         }
 
-        if (question.type === "multiselect") {
-          setIsValid(value.split(",").filter((v) => v).length > 0)
-        } else {
-          setIsValid(value.trim().length > 0)
+        // Validação de telefone
+        if (question.id === "telefone") {
+          const phoneRegex = /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/
+          setIsValid(value.trim().length > 0 && phoneRegex.test(value))
+          return
         }
+
+        // Validação para campos multiselect
+        if (question.type === "multiselect") {
+          const selectedValues = value.split(",").filter((v) => v.trim())
+          setIsValid(selectedValues.length > 0)
+          return
+        }
+
+        // Validação para campos de texto, textarea, select e number - todos obrigatórios
+        setIsValid(value.trim().length > 0)
       }
     }
   }, [currentStep, formData, selectedJob])
@@ -888,12 +898,75 @@ export default function JobApplicationPage() {
     }
   }
 
+  const validateAllFields = () => {
+    const errors: Record<string, string> = {}
+    let hasErrors = false
+
+    if (!selectedJob) return false
+
+    selectedJob.questions.forEach((question) => {
+      const value = formData[question.id] || ""
+
+      // Verificar campos obrigatórios - TODOS os campos são obrigatórios
+      if (value.trim() === "") {
+        errors[question.id] = "Este campo é obrigatório"
+        hasErrors = true
+        return
+      }
+
+      // Verificação específica para e-mail
+      if (question.id === "email") {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if (!emailRegex.test(value)) {
+          errors[question.id] = "Digite um e-mail válido"
+          hasErrors = true
+          return
+        }
+      }
+
+      // Verificação específica para telefone
+      if (question.id === "telefone") {
+        const phoneRegex = /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/
+        if (!phoneRegex.test(value)) {
+          errors[question.id] = "Digite um telefone válido"
+          hasErrors = true
+          return
+        }
+      }
+
+      // Verificação para campos multiselect
+      if (question.type === "multiselect") {
+        const selectedValues = value.split(",").filter((v) => v.trim())
+        if (selectedValues.length === 0) {
+          errors[question.id] = "Selecione pelo menos uma opção"
+          hasErrors = true
+          return
+        }
+      }
+
+      // Verificar regras de validação específicas
+      if (question.validation?.pattern && !question.validation.pattern.test(value)) {
+        errors[question.id] = question.validation.message || "Valor inválido"
+        hasErrors = true
+      }
+    })
+
+    setValidationErrors(errors)
+    return !hasErrors
+  }
+
   const handleNext = async () => {
     if (isSubmitting) return
 
     if (isValid && selectedJob && currentStep < selectedJob.questions.length - 1) {
       setCurrentStep((prev) => prev + 1)
     } else if (isValid && selectedJob && currentStep === selectedJob.questions.length - 1) {
+      // Validar todos os campos antes de enviar
+      if (!validateAllFields()) {
+        alert("Por favor, preencha todos os campos obrigatórios antes de enviar.")
+        return
+      }
+
       setIsSubmitting(true)
 
       try {
@@ -1165,9 +1238,9 @@ export default function JobApplicationPage() {
                     {req}
                   </li>
                 ))}
-                {selectedJob.requirements.length > 5 && (
+                {selectedJob.requirements.length > 8 && (
                   <li className="text-gray-400 text-sm">
-                    + {selectedJob.requirements.length - 5} requisitos adicionais
+                    + {selectedJob.requirements.length - 8} requisitos adicionais
                   </li>
                 )}
               </ul>
@@ -1182,9 +1255,9 @@ export default function JobApplicationPage() {
                     {resp}
                   </li>
                 ))}
-                {selectedJob.responsibilities.length > 5 && (
+                {selectedJob.responsibilities.length > 8 && (
                   <li className="text-gray-400 text-sm">
-                    + {selectedJob.responsibilities.length - 5} responsabilidades adicionais
+                    + {selectedJob.responsibilities.length - 8} responsabilidades adicionais
                   </li>
                 )}
               </ul>

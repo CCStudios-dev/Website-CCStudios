@@ -16,15 +16,15 @@ export function SiteFooter() {
               resultados mensuráveis.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-gray-400 hover:text-[#4bb6ef]">
+              <Link href="https://web.facebook.com/profile.php?id=61552140737824" className="text-gray-400 hover:text-[#4bb6ef]">
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-[#4bb6ef]">
+              <Link href="https://www.instagram.com/ccstudiosbr/" className="text-gray-400 hover:text-[#4bb6ef]">
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-[#4bb6ef]">
+              <Link href="https://www.linkedin.com/company/ccstudiosbr/" className="text-gray-400 hover:text-[#4bb6ef]">
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
