@@ -173,6 +173,7 @@ export default function BancoTalentosPage() {
         return false
       }
 
+      // TODOS os campos são obrigatórios
       return value.trim().length > 0
     }
     return false
@@ -185,7 +186,7 @@ export default function BancoTalentosPage() {
     bancoTalentosJob.questions.forEach((question) => {
       const value = formData[question.id] || ""
 
-      // Verificar campos obrigatórios
+      // Verificar campos obrigatórios - TODOS os campos são obrigatórios
       if (value.trim() === "") {
         errors[question.id] = "Este campo é obrigatório"
         hasErrors = true
@@ -197,6 +198,16 @@ export default function BancoTalentosPage() {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
         if (!emailRegex.test(value)) {
           errors[question.id] = "Digite um e-mail válido"
+          hasErrors = true
+          return
+        }
+      }
+
+      // Verificação específica para telefone
+      if (question.id === "telefone") {
+        const phoneRegex = /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/
+        if (!phoneRegex.test(value)) {
+          errors[question.id] = "Digite um telefone válido"
           hasErrors = true
           return
         }
@@ -255,21 +266,27 @@ export default function BancoTalentosPage() {
           body: JSON.stringify(submissionData),
         })
           .then(async (response) => {
-            const responseData = await response.json()
-
-            if (response.ok) {
+            if (!response.ok) {
+              const errorData = await response.json()
+              throw new Error(errorData.message || "Falha ao enviar candidatura")
+            }
+            return response.json()
+          })
+          .then((responseData) => {
+            if (responseData.success) {
               alert("Candidatura enviada com sucesso! Em breve entraremos em contato.")
               router.push("/trabalhe-conosco")
             } else {
-              console.error("Erro na resposta:", responseData)
-              setSubmitError(
-                responseData.message || "Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.",
-              )
+              throw new Error(responseData.message || "Ocorreu um erro ao enviar sua candidatura.")
             }
           })
           .catch((error) => {
             console.error("Erro ao enviar candidatura:", error)
-            setSubmitError("Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+            setSubmitError(
+              error instanceof Error
+                ? error.message
+                : "Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.",
+            )
           })
           .finally(() => {
             setSubmitting(false)

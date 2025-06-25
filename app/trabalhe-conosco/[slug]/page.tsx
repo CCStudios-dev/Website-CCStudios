@@ -80,71 +80,50 @@ export default function JobApplicationPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato:", type: "text" },
+        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
         { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
-        {
-          id: "trabalha",
-          question: "Você está trabalhando no momento?",
-          type: "select",
-          options: ["Sim, em tempo integral", "Sim, como freelancer ou PJ", "Não estou trabalhando atualmente"],
-        },
-        { id: "clientes_ativos", question: "Você possui clientes ativos atualmente?", type: "text" },
-        {
-          id: "tempo_trafego",
-          question: "Há quanto tempo você trabalha com tráfego pago? (Ex: 1 ano, 2 anos, 5+ anos...)",
-          type: "text",
-        },
+        { id: "trabalha", question: "Você está trabalhando no momento?", type: "textarea" },
+        { id: "clientes_ativos", question: "Você possui clientes ativos atualmente?", type: "textarea" },
+        { id: "tempo_trafego", question: "Há quanto tempo você atua com tráfego pago?", type: "textarea" },
         {
           id: "plataformas",
-          question: "Em quais plataformas você tem mais experiência?",
-          type: "multiselect",
-          options: [
-            "Meta Ads (Facebook/Instagram)",
-            "Google Ads",
-            "TikTok Ads",
-            "LinkedIn Ads",
-            "Pinterest Ads",
-            "Outras",
-          ],
-          allowOther: true,
+          question: "Em quais plataformas de mídia paga você já gerenciou campanhas?",
+          type: "textarea",
         },
-        {
-          id: "investimento",
-          question: "Já gerenciou contas com qual nível de investimento mensal?",
-          type: "select",
-          options: ["Até R$5.000", "Entre R$5.001 e R$20.000", "Entre R$20.001 e R$100.000", "Acima de R$100.000"],
-        },
-        { id: "nichos", question: "Quais nichos ou tipos de clientes você já atendeu?", type: "textarea" },
         {
           id: "ferramentas",
-          question:
-            "Com quais ferramentas você já trabalhou para gestão ou análise de campanhas? (Exemplo: Google Tag Manager, Google Analytics, Hotjar, Power BI, Reportei, etc.)",
+          question: "Quais ferramentas de análise, gestão ou automação você domina?",
           type: "textarea",
         },
         {
           id: "desafio",
-          question: "Qual foi seu maior desafio em tráfego pago até hoje e como você lidou com ele?",
-          type: "textarea",
-        },
-        {
-          id: "estrategia_ecommerce",
-          question:
-            "Estratégia: Como você estruturaria uma campanha para um e-commerce que quer escalar as vendas, mas tem um ROAS abaixo de 1,5?",
+          question: "Qual foi o maior desafio que você enfrentou gerenciando campanhas e como solucionou?",
           type: "textarea",
         },
         {
           id: "estrategia_cpa",
-          question:
-            "Estratégia: Quais seriam seus primeiros passos ao assumir uma conta de tráfego com campanhas ativas e CPA muito acima da meta?",
+          question: "Estratégia: Como você reduziria um CPA alto em uma conta com campanhas ativas?",
           type: "textarea",
         },
         {
-          id: "remuneracao",
-          question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
-          type: "text",
+          id: "estrategia_escalar",
+          question: "Estratégia: Como estruturaria uma campanha para um cliente novo que quer escalar vendas?",
+          type: "textarea",
         },
+        {
+          id: "estrategia_conta_mal",
+          question:
+            "Estratégia: Se assumisse uma conta mal estruturada e sem histórico de conversão, qual seria seu primeiro passo?",
+          type: "textarea",
+        },
+        {
+          id: "motivacao",
+          question: "O que te motiva a buscar uma nova oportunidade neste momento?",
+          type: "textarea",
+        },
+        { id: "remuneracao", question: "Qual é a sua pretensão de remuneração mensal?", type: "textarea" },
         {
           id: "modelo_contratacao",
           question: "Qual modelo de contratação você prefere?",
@@ -153,18 +132,105 @@ export default function JobApplicationPage() {
         },
         {
           id: "presencial",
-          question: "Tem disponibilidade para atuar presencialmente?",
+          question: "Tem disponibilidade para atuar presencialmente em Balneário Camboriú?",
           type: "select",
-          options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+          options: ["Sim, total", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
         },
-        {
-          id: "portfolio",
-          question: "Deseja compartilhar algum link de portfólio, case de sucesso ou conta gerenciada? (Opcional)",
-          type: "text",
-        },
+        { id: "portfolio", question: "Link para portfólio de campanhas, relatórios ou cases:", type: "text" },
       ],
       color: "blue",
       image: "/vagas/GESTORDETRAF.png?height=600&width=600",
+    },
+    {
+      id: "atendimento-cliente",
+      title: "Atendimento ao Cliente",
+      department: "Customer Success",
+      type: "Tempo Integral",
+      location: "Presencial",
+      description:
+        "Buscamos um(a) profissional de Atendimento ao Cliente que saiba equilibrar empatia, agilidade e clareza na comunicação. Você será o elo entre a agência e nossos clientes, garantindo um relacionamento próximo e fluido.",
+      requirements: [
+        "Excelente comunicação escrita e verbal;",
+        "Organização e proatividade;",
+        "Experiência com atendimento em agências, projetos ou B2B;",
+        "Familiaridade com ferramentas de organização (Monday, Trello, ClickUp, Notion);",
+        "Capacidade de mediar conflitos e manter o relacionamento saudável.",
+      ],
+      responsibilities: [
+        "Acompanhamento de clientes e feedbacks constantes;",
+        "Organização das demandas entre cliente e equipe interna;",
+        "Participação em reuniões de alinhamento e estratégia;",
+        "Garantir que os prazos e entregas sejam compreendidos e cumpridos;",
+        "Sugerir melhorias e manter os clientes engajados.",
+      ],
+      questions: [
+        { id: "nome", question: "Nome completo:", type: "text" },
+        { id: "idade", question: "Idade:", type: "number" },
+        { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
+        { id: "email", question: "E-mail:", type: "text" },
+        { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+        { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+        { id: "trabalha", question: "Você está trabalhando no momento?", type: "textarea" },
+        { id: "clientes_ativos", question: "Você possui clientes ou contas ativas atualmente?", type: "textarea" },
+        {
+          id: "tempo_atendimento",
+          question: "Há quanto tempo você atua com atendimento ao cliente?",
+          type: "textarea",
+        },
+        { id: "canais_atendimento", question: "Em quais canais de atendimento você já trabalhou?", type: "textarea" },
+        {
+          id: "ferramentas",
+          question: "Quais ferramentas de CRM, gestão ou comunicação você domina?",
+          type: "textarea",
+        },
+        {
+          id: "desafio",
+          question: "Qual foi o maior desafio que você enfrentou com um cliente insatisfeito e como solucionou?",
+          type: "textarea",
+        },
+        {
+          id: "estrategia_reclamacao",
+          question: "Estratégia: Como você agiria ao receber uma reclamação pública em rede social?",
+          type: "textarea",
+        },
+        {
+          id: "estrategia_ausentes",
+          question:
+            "Estratégia: Como você gerencia o relacionamento de clientes que estão ausentes nas reuniões de acompanhamento?",
+          type: "textarea",
+        },
+        {
+          id: "estrategia_retencao",
+          question: "Estratégia: Que ações você tomaria para melhorar a retenção de clientes insatisfeitos?",
+          type: "textarea",
+        },
+        {
+          id: "motivacao",
+          question: "O que te motiva a buscar uma nova oportunidade neste momento?",
+          type: "textarea",
+        },
+        { id: "remuneracao", question: "Qual é a sua pretensão de remuneração mensal?", type: "textarea" },
+        {
+          id: "modelo_contratacao",
+          question: "Qual modelo de contratação você prefere?",
+          type: "select",
+          options: ["CLT", "PJ", "MEI", "Indiferente"],
+        },
+        {
+          id: "presencial",
+          question: "Tem disponibilidade para atuar presencialmente em Balneário Camboriú?",
+          type: "select",
+          options: ["Sim, total", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+        },
+        {
+          id: "portfolio",
+          question: "Caso queira, compartilhe algum feedback, case ou histórico de cliente que você gerenciou:",
+          type: "text",
+        },
+      ],
+      color: "green",
+      image: "/vagas/ATENDIMENTOAOCLIENTE.png?height=600&width=600",
     },
     {
       id: "gestor-projetos",
@@ -192,76 +258,42 @@ export default function JobApplicationPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato:", type: "text" },
+        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
         { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+        { id: "trabalha", question: "Você está trabalhando no momento?", type: "textarea" },
+        { id: "projetos_ativos", question: "Você possui projetos ou clientes ativos atualmente?", type: "textarea" },
+        { id: "tempo_projetos", question: "Há quanto tempo você atua com gestão de projetos?", type: "textarea" },
+        { id: "tipos_projetos", question: "Quais tipos de projetos você já gerenciou?", type: "textarea" },
+        { id: "ferramentas", question: "Quais ferramentas e metodologias de gestão você domina?", type: "textarea" },
         {
-          id: "trabalha",
-          question: "Você está trabalhando no momento?",
-          type: "select",
-          options: ["Sim, em tempo integral", "Sim, como freelancer ou PJ", "Não estou trabalhando atualmente"],
-        },
-        {
-          id: "clientes_ativos",
-          question: "Você possui clientes ou projetos ativos atualmente?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "tempo_projetos",
-          question: "Há quanto tempo você trabalha com gestão de projetos? (Ex: 1 ano, 3 anos, 5+ anos...)",
-          type: "text",
-        },
-        {
-          id: "tipos_projetos",
-          question: "Quais tipos de projetos você já gerenciou?",
-          type: "multiselect",
-          options: [
-            "Marketing digital",
-            "Desenvolvimento web",
-            "Tecnologia/SaaS",
-            "Branding/design",
-            "Equipes criativas",
-            "Outros",
-          ],
-          allowOther: true,
-        },
-        {
-          id: "metodologias",
-          question: "Quais metodologias ou frameworks você já utilizou?",
-          type: "multiselect",
-          options: ["Scrum", "Kanban", "Waterfall", "Agile (Genérico)", "OKRs", "Outras"],
-          allowOther: true,
-        },
-        {
-          id: "ferramentas",
-          question: "Quais ferramentas você domina para gestão de tarefas e projetos?",
-          type: "textarea",
-          placeholder: "Exemplo: Trello, Asana, Notion, ClickUp, Jira, Monday...",
-        },
-        {
-          id: "lideranca_multidisciplinar",
-          question: "Você já atuou liderando equipes multidisciplinares (tráfego, design, copy, social media)?",
+          id: "desafio",
+          question: "Qual foi o maior desafio que você enfrentou como gestor de projetos e como solucionou?",
           type: "textarea",
         },
         {
           id: "estrategia_travado",
-          question:
-            "Estratégia: O que você faria ao assumir um projeto travado, com prazos estourados e equipe desmotivada?",
+          question: "Estratégia: Como você agiria ao assumir um projeto com prazos estourados e equipe desmotivada?",
           type: "textarea",
         },
         {
           id: "estrategia_stakeholders",
           question:
-            "Estratégia: Como você garantiria que um projeto com múltiplos stakeholders avance sem perder o foco no escopo e prazos?",
+            "Estratégia: Como garantiria a entrega de um projeto com múltiplos stakeholders e prazos apertados?",
           type: "textarea",
         },
         {
-          id: "remuneracao",
-          question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
-          type: "text",
+          id: "estrategia_escopo",
+          question: "Estratégia: Como você lida com mudança de escopo durante a execução de um projeto?",
+          type: "textarea",
         },
+        {
+          id: "motivacao",
+          question: "O que te motiva a buscar uma nova oportunidade neste momento?",
+          type: "textarea",
+        },
+        { id: "remuneracao", question: "Qual é a sua pretensão de remuneração mensal?", type: "textarea" },
         {
           id: "modelo_contratacao",
           question: "Qual modelo de contratação você prefere?",
@@ -270,260 +302,18 @@ export default function JobApplicationPage() {
         },
         {
           id: "presencial",
-          question: "Tem disponibilidade para atuar presencialmente?",
+          question: "Tem disponibilidade para atuar presencialmente em Balneário Camboriú?",
           type: "select",
-          options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+          options: ["Sim, total", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
         },
         {
           id: "portfolio",
-          question:
-            "Deseja compartilhar algum link de portfólio, apresentações, cases ou materiais já coordenados por você? (Opcional)",
+          question: "Link de portfólio, cronogramas, apresentações ou cases coordenados:",
           type: "text",
         },
       ],
       color: "purple",
       image: "/vagas/GESTORDEPROJETOS.png?height=600&width=600",
-    },
-    {
-      id: "atendimento-cliente",
-      title: "Atendimento ao Cliente CS",
-      department: "Customer Success",
-      type: "Tempo Integral",
-      location: "Presencial",
-      description:
-        "Buscamos um(a) profissional de Atendimento ao Cliente que saiba equilibrar empatia, agilidade e clareza na comunicação. Você será o elo entre a agência e nossos clientes, garantindo um relacionamento próximo e fluido.",
-      requirements: [
-        "Excelente comunicação escrita e verbal;",
-        "Organização e proatividade;",
-        "Experiência com atendimento em agências, projetos ou B2B;",
-        "Familiaridade com ferramentas de organização (Monday, Trello, ClickUp, Notion);",
-        "Capacidade de mediar conflitos e manter o relacionamento saudável.",
-      ],
-      responsibilities: [
-        "Acompanhamento de clientes e feedbacks constantes;",
-        "Organização das demandas entre cliente e equipe interna;",
-        "Participação em reuniões de alinhamento e estratégia;",
-        "Garantir que os prazos e entregas sejam compreendidos e cumpridos;",
-        "Sugerir melhorias e manter os clientes engajados.",
-      ],
-      questions: [
-        { id: "nome", question: "Nome completo:", type: "text" },
-        { id: "idade", question: "Idade:", type: "number" },
-        { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato:", type: "text" },
-        { id: "email", question: "E-mail:", type: "text" },
-        { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
-        { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
-        {
-          id: "trabalha",
-          question: "Você está trabalhando no momento?",
-          type: "select",
-          options: ["Sim, em tempo integral", "Sim, como freelancer ou PJ", "Não estou trabalhando atualmente"],
-        },
-        {
-          id: "clientes_ativos",
-          question: "Você possui clientes ou contas ativas sob sua responsabilidade atualmente?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "tempo_experiencia",
-          question:
-            "Há quanto tempo você atua com atendimento ao cliente ou customer success? (Ex: 1 ano, 3 anos, 5+ anos...)",
-          type: "text",
-        },
-        {
-          id: "canais_atendimento",
-          question: "Em quais canais você tem experiência de atendimento?",
-          type: "multiselect",
-          options: [
-            "WhatsApp",
-            "E-mail",
-            "Telefone",
-            "Instagram / Redes sociais",
-            "Plataformas como Zendesk / Intercom",
-            "Outros",
-          ],
-          allowOther: true,
-        },
-        {
-          id: "experiencia_empresas",
-          question:
-            "Você já trabalhou com atendimento voltado à retenção, suporte ou sucesso do cliente em empresas de marketing, tecnologia ou serviços?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "explicacao_experiencia",
-          question: "Se sim, explique brevemente.",
-          type: "textarea",
-        },
-        {
-          id: "ferramentas",
-          question: "Quais ferramentas ou sistemas você já usou no atendimento ou gestão de clientes?",
-          type: "textarea",
-          placeholder: "Ex: CRM, HubSpot, Pipedrive, Google Agenda, Trello, Notion, etc.",
-        },
-        {
-          id: "lidar_cliente_insatisfeito",
-          question: "Como você lida com situações em que o cliente está insatisfeito ou frustrado?",
-          type: "textarea",
-        },
-        {
-          id: "estrategia_cancelamento",
-          question:
-            "Estratégia: O que você faria se um cliente ameaçasse cancelar o serviço por não ver resultados imediatos, mesmo estando dentro do prazo esperado?",
-          type: "textarea",
-        },
-        {
-          id: "relacionamento_dificil",
-          question:
-            "Estratégia: Como você mantém um bom relacionamento com o cliente, mesmo quando ele tem pouco tempo disponível para reuniões e retornos?",
-          type: "textarea",
-        },
-        {
-          id: "remuneracao",
-          question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
-          type: "text",
-        },
-        {
-          id: "modelo_contratacao",
-          question: "Qual modelo de contratação você prefere?",
-          type: "select",
-          options: ["CLT", "PJ", "MEI", "Indiferente"],
-        },
-        {
-          id: "presencial",
-          question: "Tem disponibilidade para atuar presencialmente?",
-          type: "select",
-          options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
-        },
-      ],
-      color: "green",
-      image: "/vagas/ATENDIMENTOAOCLIENTE.png?height=600&width=600",
-    },
-    {
-      id: "representante-comercial",
-      title: "SDR (Pré-Vendas)",
-      department: "Comercial",
-      type: "Tempo Integral",
-      location: "Presencial",
-      description:
-        "Estamos em busca de um(a) SDR (Sales Development Representative) para atuar na linha de frente da nossa operação comercial. Seu papel será qualificar leads, gerar oportunidades e agendar reuniões para o time de vendas.",
-      requirements: [
-        "Facilidade de comunicação e argumentação;",
-        "Perfil resiliente, organizado e com mentalidade comercial;",
-        "Experiência com pré-vendas, prospecção ou call center;",
-        "Familiaridade com ferramentas de CRM (Kommo, Pipedrive, HubSpot etc);",
-        "Conhecimento de marketing digital será um diferencial.",
-      ],
-      responsibilities: [
-        "Realizar prospecção ativa (outbound) e nutrir leads inbound;",
-        "Qualificar leads com base em critérios BANT ou SPIN Selling;",
-        "Marcar reuniões com leads qualificados para o time comercial;",
-        "Atualizar o CRM com informações completas e organizadas;",
-        "Enviar mensagens, áudios e fazer ligações com foco em conversão.",
-      ],
-      questions: [
-        { id: "nome", question: "Nome completo:", type: "text" },
-        { id: "idade", question: "Idade:", type: "number" },
-        { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato:", type: "text" },
-        { id: "email", question: "E-mail:", type: "text" },
-        { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
-        { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
-        {
-          id: "trabalha",
-          question: "Você está trabalhando no momento?",
-          type: "select",
-          options: ["Sim, em tempo integral", "Sim, como freelancer ou PJ", "Não estou trabalhando atualmente"],
-        },
-        {
-          id: "clientes_ativos",
-          question: "Você possui clientes, leads ativos ou parcerias comerciais em andamento?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "tempo_vendas",
-          question: "Há quanto tempo você trabalha com vendas ou pré-vendas? (Ex: 6 meses, 2 anos, 5+ anos...)",
-          type: "text",
-        },
-        {
-          id: "b2b",
-          question: "Você já atuou com vendas B2B (empresa para empresa)?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "b2b_detalhes",
-          question: "Se sim, explique brevemente o tipo de produto ou serviço.",
-          type: "textarea",
-        },
-        {
-          id: "atividades_sdr",
-          question: "Quais atividades você já executou em um processo de pré-venda ou SDR?",
-          type: "multiselect",
-          options: [
-            "Prospecção ativa (cold call / cold message)",
-            "Qualificação de leads BANT SPIN etc",
-            "Marcação de reuniões para closer ou consultores",
-            "Atualização de CRM",
-            "Follow-up com leads frios",
-            "Scripts e objeções",
-            "Outras",
-          ],
-          allowOther: true,
-        },
-        {
-          id: "ferramentas",
-          question: "Quais ferramentas você já utilizou em vendas ou prospecção?",
-          type: "textarea",
-          placeholder: "Ex: Pipedrive, HubSpot, RD Station, Apollo, WhatsApp Business, Google Sheets, etc.",
-        },
-        {
-          id: "prospeccao_conforto",
-          question: "Você está confortável com prospecção ativa por telefone, WhatsApp e Instagram?",
-          type: "select",
-          options: ["Sim", "Não", "Sim, com suporte e script"],
-        },
-        {
-          id: "followup_estrategia",
-          question: 'Estratégia: Se um lead responde "agora não é um bom momento", como você conduziria o follow-up?',
-          type: "textarea",
-        },
-        {
-          id: "qualificacao_estrategia",
-          question:
-            "Estratégia: Como você identificaria se um lead está qualificado para passar para o time de fechamento?",
-          type: "textarea",
-        },
-        {
-          id: "remuneracao",
-          question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
-          type: "text",
-        },
-        {
-          id: "modelo_contratacao",
-          question: "Qual modelo de contratação você prefere?",
-          type: "select",
-          options: ["CLT", "PJ", "MEI", "Indiferente"],
-        },
-        {
-          id: "presencial",
-          question: "Tem disponibilidade para atuar presencialmente?",
-          type: "select",
-          options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
-        },
-        {
-          id: "portfolio",
-          question:
-            "Deseja compartilhar algum vídeo de apresentação, resultado ou case de prospecção que você participou? (Opcional)",
-          type: "text",
-        },
-      ],
-      color: "orange",
-      image: "/vagas/REPCOMERCIAL.png?height=600&width=600",
     },
     {
       id: "social-media",
@@ -552,77 +342,43 @@ export default function JobApplicationPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        { id: "telefone", question: "Telefone para contato:", type: "text" },
+        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
         { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+        { id: "trabalha", question: "Você está trabalhando no momento?", type: "textarea" },
+        { id: "clientes_ativos", question: "Você possui clientes ou perfis ativos atualmente?", type: "textarea" },
+        { id: "tempo_social_media", question: "Há quanto tempo você atua como social media?", type: "textarea" },
+        { id: "nichos", question: "Quais tipos de contas ou nichos você já gerenciou?", type: "textarea" },
+        { id: "ferramentas", question: "Quais ferramentas e plataformas você domina?", type: "textarea" },
         {
-          id: "trabalha",
-          question: "Você está trabalhando no momento?",
-          type: "select",
-          options: ["Sim, em tempo integral", "Sim, como freelancer ou PJ", "Não estou trabalhando atualmente"],
-        },
-        {
-          id: "clientes_ativos",
-          question: "Você possui clientes ou perfis ativos no momento?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "tempo_redes_sociais",
-          question: "Há quanto tempo você trabalha com redes sociais? (Ex: 1 ano, 3 anos, 5+ anos...)",
-          type: "text",
-        },
-        {
-          id: "nichos",
-          question: "Quais tipos de contas ou nichos você já atendeu como social media?",
-          type: "textarea",
-        },
-        {
-          id: "atividades_social_media",
-          question: "Quais atividades você costuma executar em um projeto de social media?",
-          type: "multiselect",
-          options: [
-            "Planejamento de conteúdo",
-            "Criação de roteiro para Reels",
-            "Legendas e textos para postagens",
-            "Agendamento de posts",
-            "Relatórios de desempenho",
-            "Atendimento de comentários e DMs",
-            "Coordenação com design/captação de vídeos/tráfego pago",
-            "Outras",
-          ],
-          allowOther: true,
-        },
-        {
-          id: "ferramentas",
-          question: "Quais ferramentas você domina?",
-          type: "textarea",
-          placeholder: "Exemplo: Canva, CapCut, Metricool, mLabs, Trello, Notion, etc.",
-        },
-        {
-          id: "estrategia_leads",
-          question:
-            "Você já trabalhou com alguma estratégia de crescimento ou geração de leads nas redes sociais? Conte um exemplo:",
+          id: "desafio",
+          question: "Qual foi o maior desafio que você enfrentou com um cliente nas redes sociais e como solucionou?",
           type: "textarea",
         },
         {
           id: "estrategia_engajamento",
-          question:
-            "Estratégia: Um perfil está estagnado, com baixo engajamento. Quais seriam suas primeiras ações para identificar e resolver isso?",
+          question: "Estratégia: Como você agiria para reverter um perfil com engajamento em queda?",
           type: "textarea",
         },
         {
-          id: "estrategia_conteudo_nicho",
+          id: "estrategia_nicho",
           question:
-            "Estratégia: Se você tivesse que criar um calendário de conteúdo para um cliente novo em um nicho que não domina, como iniciaria o processo?",
+            "Estratégia: Se precisasse criar um calendário de conteúdo para um nicho que não domina, por onde começaria?",
           type: "textarea",
         },
         {
-          id: "remuneracao",
-          question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
-          type: "text",
+          id: "estrategia_alcance",
+          question:
+            "Estratégia: Como você aumentaria o alcance de um perfil com orçamento limitado para impulsionamento?",
+          type: "textarea",
         },
+        {
+          id: "motivacao",
+          question: "O que te motiva a buscar uma nova oportunidade neste momento?",
+          type: "textarea",
+        },
+        { id: "remuneracao", question: "Qual é a sua pretensão de remuneração mensal?", type: "textarea" },
         {
           id: "modelo_contratacao",
           question: "Qual modelo de contratação você prefere?",
@@ -631,19 +387,104 @@ export default function JobApplicationPage() {
         },
         {
           id: "presencial",
-          question: "Tem disponibilidade para atuar presencialmente?",
+          question: "Tem disponibilidade para atuar presencialmente em Balneário Camboriú?",
           type: "select",
-          options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+          options: ["Sim, total", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
         },
         {
           id: "portfolio",
-          question:
-            "Deseja compartilhar algum perfil que você já gerenciou ou portfólio de conteúdos criados? (Opcional)",
+          question: "Link para perfis que você já gerenciou ou exemplos de conteúdos criados:",
           type: "text",
         },
       ],
       color: "pink",
       image: "/vagas/SOCIALMEDIA.png?height=600&width=600",
+    },
+    {
+      id: "sdr",
+      title: "SDR (Pré-Vendas)",
+      department: "Comercial",
+      type: "Tempo Integral",
+      location: "Presencial",
+      description:
+        "Estamos em busca de um(a) SDR (Sales Development Representative) para atuar na linha de frente da nossa operação comercial. Seu papel será qualificar leads, gerar oportunidades e agendar reuniões para o time de vendas.",
+      requirements: [
+        "Facilidade de comunicação e argumentação;",
+        "Perfil resiliente, organizado e com mentalidade comercial;",
+        "Experiência com pré-vendas, prospecção ou call center;",
+        "Familiaridade com ferramentas de CRM (Kommo, Pipedrive, HubSpot etc);",
+        "Conhecimento de marketing digital será um diferencial.",
+      ],
+      responsibilities: [
+        "Realizar prospecção ativa (outbound) e nutrir leads inbound;",
+        "Qualificar leads com base em critérios BANT ou SPIN Selling;",
+        "Marcar reuniões com leads qualificados para o time comercial;",
+        "Atualizar o CRM com informações completas e organizadas;",
+        "Enviar mensagens, áudios e fazer ligações com foco em conversão.",
+      ],
+      questions: [
+        { id: "nome", question: "Nome completo:", type: "text" },
+        { id: "idade", question: "Idade:", type: "number" },
+        { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
+        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
+        { id: "email", question: "E-mail:", type: "text" },
+        { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
+        { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
+        { id: "trabalha", question: "Você está trabalhando no momento?", type: "textarea" },
+        {
+          id: "clientes_leads_ativos",
+          question: "Você possui clientes, leads ativos ou parcerias comerciais em andamento?",
+          type: "textarea",
+        },
+        { id: "tempo_vendas", question: "Há quanto tempo você atua com vendas ou pré-vendas?", type: "textarea" },
+        { id: "atividades_prevenda", question: "Quais atividades de pré-venda você já executou?", type: "textarea" },
+        { id: "ferramentas_crm", question: "Quais ferramentas comerciais ou de CRM você domina?", type: "textarea" },
+        {
+          id: "desafio",
+          question: "Qual foi o maior desafio que você enfrentou na área comercial e como solucionou?",
+          type: "textarea",
+        },
+        {
+          id: "estrategia_lead_frio",
+          question: "Estratégia: Como você reverteria um lead frio que demonstrou desinteresse?",
+          type: "textarea",
+        },
+        {
+          id: "estrategia_qualificacao",
+          question: "Estratégia: Como você avalia se um lead está qualificado para passar para um closer?",
+          type: "textarea",
+        },
+        {
+          id: "estrategia_lista_leads",
+          question: "Estratégia: Se tivesse que montar uma lista de leads para uma nova campanha, por onde começaria?",
+          type: "textarea",
+        },
+        {
+          id: "motivacao",
+          question: "O que te motiva a buscar uma nova oportunidade neste momento?",
+          type: "textarea",
+        },
+        { id: "remuneracao", question: "Qual é a sua pretensão de remuneração mensal?", type: "textarea" },
+        {
+          id: "modelo_contratacao",
+          question: "Qual modelo de contratação você prefere?",
+          type: "select",
+          options: ["CLT", "PJ", "MEI", "Indiferente"],
+        },
+        {
+          id: "presencial",
+          question: "Tem disponibilidade para atuar presencialmente em Balneário Camboriú?",
+          type: "select",
+          options: ["Sim, total", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+        },
+        {
+          id: "portfolio",
+          question: "Deseja compartilhar algum vídeo, case de prospecção ou resultado comercial?",
+          type: "text",
+        },
+      ],
+      color: "orange",
+      image: "/vagas/REPCOMERCIAL.png?height=600&width=600",
     },
     {
       id: "videomaker",
@@ -673,121 +514,46 @@ export default function JobApplicationPage() {
         { id: "nome", question: "Nome completo:", type: "text" },
         { id: "idade", question: "Idade:", type: "number" },
         { id: "cidade_estado", question: "Cidade e estado onde mora atualmente:", type: "text" },
-        {
-          id: "telefone",
-          question: "Telefone para contato (com DDD):",
-          type: "text",
-          validation: {
-            pattern: /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/,
-            message: "Formato inválido. Ex: (99) 99999-9999",
-          },
-        },
-        {
-          id: "email",
-          question: "E-mail:",
-          type: "text",
-          validation: {
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: "Digite um email válido",
-          },
-        },
+        { id: "telefone", question: "Telefone para contato (com DDD):", type: "text" },
+        { id: "email", question: "E-mail:", type: "text" },
         { id: "instagram", question: "Instagram (profissional ou pessoal):", type: "text" },
         { id: "linkedin", question: "LinkedIn (URL do perfil):", type: "text" },
-        { id: "portfolio", question: "Portfólio (Google Drive, YouTube, Vimeo, etc):", type: "text" },
-        {
-          id: "trabalha",
-          question: "Você está trabalhando no momento?",
-          type: "select",
-          options: ["Sim, em tempo integral", "Sim, como freelancer ou PJ", "Não estou trabalhando atualmente"],
-        },
-        {
-          id: "clientes_ativos",
-          question: "Você possui clientes ou projetos ativos atualmente?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "tempo_videomaker",
-          question: "Há quanto tempo você atua como videomaker? (Ex: 1 ano, 3 anos, 5+ anos...)",
-          type: "text",
-        },
-        {
-          id: "locomocao",
-          question: "Você possui meio de locomoção (carro ou moto)?",
-          type: "text",
-        },
-        {
-          id: "cnh",
-          question: "Você possui CNH?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
+        { id: "trabalha", question: "Você está trabalhando no momento?", type: "textarea" },
+        { id: "projetos_ativos", question: "Você possui clientes ou projetos ativos atualmente?", type: "textarea" },
+        { id: "tempo_videomaker", question: "Há quanto tempo você atua como videomaker?", type: "textarea" },
         {
           id: "tipos_projetos",
-          question: "Com quais tipos de projeto você já trabalhou?",
-          type: "multiselect",
-          options: [
-            "Reels para redes sociais",
-            "Vídeos institucionais",
-            "Pós-produção (edição apenas)",
-            "Gravação de eventos",
-            "Comerciais / publicidade",
-            "Outros",
-          ],
-          allowOther: true,
-        },
-        {
-          id: "grava_com",
-          question: "Você grava com:",
-          type: "select",
-          options: ["Celular", "Câmera DSLR ou Mirrorless", "Ambos", "Não gravo, apenas edito"],
-        },
-        {
-          id: "equipamentos",
-          question: "Quais equipamentos você possui atualmente? Informe o modelo da sua câmera ou celular:",
+          question: "Com quais tipos de projetos audiovisuais você já trabalhou?",
           type: "textarea",
-          placeholder: "Ex: câmera, lentes, microfone, iluminação...",
         },
+        { id: "equipamentos", question: "Quais equipamentos e programas de edição você domina?", type: "textarea" },
         {
-          id: "programas_edicao",
-          question: "Quais programas de edição você domina?",
-          type: "multiselect",
-          options: ["Adobe Premiere", "Final Cut Pro", "DaVinci Resolve", "CapCut", "After Effects", "Outros"],
-          allowOther: true,
-        },
-        {
-          id: "preferencia_atuacao",
-          question: "Você prefere atuar em:",
-          type: "select",
-          options: ["Captação e edição", "Apenas captação", "Apenas edição", "Estou aberto(a) às demandas"],
-        },
-        {
-          id: "marketing_digital",
-          question: "Você já atuou com vídeos voltados para marketing digital, redes sociais ou vendas?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "marketing_digital_explicacao",
-          question: "Se sim, explique brevemente:",
+          id: "desafio",
+          question: "Qual foi o maior desafio que você enfrentou em um projeto de vídeo e como solucionou?",
           type: "textarea",
         },
         {
-          id: "cronogramas_agencias",
-          question: "Você já trabalhou com cronogramas e prazos de agências ou produtoras?",
-          type: "select",
-          options: ["Sim", "Não"],
-        },
-        {
-          id: "disponibilidade_horario",
-          question: "Qual é a sua disponibilidade de horário durante a semana?",
+          id: "estrategia_prazo",
+          question: "Estratégia: Como você lidaria com um cliente que pede um vídeo com prazo extremamente curto?",
           type: "textarea",
         },
         {
-          id: "remuneracao",
-          question: "Qual é a sua pretensão de remuneração mensal? (Especifique se é bruto, líquido, PJ ou CLT)",
-          type: "text",
+          id: "estrategia_marca",
+          question:
+            "Estratégia: Se tivesse que criar um vídeo de vendas para uma marca que você nunca trabalhou, por onde começaria?",
+          type: "textarea",
         },
+        {
+          id: "estrategia_orcamento",
+          question: "Estratégia: Como garantir qualidade e criatividade em vídeos mesmo com orçamento limitado?",
+          type: "textarea",
+        },
+        {
+          id: "motivacao",
+          question: "O que te motiva a buscar uma nova oportunidade neste momento?",
+          type: "textarea",
+        },
+        { id: "remuneracao", question: "Qual é a sua pretensão de remuneração mensal?", type: "textarea" },
         {
           id: "modelo_contratacao",
           question: "Qual modelo de contratação você prefere?",
@@ -798,7 +564,12 @@ export default function JobApplicationPage() {
           id: "presencial",
           question: "Tem disponibilidade para atuar presencialmente em Balneário Camboriú?",
           type: "select",
-          options: ["Sim, total disponibilidade", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+          options: ["Sim, total", "Sim, parcialmente (modelo híbrido)", "Não, apenas remoto"],
+        },
+        {
+          id: "portfolio",
+          question: "Link para portfólio de vídeos (Google Drive, YouTube, Vimeo, etc):",
+          type: "text",
         },
       ],
       color: "teal",
@@ -852,7 +623,7 @@ export default function JobApplicationPage() {
   }, [currentStep, selectedJob])
 
   useEffect(() => {
-    // Validate current step - todos os campos são obrigatórios
+    // Validate current step - todos os campos são obrigatórios exceto o último campo de portfólio
     if (selectedJob) {
       const questionIndex = currentStep
       if (questionIndex >= 0 && questionIndex < selectedJob.questions.length) {
@@ -866,17 +637,9 @@ export default function JobApplicationPage() {
           return
         }
 
-        // Validação de telefone
-        if (question.id === "telefone") {
-          const phoneRegex = /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/
-          setIsValid(value.trim().length > 0 && phoneRegex.test(value))
-          return
-        }
-
-        // Validação para campos multiselect
-        if (question.type === "multiselect") {
-          const selectedValues = value.split(",").filter((v) => v.trim())
-          setIsValid(selectedValues.length > 0)
+        // Campo de portfólio é opcional
+        if (question.id === "portfolio") {
+          setIsValid(true)
           return
         }
 
@@ -907,7 +670,12 @@ export default function JobApplicationPage() {
     selectedJob.questions.forEach((question) => {
       const value = formData[question.id] || ""
 
-      // Verificar campos obrigatórios - TODOS os campos são obrigatórios
+      // Campo de portfólio é opcional
+      if (question.id === "portfolio") {
+        return
+      }
+
+      // Verificar campos obrigatórios - TODOS os campos são obrigatórios exceto portfólio
       if (value.trim() === "") {
         errors[question.id] = "Este campo é obrigatório"
         hasErrors = true
@@ -923,38 +691,13 @@ export default function JobApplicationPage() {
           return
         }
       }
-
-      // Verificação específica para telefone
-      if (question.id === "telefone") {
-        const phoneRegex = /^(\+\d{1,3}\s?)?\d{2}[\s.-]?\d{4,5}[\s.-]?\d{4}$/
-        if (!phoneRegex.test(value)) {
-          errors[question.id] = "Digite um telefone válido"
-          hasErrors = true
-          return
-        }
-      }
-
-      // Verificação para campos multiselect
-      if (question.type === "multiselect") {
-        const selectedValues = value.split(",").filter((v) => v.trim())
-        if (selectedValues.length === 0) {
-          errors[question.id] = "Selecione pelo menos uma opção"
-          hasErrors = true
-          return
-        }
-      }
-
-      // Verificar regras de validação específicas
-      if (question.validation?.pattern && !question.validation.pattern.test(value)) {
-        errors[question.id] = question.validation.message || "Valor inválido"
-        hasErrors = true
-      }
     })
 
     setValidationErrors(errors)
     return !hasErrors
   }
 
+  // Update the handleNext function to include better error handling for Monday.com integration
   const handleNext = async () => {
     if (isSubmitting) return
 
@@ -986,9 +729,14 @@ export default function JobApplicationPage() {
           body: JSON.stringify(formattedData),
         })
 
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.message || "Falha ao enviar candidatura")
+        }
+
         const responseData = await response.json()
 
-        if (response.ok) {
+        if (responseData.success) {
           // Redirecionar para página de obrigado
           router.push("/trabalhe-conosco/obrigado")
         } else {
@@ -997,7 +745,11 @@ export default function JobApplicationPage() {
         }
       } catch (error) {
         console.error("Erro ao enviar candidatura:", error)
-        alert("Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.")
+        alert(
+          error instanceof Error
+            ? error.message
+            : "Ocorreu um erro ao enviar sua candidatura. Por favor, tente novamente.",
+        )
         setIsSubmitting(false)
       }
     }
@@ -1084,51 +836,7 @@ export default function JobApplicationPage() {
           </div>
 
           <div className="space-y-4">
-            {question.type === "multiselect" ? (
-              <div className="space-y-4">
-                {question.options?.map((option) => (
-                  <label key={option} className="flex items-center space-x-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={
-                        formData[question.id]?.split(",").some((value) => value.trim() === option.trim()) || false
-                      }
-                      onChange={(e) => {
-                        const currentValues = formData[question.id]?.split(",").filter((v) => v.trim()) || []
-                        let newValues
-                        if (e.target.checked) {
-                          newValues = [...currentValues, option.trim()]
-                        } else {
-                          newValues = currentValues.filter((v) => v.trim() !== option.trim())
-                        }
-                        setFormData((prev) => ({ ...prev, [question.id]: newValues.join(",") }))
-
-                        // Se for "Outras" ou "Outros", mostrar campo de especificação
-                        if ((option === "Outras" || option === "Outros") && !e.target.checked) {
-                          setOtherSpecifications((prev) => ({ ...prev, [question.id]: "" }))
-                        }
-                      }}
-                      className="w-5 h-5 text-[#4bb6ef] bg-[#0a0f18] border-gray-800 rounded focus:ring-[#4bb6ef]/50"
-                    />
-                    <span className="text-white">{option}</span>
-                  </label>
-                ))}
-
-                {/* Campo de especificação para "Outras/Outros" */}
-                {question.allowOther &&
-                  (formData[question.id]?.includes("Outras") || formData[question.id]?.includes("Outros")) && (
-                    <input
-                      ref={inputRef}
-                      type="text"
-                      value={otherSpecifications[question.id] || ""}
-                      onChange={(e) => setOtherSpecifications((prev) => ({ ...prev, [question.id]: e.target.value }))}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Especifique..."
-                      className="w-full px-6 py-4 bg-[#0a0f18] border border-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#4bb6ef]/50"
-                    />
-                  )}
-              </div>
-            ) : question.type === "select" ? (
+            {question.type === "select" ? (
               <select
                 ref={selectRef}
                 name={question.id}
