@@ -92,97 +92,97 @@ export function mapJobApplicationToMondayColumns(
   const dataAtual = new Date().toISOString().split("T")[0]
 
   return {
-    text_mkrvkq7e: formData.nome || "",
-    numeric_mkrvj4c3: Number(formData.idade || 0),
-    text_mkrv849f: formData.cidade_estado || "",
-    text_mkrvb312: formData.telefone || "",
-    email_mkrv3fj4: {
-      email: formData.email || "",
-      text: formData.email || "",
-    },
-    text_mkrvcr4w: formData.instagram || "",
-    text_mkrv1ahw: formData.linkedin || "",
+  text_mkrvkq7e: formData.nome || "",
+  numeric_mkrvj4c3: Number(formData.idade || 0),
+  text_mkrv849f: formData.cidade_estado || "",
+  text_mkrvb312: formData.telefone || "",
+  email_mkrv3fj4: {
+    email: formData.email || "",
+    text: formData.email || "",
+  },
+  text_mkrvcr4w: formData.instagram || "",
+  text_mkrv1ahw: formData.linkedin || "",
 
-    color_mkrvhg6h: {
-      label: getLabel(formData.trabalha, ["SIM", "NÃO", "FREELANCER"]),
-    },
+  color_mkrvhg6h: {
+    label: getLabel(formData.trabalha, ["SIM", "NÃO", "FREELANCER"]),
+  },
 
-    numeric_mkrvcz3v: Number(
-      formData.clientes_leads_ativos ||
-      formData.clientes_ativos ||
-      formData.clientes ||
-      0
-    ),
-    text_mkrvecxs:
-      formData.tempo_experiencia ||
-      formData.tempo_trafego ||
-      formData.tempo_atendimento ||
-      formData.tempo_social_media ||
-      formData.tempo_vendas ||
-      "",
-    text_mks36zsr:
-      formData.tipos_experiencia ||
-      formData.tipos_experiencia_pratica ||
-      formData.atividades_prevenda ||
-      formData.canais_atendimento ||
-      "Não informado",
+  text_mks8h77b:
+    formData.clientes_leads_ativos ||
+    formData.clientes_ativos ||
+    formData.clientes ||
+    "0",
 
-    long_text_mkrvym3z:
-      formData.dominio_ferramentas ||
-      formData.ferramentas ||
-      formData.ferramentas_crm ||
-      "Não informado",
-    long_text_mkrvksdm: formData.plataformas || "Não informado",
-    long_text_mkrvfa9: formData.nichos || "Não informado",
+  text_mkrvecxs:
+    formData.tempo_experiencia ||
+    formData.tempo_trafego ||
+    formData.tempo_atendimento ||
+    formData.tempo_social_media ||
+    formData.tempo_vendas ||
+    "",
+  text_mks36zsr:
+    formData.tipos_experiencia ||
+    formData.tipos_experiencia_pratica ||
+    formData.atividades_prevenda ||
+    formData.canais_atendimento ||
+    "Não informado",
 
-    text_mkrvp6tx: formData.pretensao_salarial || formData.remuneracao || "",
-    color_mkrvfs6v: {
-      label:
-        ["PJ", "CLT", "MEI", "INDIFERENTE"].find((label) =>
-          (formData.modelo_contratacao || "")
-            .toLowerCase()
-            .includes(label.toLowerCase())
-        ) || "INDIFERENTE",
-    },
+  long_text_mkrvym3z:
+    formData.dominio_ferramentas ||
+    formData.ferramentas ||
+    formData.ferramentas_crm ||
+    "Não informado",
+  long_text_mkrvksdm: formData.plataformas || "Não informado",
+  long_text_mkrvfa9: formData.nichos || "Não informado",
 
-    color_mkrvrqx3: {
-      label:
-        ["HÍBRIDO", "SIM", "REMOTO"].find((label) =>
-          (formData.presencial || "")
-            .toLowerCase()
-            .includes(label.toLowerCase())
-        ) || "REMOTO",
-    },
+  text_mkrvp6tx: formData.pretensao_salarial || formData.remuneracao || "",
+  color_mkrvfs6v: {
+    label:
+      ["PJ", "CLT", "MEI", "INDIFERENTE"].find((label) =>
+        (formData.modelo_contratacao || "")
+          .toLowerCase()
+          .includes(label.toLowerCase())
+      ) || "INDIFERENTE",
+  },
 
-    numeric_mkrvbvah: Number(formData.investimento || 0),
+  color_mkrvrqx3: {
+    label:
+      ["HÍBRIDO", "SIM", "REMOTO"].find((label) =>
+        (formData.presencial || "")
+          .toLowerCase()
+          .includes(label.toLowerCase())
+      ) || "REMOTO",
+  },
 
-    long_text_mkrvvhbt: formData.desafio || formData.motivacao || "—",
-    long_text_mkrvpz7j:
-      formData.resolucao_situacao_dificil ||
-      formData.estrategia_qualificacao ||
-      formData.estrategia_reclamacao ||
-      formData.estrategia_nicho ||
-      formData.estrategia_lista_leads ||
-      formData.estrategia_ausentes ||
-      "—",
-    long_text_mkrvpt95:
-      formData.execucao_acao_pratica ||
-      formData.estrategia_engajamento ||
-      formData.estrategia_retencao ||
-      formData.estrategia_cpa ||
-      "—",
+  numeric_mkrvbvah: Number(formData.investimento || 0),
 
-    link_mkrv6jjv: {
-      url: formData.portfolio || "",
-      text: formData.portfolio || "",
-    },
+  long_text_mkrvvhbt: formData.desafio || formData.motivacao || "—",
+  long_text_mkrvpz7j:
+    formData.resolucao_situacao_dificil ||
+    formData.estrategia_qualificacao ||
+    formData.estrategia_reclamacao ||
+    formData.estrategia_nicho ||
+    formData.estrategia_lista_leads ||
+    formData.estrategia_ausentes ||
+    "—",
+  long_text_mkrvpt95:
+    formData.execucao_acao_pratica ||
+    formData.estrategia_engajamento ||
+    formData.estrategia_retencao ||
+    formData.estrategia_cpa ||
+    "—",
 
-    color_mks630c0: { label: normalizeVaga(formData.vaga) },
+  link_mkrv6jjv: {
+    url: formData.portfolio || "",
+    text: formData.portfolio || "",
+  },
 
-    status: { label: "Formulário Recebido" },
+  color_mks630c0: { label: normalizeVaga(formData.vaga) },
 
-    data: {
-      date: dataAtual,
-    },
-  }
+  status: { label: "Formulário Recebido" },
+
+  data: {
+    date: dataAtual,
+  },
+}
 }
